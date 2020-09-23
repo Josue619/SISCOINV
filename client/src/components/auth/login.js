@@ -14,7 +14,6 @@ class Login extends Component {
     }
 
     onSubmit() {
-
         const user = {
             email: this.state.email,
             password: this.state.password
@@ -32,8 +31,6 @@ class Login extends Component {
                 alert("Error web service: " + error);
             }
         });
-
-
     }
 
     handleResponse(token) {
