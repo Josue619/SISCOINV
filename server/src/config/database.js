@@ -3,10 +3,17 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize(process.env.MYSQL_DB, process.env.DB_USER, '',
     {
         host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
         dialect: process.env.DB
     }
 );
 
-console.log('DB is connected');
+sequelize.authenticate()
+    .then(function (err) {
+        console.log('DB is connected.');
+    })
+    .catch(function (err) {
+        console.log('Unable to connect to the database: ', err);
+    });
 
 module.exports = sequelize;
