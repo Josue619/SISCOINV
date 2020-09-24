@@ -10,6 +10,7 @@ const router = express.Router();
 const user = new User();
 
 //router.post('/signup', authController.signup);
+router.post('/admin_auth', authController.admin_auth);
 
 router.post('/signup', 
 [

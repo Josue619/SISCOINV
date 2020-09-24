@@ -58,15 +58,13 @@ class Login extends Component {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="password">Email Address</label>
+                            <label htmlFor="password">Password</label>
                             <input type="password" className="form-control" name="password" placeholder="Enter password"
                                 value={this.state.password} onChange={(value) => this.setState({ password: value.target.value })} />
-
                         </div>
 
-
-
                         <button type="submit" className="btn btn-lg btn-primary btn-block" onClick={() => this.onSubmit()}>Sign In</button>
+                        
                     </div>
                 </div>
             </div>

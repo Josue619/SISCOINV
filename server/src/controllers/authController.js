@@ -67,8 +67,18 @@ class AuthController {
         });
     }
 
+    admin_auth = async (req, res) => {
+        const code_auth = req.body.code_auth;
+
+        if (!code_auth) return res.json({ success: false, error: { "msg": 'Ingrese el código de authenticación.' } });
+
+        if (code_auth != process.env.ADMIN_AUTH) return res.json({ success: false, error: { "msg": 'El código no es valido para realizar el registro.' } });
+
+        res.status(200).json({ success: true });
+    }
+
     profile = async (req, res) => {
-        const { id } = req.params; 
+        const { id } = req.params;
         const user = await UserBD.findByPk(id);
         if (!user) return res.status(404).json('No se ha encontrado el usuario');
         res.json(user);

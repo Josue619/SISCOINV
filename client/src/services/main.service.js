@@ -3,21 +3,14 @@ import { Token } from '../helpers/token.helper';
 
 const baseAuthUrl = 'http://localhost:3000/api/auth';
 
-//export const signup = newUser => {
-//    return axios.post(`${baseAuthUrl}/signup`, newUser, {
-//        headers:
-//            { 'Content-Type': 'application/json' }
-//    })
-//        .then(res => {
-//            console.log(res);
-//        })
-//        .catch(err => {
-//            console.log(err);
-//        });
-//}
+export const validate = false;
+
+export function admin_auth(data) {
+    return axios.post(`${baseAuthUrl}/admin_auth`, data);
+}
 
 export function signup(data) {
-    return axios.post(`${baseAuthUrl}/signup` ,data);
+    return axios.post(`${baseAuthUrl}/signup`, data);
 }
 
 export function login(data) {
@@ -30,7 +23,7 @@ export function profile() {
     return axios.get(`${baseAuthUrl}/profile/${id}`, {
         headers: {
             "Content-Type": "application/json",
-            "auth_token" : token.get(),
+            "auth_token": token.get(),
             Authorization: `Bearer ${(token.get())}`,
         }
     });
