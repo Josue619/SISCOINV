@@ -3,8 +3,6 @@ import { Token } from '../helpers/token.helper';
 
 const baseAuthUrl = 'http://localhost:3000/api/auth';
 
-export const validate = false;
-
 export function admin_auth(data) {
     return axios.post(`${baseAuthUrl}/admin_auth`, data);
 }

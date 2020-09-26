@@ -5,6 +5,7 @@ import { Token } from '../../helpers/token.helper';
 class Signup extends Component {
 
     validate = null;
+    URL_CLIENT = 'http://localhost:3001';
     
     constructor(props) {
         super(props);
@@ -29,7 +30,7 @@ class Signup extends Component {
             if (res.data.success) {
                 this.validate = true;
                 alert("Verificado");
-                this.props.history.push("/signup");
+                window.location.replace(`${this.URL_CLIENT}/signup`);
 
             } else {
                 const errors = res.data.error;
@@ -70,7 +71,7 @@ class Signup extends Component {
 
     handleResponse(token) {
         this.token.handle(token);
-        this.props.history.push("/profile");
+        window.location.replace(`${this.URL_CLIENT}/profile`);
     }
 
     handleError(error) {

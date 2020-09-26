@@ -4,6 +4,8 @@ import { Token } from '../../helpers/token.helper';
 
 class Login extends Component {
 
+    URL_CLIENT = 'http://localhost:3001';
+
     constructor(props) {
         super(props);
         this.token = new Token();
@@ -35,7 +37,7 @@ class Login extends Component {
 
     handleResponse(token) {
         this.token.handle(token);
-        this.props.history.push("/profile");
+        window.location.replace(`${this.URL_CLIENT}/profile`);
     }
 
     handleError(error) {
