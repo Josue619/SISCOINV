@@ -32,7 +32,7 @@ class Navbar extends Component {
             <ul className="navbar-nav ml-auto">
 
                 <li className="nav-item">
-                    <Link to="/profile" className="nav-link">
+                    <Link to="/profile" className="nav-principal">
                         Profile
                     </Link>
                 </li>
