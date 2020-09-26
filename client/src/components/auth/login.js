@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { login } from '../../services/main.service';
 import { Token } from '../../helpers/token.helper';
 
+import Swal from 'sweetalert2'; 
+
 class Login extends Component {
 
     URL_CLIENT = 'http://localhost:3001';
@@ -16,23 +18,39 @@ class Login extends Component {
     }
 
     onSubmit() {
-        const user = {
-            email: this.state.email,
-            password: this.state.password
+        if(this.state.email === '' || this.password === ''){
+             //Alerta de error.
+             Swal.fire({
+                icon: 'error',
+                title: 'Error inicio Sesión',
+                text: 'Todos los campos son Obligatorios'
+            });
 
-        };
-
-        login(user).then(res => {
-            if (res.data.success) {
-                const token = res.data.auth_token;
-                this.handleResponse(token);
-
-            } else {
-                const error = res.data.error.msg;
-                this.handleError(error);
-                alert("Error web service: " + error);
-            }
-        });
+        }else{
+            const user = {
+                email: this.state.email,
+                password: this.state.password
+    
+            };
+    
+            login(user).then(res => {
+                if (res.data.success) {
+                    const token = res.data.auth_token;
+                    this.handleResponse(token);
+    
+                } else {
+                    const error = res.data.error.msg;
+                    this.handleError(error);
+                    //Alerta de error.
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error inicio Sesión',
+                        text: error +'. Intenta de nuevo'
+                    });
+                }
+            });
+        }
+        
     }
 
     handleResponse(token) {
@@ -46,26 +64,36 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6 mt-5 mx-auto">
-                        <h1 className="h3 mb-3 font-weight-normal">
-                            Please sign in
-                        </h1>
+            <div className="form-usuario">
+                <div className="contenedor-form sombra-dark">
+                    <div>
+                        <h1>Inicio Sesión</h1>
 
-                        <div className="form-group">
-                            <label htmlFor="email">Email Address</label>
-                            <input type="email" className="form-control" name="email" placeholder="Enter email"
-                                value={this.state.email} onChange={(value) => this.setState({ email: value.target.value })} />
-                        </div>
+                        
+                            <div className="campo-form">
+                                <label htmlFor="email">Email</label>
+                                <input type="email" name="email" placeholder="Correo Electrónico"
+                                    value={this.state.email} onChange={(value) => this.setState({ email: value.target.value })} />
+                            </div>
 
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input type="password" className="form-control" name="password" placeholder="Enter password"
-                                value={this.state.password} onChange={(value) => this.setState({ password: value.target.value })} />
-                        </div>
+                            <div className="campo-form">
+                                <label htmlFor="password">Password</label>
+                                <input type="password" name="password" placeholder="Contraceña"
+                                    value={this.state.password} onChange={(value) => this.setState({ password: value.target.value })} />
+                            </div>
+                            <div className="campo-form">
+                                <input 
+                                    type="submit"
+                                    className="btn btn-primario btn-block"
+                                    onClick={() => this.onSubmit()}
+                                    value="Iniciar Sesión"
+                                />
+                                
+                                
+                                
 
-                        <button type="submit" className="btn btn-lg btn-primary btn-block" onClick={() => this.onSubmit()}>Sign In</button>
+                            </div>
+                        
                         
                     </div>
                 </div>
