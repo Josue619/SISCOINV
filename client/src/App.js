@@ -15,12 +15,12 @@ class App extends Component {
     this.token = new Token();
     return (
       <Router>
-        <div className="App">
+        <div className="form-principal">
 
           <Navbar />
           <Route exact path="/" component={Landing} />
 
-          <div className="container">
+          <div className="form-principal">
             <BeforeLogin path='/login' exact component={Login} auth={!this.token.loggedIn()} />
             <BeforeLogin path='/signup' exact component={Signup} auth={!this.token.loggedIn()} />
             <AfterLogin path='/profile' exact component={Profile} auth={this.token.loggedIn()} />
