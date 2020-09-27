@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { profile } from '../../services/main.service';
 
 class Profile extends Component {
-
+    
     constructor() {
         super();
         this.state = {
@@ -11,6 +11,7 @@ class Profile extends Component {
         }
     }
 
+    
     componentDidMount() {
         profile().then(res => {
             this.setState({
@@ -18,12 +19,16 @@ class Profile extends Component {
                 email: res.data.USU_EMAIL
             });
         });
+        
+        
+        
+
     }
 
     render() {
         return (
             <div className="contendor-tareas">
-                <div className>
+                <div className="proyectos">
                     <h1>Sistema de Control Inventarios</h1>
                     
                     <table className="table col-md-4 mx-auto">

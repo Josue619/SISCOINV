@@ -3,16 +3,20 @@ import { Link, withRouter } from 'react-router-dom';
 
 class Navbar extends Component {
 
+
     logOut(e) {
         e.preventDefault();
         localStorage.removeItem('token');
         window.location.replace('/');
     }
 
+    
+        
+    
+
     render() {
         const loginRegLink = (
             <ul className="navbar-nav ml-auto">
-
                 <li className="nav-principal">
                     <Link to="/login" className="btn btn-blank cerrar-sesion">
                         Iniciar Sesión
@@ -30,15 +34,14 @@ class Navbar extends Component {
 
         const userLink = (
             <ul className="navbar-nav ml-auto">
-
                 <li className="nav-principal">
-                    <Link to="/profile" className="btn btn-blank cerrar-sesion">
+                    <Link to="/profile">
                         Profile
                     </Link>
                 </li>
 
                 <li className="nav-principal">
-                    <a href="/" onClick={this.logOut.bind(this)} className="btn btn-blank cerrar-sesion">
+                    <a href="/" onClick={this.logOut.bind(this)}>
                         Cerrar sesión
                     </a>
                 </li>
@@ -80,7 +83,6 @@ class Navbar extends Component {
         )
 
     }
-
 }
 
 export default withRouter(Navbar);
