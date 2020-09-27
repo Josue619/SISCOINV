@@ -88,9 +88,6 @@ class Login extends Component {
                                     onClick={() => this.onSubmit()}
                                     value="Iniciar Sesión"
                                 />
-                                
-                                
-                                
 
                             </div>
                         

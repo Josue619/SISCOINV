@@ -2,6 +2,9 @@ import React, { Component  } from 'react';
 import { admin_auth, signup } from '../../services/main.service';
 import { Token } from '../../helpers/token.helper';
 
+import Swal from 'sweetalert2'; 
+ 
+
 class Signup extends Component {
 
     validate = null;
@@ -29,14 +32,16 @@ class Signup extends Component {
         admin_auth(data).then(res => {
             if (res.data.success) {
                 this.validate = true;
-                alert("Verificado");
-                window.location.replace(`${this.URL_CLIENT}/signup`);
+                this.props.history.push('/signup');
 
             } else {
                 const errors = res.data.error;
                 this.validate = false;
                 this.handleError(errors.msg);
-                alert("Error web service: " + errors.msg);
+                //alert("Error web service: " + errors.msg);
+                //Alerta de error.
+                this.alertaMensajeError(errors.msg,'error','Error código autorización');
+                
             }
         });
 
@@ -51,7 +56,7 @@ class Signup extends Component {
             cellphone: this.state.cellphone
         };
 
-        signup(newUser).then(res => {
+       const resultado = signup(newUser).then(res => {
             if (res.data.success) {
                 const token = res.data.auth_token;
                 this.handleResponse(token);
@@ -62,10 +67,12 @@ class Signup extends Component {
                     const element = errors[index];
 
                     this.handleError(element.msg);
-                    alert("Error web service: " + element.msg);
+                    this.alertaMensajeError(element.msg,'error','Registro usuario');
                 }
             }
+            
         });
+        console.log(resultado);
 
     }
 
@@ -78,76 +85,113 @@ class Signup extends Component {
         console.log(error);
     }
 
+    //Dispara mensaje
+    alertaMensajeError(msg,icon,title){
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: msg
+        });
+
+    }
+
+
     render() {
 
         const admin_authLink = (
             <div className="col-md-6 mt-5 mx-auto">
 
-                <div className="form-group">
-                    <label htmlFor="code">Code Auth</label>
-                    <input type="password" className="form-control" name="code" placeholder="Enter code"
+                <div className="campo-form">
+                    <label htmlFor="code">Código Autorización</label>
+                    <input type="password" name="code" placeholder="Digite el codigo"
                         value={this.state.code_auth} onChange={(value) => this.setState({ code_auth: value.target.value })} />
                 </div>
 
-                <button type="submit" className="btn btn-lg btn-primary btn-block" onClick={() => this.admin_auth()}>Validate</button>
+                <button type="submit" className="btn btn-primario btn-block" onClick={() => this.admin_auth()}>Verificar</button>
 
             </div>
         );
 
         const signupLink = (
 
-            <div className="col-md-6 mt-5 mx-auto">
+            <div>
 
-                <h1 className="h3 mb-3 font-weight-normal">
-                    Register
-                </h1>
+                <h1>Registar una Cuenta</h1>
 
-                <div className="form-group">
-                    <label htmlFor="firs_name">First Name</label>
-                    <input type="text" className="form-control" name="firs_name" placeholder="Enter First Name"
-                        value={this.state.first_name} onChange={(value) => this.setState({ first_name: value.target.value })} />
+                <div className="campo-form">
+                    <label htmlFor="firs_name">Nombre</label>
+                    <input 
+                        type="text"
+                        name="firs_name" placeholder="Enter First Name"
+                        value={this.state.first_name} 
+                        onChange={(value) => this.setState({ first_name: value.target.value })} />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="last_name">Last Name</label>
-                    <input type="text" className="form-control" name="last_name" placeholder="Enter Last Name"
+                <div className="campo-form">
+                    <label htmlFor="last_name">Apellidos</label>
+                    <input 
+                        type="text" 
+                        name="last_name"
+                        placeholder="Digite los apellidos"
                         value={this.state.last_name} onChange={(value) => this.setState({ last_name: value.target.value })} />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="email">Email Address</label>
-                    <input type="email" className="form-control" name="email" placeholder="Enter email"
-                        value={this.state.email} onChange={(value) => this.setState({ email: value.target.value })} />
+                <div className="campo-form">
+                    <label htmlFor="email">Email</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        placeholder="Digite el email"
+                        value={this.state.email} 
+                        onChange={(value) => this.setState({ email: value.target.value })}/>
                 </div>
 
-                <div className="form-group">
+                <div className="campo-form">
                     <label htmlFor="password">Password</label>
-                    <input type="password" className="form-control" name="password" placeholder="Enter Password"
-                        value={this.state.password} onChange={(value) => this.setState({ password: value.target.value })} />
+                    <input 
+                        type="password"
+                        name="password"
+                        placeholder="Enter Password"
+                        value={this.state.password} 
+                        onChange={(value) => this.setState({ password: value.target.value })} />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="id_card">ID Card</label>
-                    <input type="number" className="form-control" name="id_card" placeholder="Enter ID Card"
+                <div className="campo-form">
+                    <label htmlFor="Identificación">Identificación</label>
+                    <input 
+                        type="number"
+                        name="id_card" 
+                        placeholder="Digite su identificación"
                         min="1" pattern="^[0-9]+"
-                        value={this.state.id_card} onChange={(value) => this.setState({ id_card: value.target.value })} />
+                        value={this.state.id_card} 
+                        onChange={(value) => this.setState({ id_card: value.target.value })} />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="cellphone">Cellphone</label>
-                    <input type="number" className="form-control" name="cellphone" placeholder="Enter Cellphone number"
+                <div className="campo-form">
+                    <label htmlFor="cellphone">Número Celular</label>
+                    <input 
+                        type="number"
+                        name="cellphone" 
+                        placeholder="Digite su celular"
                         min="0" pattern="^[0-9]+"
-                        value={this.state.cellphone} onChange={(value) => this.setState({ cellphone: value.target.value })} />
+                        value={this.state.cellphone} 
+                        onChange={(value) => this.setState({ cellphone: value.target.value })} />
                 </div>
 
-                <button type="submit" className="btn btn-lg btn-primary btn-block" onClick={() => this.onSubmit()}>Register</button>
+                <button 
+                    type="submit"
+                    className="btn btn-primario btn-block"
+                    onClick={() => this.onSubmit()}
+                    >
+                        Registrar
+                </button>
 
             </div>
         );
 
         return (
-            <div className="container">
-                <div className="row">
+            <div className="form-usuario">
+                <div className="contenedor-form sombra-dark">
                     {this.validate ? signupLink : admin_authLink}
                 </div>
             </div>
