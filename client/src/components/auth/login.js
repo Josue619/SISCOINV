@@ -82,12 +82,13 @@ class Login extends Component {
                                     value={this.state.password} onChange={(value) => this.setState({ password: value.target.value })} />
                             </div>
                             <div className="campo-form">
-                                <input 
+                                <button
                                     type="submit"
                                     className="btn btn-primario btn-block"
                                     onClick={() => this.onSubmit()}
-                                    value="Iniciar Sesión"
-                                />
+                                >
+                                    Inciar Sesión
+                                </button>
 
                             </div>
                         

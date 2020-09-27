@@ -22,12 +22,10 @@ class Profile extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="jumbotrom mt-5">
-                    <div className="col-sm-4 mx-auto">
-                        <h1 className="text-center">Profile</h1>
-                    </div>
-
+            <div className="contendor-tareas">
+                <div className>
+                    <h1>Sistema de Control Inventarios</h1>
+                    
                     <table className="table col-md-4 mx-auto">
                         <tbody>
                             <tr>

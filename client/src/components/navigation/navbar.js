@@ -13,15 +13,15 @@ class Navbar extends Component {
         const loginRegLink = (
             <ul className="navbar-nav ml-auto">
 
-                <li className="nav-item">
-                    <Link to="/login" className="nav-link">
-                        Login
+                <li className="nav-principal">
+                    <Link to="/login" className="btn btn-blank cerrar-sesion">
+                        Iniciar Sesión
                     </Link>
                 </li>
 
-                <li className="nav-item">
-                    <Link to="/signup" className="nav-link">
-                        Register
+                <li className="nav-principal">
+                    <Link to="/signup" className="btn btn-blank cerrar-sesion">
+                        Registrar Usuario
                     </Link>
                 </li>
 
@@ -31,15 +31,15 @@ class Navbar extends Component {
         const userLink = (
             <ul className="navbar-nav ml-auto">
 
-                <li className="nav-item">
-                    <Link to="/profile" className="nav-principal">
+                <li className="nav-principal">
+                    <Link to="/profile" className="btn btn-blank cerrar-sesion">
                         Profile
                     </Link>
                 </li>
 
-                <li className="nav-item">
-                    <a href="/" onClick={this.logOut.bind(this)} className="nav-link">
-                        Logout
+                <li className="nav-principal">
+                    <a href="/" onClick={this.logOut.bind(this)} className="btn btn-blank cerrar-sesion">
+                        Cerrar sesión
                     </a>
                 </li>
 
@@ -47,32 +47,36 @@ class Navbar extends Component {
         );
 
         return (
+            <div className="seccion-principal">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a className="navbar-brand" href="/">
+                        <span className="text-primary"> </span>
+                        <img src="https://img.icons8.com/color/48/000000/casta-rica-circular.png" alt="" />
+                    </a>
+                    <button 
+                        className="navbar-toggler" 
+                        type="button" 
+                        data-toggle="collapse" 
+                        data-target="#navbarColor02"
+                        aria-controls="navbarColor02" 
+                        aria-expanded="false" 
+                        aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                    </button>
 
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-
-                <a className="navbar-brand" href="/">  <span className="text-primary"> </span>
-                    <img src="https://img.icons8.com/color/48/000000/casta-rica-circular.png" alt="" />
-                </a>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
-                    aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-
-                <ul className="navbar-nav mx-auto">
-                    <li className="nav-item active">
-                        <Link to="/" className="nav-link">
-                            Home
-                        </Link>
-                    </li>
-                </ul>
-
-                <div className="collapse navbar-collapse" id="navbarColor02">
-
-                    {localStorage.token ? userLink : loginRegLink }
-
-                </div>
-
-            </nav >
+                    <ul className="navbar-nav mx-auto">
+                        <li className="nav-principal">
+                            <Link to="/" className="btn btn-blank cerrar-sesion">
+                                Inicio
+                            </Link>
+                        </li>
+                    </ul>
+                    <div className="collapse navbar-collapse" id="navbarColor02">
+                        {localStorage.token ? userLink : loginRegLink }
+                    </div>
+                </nav >
+            </div>
+            
         )
 
     }
