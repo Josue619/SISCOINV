@@ -35,13 +35,13 @@ class Navbar extends Component {
         const userLink = (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-principal">
-                    <Link to="/profile">
+                    <Link to="/profile" className="btn btn-primario btn-block">
                         Profile
                     </Link>
                 </li>
 
                 <li className="nav-principal">
-                    <a href="/" onClick={this.logOut.bind(this)}>
+                    <a href="/" onClick={this.logOut.bind(this)} className="btn btn-primario btn-block">
                         Cerrar sesión
                     </a>
                 </li>
