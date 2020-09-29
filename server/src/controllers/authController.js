@@ -1,8 +1,15 @@
 const User = require('../models/User');
+const db = require('../config/database');
 const UserBD = require('../database/UserDB');
+const RoleDB = require('../database/RoleDB');
 const jwt = require('jsonwebtoken');
 
-//UserBD.sync();
+//Para migrar las tablas
+//db.sync();
+
+//RoleDB.create({
+//    ROL_DESCRIPCION: 'Bodeguero'
+//});
 
 class AuthController {
 
@@ -16,11 +23,14 @@ class AuthController {
         user.password = await userClass.encryptPassword(user.password);
 
         const data = await UserBD.create({
+            ROL_ID: user.role,
             USU_LOGIN: user.username,
             USU_EMAIL: user.email,
             USU_PASSWORD: user.password,
             USU_CEDULA: user.id_card,
             USU_CELULAR: user.cellphone,
+            USU_CREADO_POR: user.created_by,
+            USU_MODIFICADO_POR: user.modified_by,
             USU_FECHA_CREADO: new Date(),
             USU_FECHA_MODIFICADO: new Date()
         });
