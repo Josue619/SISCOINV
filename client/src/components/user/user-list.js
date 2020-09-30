@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
 import React, { Component, Fragment } from 'react';
 import { getUsers } from '../../services/main.service';
+import UserForm from '../user/user-form';
+
+import Service from '../../services/main.service';
 
 //sweetalert2
 import Swal from 'sweetalert2';
 
 class Signup extends Component {
 
+    Service = new Service();
+
     constructor(props) {
         super(props);
+        this.userForm = new UserForm();
         this.state = {
             userList: []
         }
@@ -76,6 +82,11 @@ class Signup extends Component {
         console.log(userId);
     }
 
+    edit(data) {
+        this.Service.data = Object.assign({}, data);
+        console.log(this.Service.data);
+    }
+
     loadFillData() {
 
         return this.state.userList.map((data) => {
@@ -88,10 +99,10 @@ class Signup extends Component {
                         <td>{data.USU_CEDULA}</td>
                         <td>{data.USU_CELULAR}</td>
                         <td>
-                            <Link className="btn btn-outline-info " to={"/form"} >Edit</Link>
+                            <button className="btn btn-outline-info" onClick={() => this.edit(data)} data-backdrop="false" data-toggle="modal" data-target="#staticBackdrop"> Editar </button>
                         </td>
                         <td>
-                            <button className="btn btn-outline-danger" onClick={() => this.onDelete(data.USU_CODIGO)}> Delete </button>
+                            <button className="btn btn-outline-danger" onClick={() => this.onDelete(data.USU_CODIGO)}> Eliminar </button>
                         </td>
                     </tr>
                 </Fragment>
@@ -133,6 +144,7 @@ class Signup extends Component {
                         </tbody>
                     </table>
                 </div>
+                <UserForm />
             </div>
         );
     }

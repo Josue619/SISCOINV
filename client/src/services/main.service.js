@@ -37,3 +37,10 @@ export function getUsers() {
         }
     });
 }
+
+export class MainService {
+    data = [];
+
+}
+
+export default MainService;

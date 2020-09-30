@@ -7,7 +7,7 @@ import Login from './components/auth/login';
 import Signup from './components/auth/signup';
 import Profile from './components/profile/profile';
 import UserList from './components/user/user-list';
-import UserForm from './components/user/user-form';
+//import UserForm from './components/user/user-form';
 import AfterLogin from './services/after-login.service';
 import BeforeLogin from './services/before-login.service';
 import { Token } from './helpers/token.helper';
@@ -27,7 +27,7 @@ class App extends Component {
             <BeforeLogin path='/signup' exact component={Signup} auth={!this.token.loggedIn()} />
             <AfterLogin path='/profile' exact component={Profile} auth={this.token.loggedIn()} />
             <AfterLogin path='/users' exact component={UserList} auth={this.token.loggedIn()} />
-            <AfterLogin path='/form' exact component={UserForm} auth={this.token.loggedIn()} />
+            
           </div>
 
         </div>
