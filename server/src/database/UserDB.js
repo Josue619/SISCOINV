@@ -48,4 +48,6 @@ var UserDB = db.define(nameTable, {
         timestamps: false,
     });
 
+
+
 module.exports = UserDB;
