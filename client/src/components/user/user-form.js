@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Service from '../../services/main.service';
 
-class Signup extends Component {
+class UserForm extends Component {
 
     edit = false;
 
@@ -9,7 +9,7 @@ class Signup extends Component {
         super(props);
         this.Service = new Service();
         this.state = {
-            dataUser: {},
+            dataUser: [],
             code: 0,
             selectRole: 0,
             stringRole: '',
@@ -24,10 +24,14 @@ class Signup extends Component {
     }
 
     componentDidMount() {
+        this.test();
     }
     
     test() {
-        console.log(this.Service.data);
+        const {handleTest} = this.props;
+        this.setState({ dataUser: handleTest})
+        console.log(handleTest);
+        //console.log(handleTest);
     }
 
     render() {
@@ -35,6 +39,8 @@ class Signup extends Component {
         //<button type="button" id="openM" className="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
         //    Launch static backdrop modal
         //</button>
+
+        
 
         return (
             <div className="container">
@@ -101,7 +107,7 @@ class Signup extends Component {
 
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary" onClick={() => this.test()}>Understood</button>
+                                <button type="button" className="btn btn-primary" onClick={() =>this.test()}>Understood</button>
                             </div>
                         </div>
                     </div>
@@ -112,4 +118,4 @@ class Signup extends Component {
 
 }
 
-export default Signup;
+export default UserForm;

@@ -8,13 +8,14 @@ import Service from '../../services/main.service';
 //sweetalert2
 import Swal from 'sweetalert2';
 
-class Signup extends Component {
+class UserList extends Component {
 
     Service = new Service();
 
     constructor(props) {
         super(props);
         this.userForm = new UserForm();
+        this.test = 'asd';
         this.state = {
             userList: []
         }
@@ -83,8 +84,11 @@ class Signup extends Component {
     }
 
     edit(data) {
-        this.Service.data = Object.assign({}, data);
-        console.log(this.Service.data);
+        //console.log(data);
+    }
+
+    handleSearch () {
+        'jkfhdjfksdh';
     }
 
     loadFillData() {
@@ -144,11 +148,11 @@ class Signup extends Component {
                         </tbody>
                     </table>
                 </div>
-                <UserForm />
+                <UserForm handleTest={this.state.userList[0]}/>
             </div>
         );
     }
 
 }
 
-export default Signup;
+export default UserList;
