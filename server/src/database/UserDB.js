@@ -13,12 +13,12 @@ var UserDB = db.define(nameTable, {
         autoIncrement: true,
     },
 
-    ROL_ID: {
+    SEGROLId: {
         type: Sequelize.INTEGER,
         // This is a reference to another model
         references: {
             model: Role,
-            key: 'ROL_ID'
+            key: 'id'
         }
     },
 
@@ -47,5 +47,7 @@ var UserDB = db.define(nameTable, {
     {
         timestamps: false,
     });
+
+UserDB.belongsTo(Role);
 
 module.exports = UserDB;

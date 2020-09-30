@@ -23,7 +23,7 @@ class AuthController {
         user.password = await userClass.encryptPassword(user.password);
 
         const data = await UserBD.create({
-            ROL_ID: user.role,
+            SEGROLId: user.role,
             USU_LOGIN: user.username,
             USU_EMAIL: user.email,
             USU_PASSWORD: user.password,

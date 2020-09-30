@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { Token } from '../helpers/token.helper';
 
+const token = new Token();
 const baseAuthUrl = 'http://localhost:3000/api/auth';
+const baseUserUrl = 'http://localhost:3000/api/user';
 
 export function admin_auth(data) {
     return axios.post(`${baseAuthUrl}/admin_auth`, data);
@@ -16,7 +18,6 @@ export function login(data) {
 }
 
 export function profile() {
-    const token = new Token();
     const id = token.payload(token.get())._id;
     return axios.get(`${baseAuthUrl}/profile/${id}`, {
         headers: {
@@ -27,15 +28,12 @@ export function profile() {
     });
 }
 
-export const getProfile = () => {
-    return axios.get('/api/profile', {
-        headers: { Authorization: `Bearer ${localStorage.token}` }
-    })
-        .then(res => {
-            console.log(res);
-            return res.data;
-        })
-        .catch(err => {
-            console.log(err);
-        });
+export function getUsers() {
+    return axios.get(`${baseUserUrl}/users`, {
+        headers: {
+            "Content-Type": "application/json",
+            "auth_token": token.get(),
+            Authorization: `Bearer ${(token.get())}`,
+        }
+    });
 }

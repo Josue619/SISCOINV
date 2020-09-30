@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 class Server {
 
@@ -25,6 +26,7 @@ class Server {
 
     routes() {
         this.app.use('/api/auth', authRoutes);
+        this.app.use('/api/user', userRoutes);
     }
 
     start() {
