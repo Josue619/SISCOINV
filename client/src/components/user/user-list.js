@@ -14,8 +14,6 @@ class UserList extends Component {
 
     constructor(props) {
         super(props);
-        this.userForm = new UserForm();
-        this.test = 'asd';
         this.state = {
             userList: []
         }
@@ -83,12 +81,9 @@ class UserList extends Component {
         console.log(userId);
     }
 
-    edit(data) {
-        //console.log(data);
-    }
-
-    handleSearch () {
-        'jkfhdjfksdh';
+    edit() {
+        var element = document.getElementById("test");
+        element.click();
     }
 
     loadFillData() {
@@ -103,7 +98,7 @@ class UserList extends Component {
                         <td>{data.USU_CEDULA}</td>
                         <td>{data.USU_CELULAR}</td>
                         <td>
-                            <button className="btn btn-outline-info" onClick={() => this.edit(data)} data-backdrop="false" data-toggle="modal" data-target="#staticBackdrop"> Editar </button>
+                            <button className="btn btn-outline-info" onClick={() => this.edit()} data-backdrop="false" data-toggle="modal" data-target="#staticBackdrop"> Editar </button>
                         </td>
                         <td>
                             <button className="btn btn-outline-danger" onClick={() => this.onDelete(data.USU_CODIGO)}> Eliminar </button>
@@ -127,7 +122,7 @@ class UserList extends Component {
 
         return (
             <div className="container">
-
+                <UserForm handleTest={this.state.userList[0]}/>
                 <div className="col mt-5 mx-auto">
                     <table className="table table-hover table-striped">
                         <thead className="thead-dark">
@@ -148,7 +143,7 @@ class UserList extends Component {
                         </tbody>
                     </table>
                 </div>
-                <UserForm handleTest={this.state.userList[0]}/>
+                
             </div>
         );
     }

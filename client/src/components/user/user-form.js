@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Service from '../../services/main.service';
 
 class UserForm extends Component {
 
@@ -7,9 +6,8 @@ class UserForm extends Component {
 
     constructor(props) {
         super(props);
-        this.Service = new Service();
         this.state = {
-            dataUser: [],
+            dataUser: {},
             code: 0,
             selectRole: 0,
             stringRole: '',
@@ -24,14 +22,13 @@ class UserForm extends Component {
     }
 
     componentDidMount() {
-        this.test();
+
     }
     
     test() {
         const {handleTest} = this.props;
-        this.setState({ dataUser: handleTest})
-        console.log(handleTest);
-        //console.log(handleTest);
+        this.setState({ dataUser: Object.assign({}, handleTest)})
+        console.log(this.state.dataUser.USU_EMAIL);
     }
 
     render() {
@@ -107,7 +104,7 @@ class UserForm extends Component {
 
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary" onClick={() =>this.test()}>Understood</button>
+                                <button type="button" id="test" className="btn btn-primary" onClick={() =>this.test()}>Understood</button>
                             </div>
                         </div>
                     </div>
