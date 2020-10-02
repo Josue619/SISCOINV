@@ -4,8 +4,19 @@ const sequelize = new Sequelize(process.env.MYSQL_DB, process.env.DB_USER, proce
     {
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
-        dialect: process.env.DB
+        dialect: process.env.DB,
+
+        pool: {
+            max: 5,
+            min: 0,
+            acquire: 30000,
+            idle: 10000
+          },
+        
+        // http://docs.sequelizejs.com/manual/tutorial/querying.html#operators
+        operatorsAliases: false
     }
+
 );
 
 sequelize.authenticate()

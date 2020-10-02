@@ -94,6 +94,29 @@ class AuthController {
         res.json(user);
     }
 
+    procedimiento = async (req, res) => {
+        const {descripcion, usuario, prueba } = req.query;
+ 
+        await db.query('CALL pr_inv_transaccion(:descripcion,:usuario,:prueba);',{
+            replacements : {descripcion : descripcion,
+                            usuario : usuario,
+                            prueba : prueba
+            }
+         })
+         .then(function(response){ 
+             console.log(response);
+ 
+             //res.json({ success: false, error: { "msg": 'Ingrese el código de authenticación.' } });
+             res.json(response); 
+         })
+          .catch(function(err){ 
+              console.log(err,'Hubo un error');
+              res.json({ success: false, error: {"msg": err + '.' } });
+              res.json(err); 
+         });
+        
+    }
+
 }
 
 const authController = new AuthController();
