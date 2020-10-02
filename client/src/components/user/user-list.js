@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
 import React, { Component, Fragment } from 'react';
 import { getUsers } from '../../services/main.service';
-import UserForm from '../user/user-form';
+import UserForm from './user-form2';
 
 import Service from '../../services/main.service';
 
 //sweetalert2
 import Swal from 'sweetalert2';
+
+const INITIAL_STATE = {
+    dataUser: {},
+    userList: []
+}
 
 class UserList extends Component {
 
@@ -15,7 +20,7 @@ class UserList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userList: []
+            ...INITIAL_STATE
         }
     }
 
@@ -81,9 +86,15 @@ class UserList extends Component {
         console.log(userId);
     }
 
-    edit() {
-        var element = document.getElementById("test");
-        element.click();
+    edit(data) {
+        //var element = document.getElementById("test");
+        //element.click();
+        console.log(data);
+        this.setState({ dataUser: data });
+    }
+
+    test() {
+        console.log('Funciona');
     }
 
     loadFillData() {
@@ -98,7 +109,7 @@ class UserList extends Component {
                         <td>{data.USU_CEDULA}</td>
                         <td>{data.USU_CELULAR}</td>
                         <td>
-                            <button className="btn btn-outline-info" onClick={() => this.edit()} data-backdrop="false" data-toggle="modal" data-target="#staticBackdrop"> Editar </button>
+                            <button className="btn btn-outline-info" onClick={() => this.edit(data)} data-backdrop="false" data-toggle="modal" data-target="#staticBackdrop"> Editar </button>
                         </td>
                         <td>
                             <button className="btn btn-outline-danger" onClick={() => this.onDelete(data.USU_CODIGO)}> Eliminar </button>
@@ -120,9 +131,10 @@ class UserList extends Component {
 
     render() {
 
+        const { dataUser } = this.state;
         return (
             <div className="container">
-                <UserForm handleTest={this.state.userList[0]}/>
+                <UserForm dataUser={dataUser} t={this.test.bind(this)} />
                 <div className="col mt-5 mx-auto">
                     <table className="table table-hover table-striped">
                         <thead className="thead-dark">
@@ -143,7 +155,7 @@ class UserList extends Component {
                         </tbody>
                     </table>
                 </div>
-                
+
             </div>
         );
     }

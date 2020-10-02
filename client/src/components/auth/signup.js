@@ -8,10 +8,11 @@ import Swal from 'sweetalert2';
 class Signup extends Component {
 
     validate = null;
-    URL_CLIENT = 'http://localhost:3001';
+    URL_CLIENT = process.env.REACT_APP_URL_CLIENT;
 
     constructor(props) {
         super(props);
+        console.log(this.URL_CLIENT);
         this.token = new Token();
         this.state = {
             code_auth: '',

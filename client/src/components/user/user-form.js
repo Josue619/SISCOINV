@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class UserForm extends Component {
 
     edit = false;
@@ -22,16 +23,17 @@ class UserForm extends Component {
     }
 
     componentDidMount() {
-
+        //const {user} = this.props;
+        //this.setState({ dataUser: Object.assign({}, user)})
     }
     
     test() {
-        const {handleTest} = this.props;
-        this.setState({ dataUser: Object.assign({}, handleTest)})
-        console.log(this.state.dataUser.USU_EMAIL);
+        //console.log(this.state.dataUser);
     }
 
     render() {
+        const {dataUser} = this.state;
+
         //<option value={this.state.dataUser.id}>{this.state.selectRole}</option>
         //<button type="button" id="openM" className="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
         //    Launch static backdrop modal
@@ -39,8 +41,10 @@ class UserForm extends Component {
 
         
 
+        
         return (
             <div className="container">
+                {console.log(dataUser)}
 
                 <div className="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div className="modal-dialog">
