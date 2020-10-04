@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
+
+//Estilos personalizados
+import { Formulario, Campo } from '../ui/Formulario';
+import { BotonUser, BotonUserCerrar } from '../ui/Boton';
+import { FormUser } from '../ui/FormUsuario';
+
+
+
 const UserForm2 = ({ dataUser, t }) => {
 
     const [user, setUser] = useState({
@@ -15,7 +23,9 @@ const UserForm2 = ({ dataUser, t }) => {
 
     const onChange = event => {
         const { name, value } = event.target;
+        
         setUser({ ...user, [name]: value });
+        
         console.log(user, event.target);
     }
 
@@ -49,63 +59,82 @@ const UserForm2 = ({ dataUser, t }) => {
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+                        <FormUser>
+                        <div className="contenedor-form sombra-dark modal-body ">
+                            {}
+                            <Formulario>
 
-                        <div className="modal-body">
-                            <div className="form-group row  mx-auto justify-content-center">
-
-                                <div className="form-group col-md-6">
+                                <Campo>
                                     <label htmlFor="username">Nombre</label>
-                                    <input type="text" name="username" className="form-control" placeholder="Nombre"
+                                    <input 
+                                        type="text" 
+                                        name="username"
+                                        placeholder="Nombre"
                                         value={user.username} onChange={onChange} />
-                                </div>
+                                </Campo>
 
-                                <div className="form-group col-md-6">
+                                <Campo>
                                     <label htmlFor="email">Correo</label>
-                                    <input type="text" name="email" className="form-control" placeholder="Correo"
+                                    <input 
+                                        type="text" name="email" 
+                                        placeholder="Correo"
                                         value={user.email} onChange={onChange} />
-                                </div>
+                                </Campo>
 
-                                <div className="form-group col-md-6">
+                                <Campo>
                                     <label htmlFor="password">Contraseña</label>
-                                    <input type="password" name="password" className="form-control" placeholder="Contraseña"
+                                    <input 
+                                        type="password" 
+                                        name="password" 
+                                        placeholder="Contraseña"
                                         value={user.password} onChange={onChange} />
-                                </div>
+                                </Campo>
 
-                                <div className="form-group col-md-6">
+                                <Campo>
                                     <label htmlFor="id_card">Identificación</label>
-                                    <input type="number" name="id_card" className="form-control" placeholder="# Identificación"
-                                        min="0" pattern="^[0-9]+" value={user.id_card}
+                                    <input
+                                        type="number" 
+                                        name="id_card" 
+                                        placeholder="# Identificación"
+                                        min="0" pattern="^[0-9]+" 
+                                        value={user.id_card}
                                         onChange={onChange} />
-                                </div>
+                                </Campo>
 
-                                <div className="form-group col-md-6">
+                                <Campo>
                                     <label htmlFor="cellphone">Número Celular</label>
-                                    <input type="number" name="cellphone" className="form-control" placeholder="# Celular"
-                                        min="0" pattern="^[0-9]+" value={user.cellphone}
+                                    <input 
+                                        type="number" 
+                                        name="cellphone"
+                                        placeholder="# Celular"
+                                        min="0" pattern="^[0-9]+" 
+                                        value={user.cellphone}
                                         onChange={onChange} />
-                                </div>
+                                </Campo>
 
-                                <div className="form-group col-md-6">
+                                <Campo>
                                     <label htmlFor="role">Role</label>
-                                    <select id="role" name="selectRole" value={user.selectRole} className="form-control" onChange={onChange}>
+                                    <select 
+                                        id="role" 
+                                        name="selectRole" 
+                                        value={user.selectRole} 
+                                        onChange={onChange}>
                                         {/* <option defaultValue={user.selectRole}>{user.stringRole}</option> */}
                                         <option value="1">Admin</option>
                                         <option value="2">Bodeguero</option>
                                         <option value="3">Vendedor</option>
                                     </select>
+                                </Campo>
 
-                                    <br />
-                                    <br />
-
-                                </div>
-
+                            </Formulario>
+                            <div className="modal-footer">
+                                <BotonUserCerrar data-dismiss="modal">Cerrar</BotonUserCerrar>
+                                <BotonUser onClick={() => t()}>Guardar</BotonUser>
                             </div>
                         </div>
+                        </FormUser>
 
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" id="test" className="btn btn-primary" onClick={() => t()}>Understood</button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

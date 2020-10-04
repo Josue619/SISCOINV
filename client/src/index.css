@@ -292,14 +292,14 @@ aside  {
   transition: opacity 200ms;
 }
 
-.form-usuario {
+/*.form-usuario {
     background-color: var(--gris2);
     height: 100vh;
     min-height: 800px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+}*/
 
 .contenedor-form {
     padding: 5rem 3rem;

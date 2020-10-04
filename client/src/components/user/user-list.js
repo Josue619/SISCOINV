@@ -109,10 +109,21 @@ class UserList extends Component {
                         <td>{data.USU_CEDULA}</td>
                         <td>{data.USU_CELULAR}</td>
                         <td>
-                            <button className="btn btn-outline-info" onClick={() => this.edit(data)} data-backdrop="false" data-toggle="modal" data-target="#staticBackdrop"> Editar </button>
+                            <button 
+                                className="btn btn-outline-info" 
+                                onClick={() => this.edit(data)} 
+                                data-backdrop="false" 
+                                data-toggle="modal" 
+                                data-target="#staticBackdrop"> 
+                                Editar
+                            </button>
                         </td>
                         <td>
-                            <button className="btn btn-outline-danger" onClick={() => this.onDelete(data.USU_CODIGO)}> Eliminar </button>
+                            <button 
+                                className="btn btn-outline-danger"
+                                onClick={() => this.onDelete(data.USU_CODIGO)}>
+                                    Eliminar 
+                            </button>
                         </td>
                     </tr>
                 </Fragment>
@@ -145,8 +156,9 @@ class UserList extends Component {
                                 <th scope="col">Cedula</th>
                                 <th scope="col">#_Celular</th>
                                 <th colSpan="2">
-                                    Acción
-                                    <Link className="btn btn-outline-success " to={"#"} >Edit</Link>
+                                    Acción 
+                                    <span>  <Link className="btn btn-outline-success " to={"#"} >Nuevo</Link></span>
+                                    
                                 </th>
                             </tr>
                         </thead>

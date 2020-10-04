@@ -1,5 +1,21 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+//import logo from '../../imagenes/logoSis.png';
+
+//Styled components
+import styled from '@emotion/styled';
+
+
+
+const Logo = styled.a`
+    color: var(--blanco);
+    font-size: 4rem;
+    line-height: 1;
+    font-weight: 800;
+    font-family: 'Roboto Slab', serif;
+    margin-right: 2rem;
+`;
+
 
 class Navbar extends Component {
 
@@ -10,9 +26,6 @@ class Navbar extends Component {
         window.location.replace('/');
     }
 
-    
-        
-    
 
     render() {
         const loginRegLink = (
@@ -50,12 +63,12 @@ class Navbar extends Component {
         );
 
         return (
-            <div className="seccion-principal">
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a className="navbar-brand" href="/">
-                        <span className="text-primary"> </span>
-                        <img src="https://img.icons8.com/color/48/000000/casta-rica-circular.png" alt="" />
-                    </a>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <Link to="/">
+                    <Logo>SisInv</Logo>
+                </Link>
+                
+                
                     <button 
                         className="navbar-toggler" 
                         type="button" 
@@ -78,8 +91,6 @@ class Navbar extends Component {
                         {localStorage.token ? userLink : loginRegLink }
                     </div>
                 </nav >
-            </div>
-            
         )
 
     }

@@ -4,6 +4,14 @@ import { Token } from '../../helpers/token.helper';
 
 import Swal from 'sweetalert2';
 
+//styled components
+
+
+//Estilos personalizados
+import { Formulario, Campo } from '../ui/Formulario';
+import { Boton } from '../ui/Boton';
+import {FormUsuario} from '../ui/FormUsuario';
+
 
 class Signup extends Component {
 
@@ -105,44 +113,52 @@ class Signup extends Component {
     render() {
 
         const admin_authLink = (
-            <div className="col-md-6 mt-5 mx-auto">
-
-                <div className="campo-form">
-                    <label htmlFor="code">Código Autorización</label>
-                    <input type="password" name="code" placeholder="Digite el codigo"
-                        value={this.state.code_auth} onChange={(value) => this.setState({ code_auth: value.target.value })} />
-                </div>
-
-                <button type="submit" className="btn btn-primario btn-block" onClick={() => this.admin_auth()}>Verificar</button>
-
-            </div>
+                <Formulario>
+                    <h1>
+                        Ingresar Verificación
+                    </h1>
+                    <Campo>
+                        <label htmlFor="code">Código Autorización</label>
+                        <input type="password" 
+                            name="code" 
+                            placeholder="Digite el codigo" 
+                            value={this.state.code_auth} 
+                            onChange={(value) => this.setState({ code_auth: value.target.value })}
+                        />
+                    </Campo>
+                    <Boton 
+                        onClick={() => this.admin_auth()}>
+                        Verificar</Boton>
+                </Formulario>
+                 
         );
 
         const signupLink = (
 
-            <div>
+            <Formulario
+                
+            >
 
                 <h1>Registar una Cuenta</h1>
-
-                <div className="campo-form">
+                <Campo>
                     <label htmlFor="firs_name">Nombre</label>
                     <input
                         type="text"
                         name="firs_name" placeholder="Enter First Name"
                         value={this.state.first_name}
                         onChange={(value) => this.setState({ first_name: value.target.value })} />
-                </div>
+                </Campo>
 
-                <div className="campo-form">
+                <Campo>
                     <label htmlFor="last_name">Apellidos</label>
                     <input
                         type="text"
                         name="last_name"
                         placeholder="Digite los apellidos"
                         value={this.state.last_name} onChange={(value) => this.setState({ last_name: value.target.value })} />
-                </div>
+                </Campo>
 
-                <div className="campo-form">
+                <Campo>
                     <label htmlFor="email">Email</label>
                     <input
                         type="email"
@@ -150,9 +166,9 @@ class Signup extends Component {
                         placeholder="Digite el email"
                         value={this.state.email}
                         onChange={(value) => this.setState({ email: value.target.value })} />
-                </div>
+                </Campo>
 
-                <div className="campo-form">
+                <Campo>
                     <label htmlFor="password">Password</label>
                     <input
                         type="password"
@@ -160,9 +176,9 @@ class Signup extends Component {
                         placeholder="Enter Password"
                         value={this.state.password}
                         onChange={(value) => this.setState({ password: value.target.value })} />
-                </div>
+                </Campo>
 
-                <div className="campo-form">
+                <Campo>
                     <label htmlFor="Identificación">Identificación</label>
                     <input
                         type="number"
@@ -171,9 +187,9 @@ class Signup extends Component {
                         min="1" pattern="^[0-9]+"
                         value={this.state.id_card}
                         onChange={(value) => this.setState({ id_card: value.target.value })} />
-                </div>
+                </Campo>
 
-                <div className="campo-form">
+                <Campo>
                     <label htmlFor="cellphone">Número Celular</label>
                     <input
                         type="number"
@@ -182,31 +198,36 @@ class Signup extends Component {
                         min="0" pattern="^[0-9]+"
                         value={this.state.cellphone}
                         onChange={(value) => this.setState({ cellphone: value.target.value })} />
-                </div>
+                </Campo>
 
-                <div className="campo-form">
+                <Campo>
                     <label htmlFor="role">Role</label>
-                    <select id="role" className="campo-form" onChange={(value) => this.setState({ selectRole: value.target.value })}>
+                    <select id="role"
+                            onChange={(value) => this.setState({ selectRole: value.target.value })}
+                    >
                         <option defaultValue>Selecione...</option>
                         <option value="1">Admin</option>
                     </select>
-                </div>
+                </Campo>
 
 
 
-                <button type="submit" className="btn btn-primario btn-block" onClick={() => this.onSubmit()}>
+                <Boton onClick={() => this.onSubmit()}>
                     Registrar
-                </button>
+                </Boton>
 
-            </div>
+            </Formulario>
         );
 
         return (
-            <div className="form-usuario">
+            <FormUsuario>
                 <div className="contenedor-form sombra-dark">
                     {this.validate ? signupLink : admin_authLink}
+
+                   
                 </div>
-            </div>
+                
+            </FormUsuario>
         )
     }
 

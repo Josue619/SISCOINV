@@ -2,11 +2,20 @@ import React, { Component } from 'react';
 import { login } from '../../services/main.service';
 import { Token } from '../../helpers/token.helper';
 
+//styled components
+import { css } from '@emotion/core';
+
+//Estilos personalizados
+import { Formulario, Campo } from '../ui/Formulario';
+import { Boton } from '../ui/Boton';
+import {FormUsuario} from '../ui/FormUsuario';
+
+
 import Swal from 'sweetalert2'; 
 
 class Login extends Component {
 
-    URL_CLIENT = 'http://localhost:3001';
+    URL_CLIENT = process.env.REACT_APP_URL_CLIENT;
 
     constructor(props) {
         super(props);
@@ -64,38 +73,40 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="form-usuario">
+            <FormUsuario>
                 <div className="contenedor-form sombra-dark">
-                    <div>
-                        <h1>Inicio Sesión</h1>
-
-                        
-                            <div className="campo-form">
+                    
+                        <h1
+                          css={css`
+                          text-align: center;
+                          margin-top: 5rem;
+                        `}
+                        >Inicio Sesión</h1>
+                        <Formulario>
+                            <Campo>
                                 <label htmlFor="email">Email</label>
                                 <input type="email" name="email" placeholder="Correo Electrónico"
-                                    value={this.state.email} onChange={(value) => this.setState({ email: value.target.value })} />
-                            </div>
+                                value={this.state.email} onChange={(value) => this.setState({ email: value.target.value })} />
+                            </Campo>
 
-                            <div className="campo-form">
+                            <Campo className="campo-form">
                                 <label htmlFor="password">Password</label>
                                 <input type="password" name="password" placeholder="Contraceña"
-                                    value={this.state.password} onChange={(value) => this.setState({ password: value.target.value })} />
-                            </div>
-                            <div className="campo-form">
-                                <button
-                                    type="submit"
-                                    className="btn btn-primario btn-block"
+                                value={this.state.password} onChange={(value) => this.setState({ password: value.target.value })} />
+                            </Campo>
+
+                            <div>
+                                <Boton
+                                    type="sumit"
                                     onClick={() => this.onSubmit()}
                                 >
-                                    Inciar Sesión
-                                </button>
-
+                                    Iniciar Sesión
+                                </Boton>
                             </div>
-                        
-                        
+                        </Formulario>
                     </div>
-                </div>
-            </div>
+               
+            </FormUsuario>
         )
     }
 
