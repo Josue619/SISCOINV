@@ -1,14 +1,15 @@
-import { Link } from "react-router-dom";
 import React, { Component, Fragment } from 'react';
 import { getUsers } from '../../services/main.service';
 import UserForm from './user-form2';
 
+import { profile } from '../../services/main.service';
 import Service from '../../services/main.service';
 
 //sweetalert2
 import Swal from 'sweetalert2';
 
 const INITIAL_STATE = {
+    admin: '',
     dataUser: {},
     userList: []
 }
@@ -86,15 +87,22 @@ class UserList extends Component {
         console.log(userId);
     }
 
+    getAdmin() {
+        profile().then(res => {
+            this.setState({ admin: res.data.USU_LOGIN });
+        });
+    }
+
     edit(data) {
         //var element = document.getElementById("test");
         //element.click();
-        console.log(data);
+        //console.log(data);
+        this.getAdmin();
         this.setState({ dataUser: data });
     }
 
     test() {
-        console.log('Funciona');
+        this.setState({ dataUser: {} });
     }
 
     loadFillData() {
@@ -109,20 +117,20 @@ class UserList extends Component {
                         <td>{data.USU_CEDULA}</td>
                         <td>{data.USU_CELULAR}</td>
                         <td>
-                            <button 
-                                className="btn btn-outline-info" 
-                                onClick={() => this.edit(data)} 
-                                data-backdrop="false" 
-                                data-toggle="modal" 
-                                data-target="#staticBackdrop"> 
+                            <button
+                                className="btn btn-outline-info"
+                                onClick={() => this.edit(data)}
+                                data-backdrop="false"
+                                data-toggle="modal"
+                                data-target="#staticBackdrop">
                                 Editar
                             </button>
                         </td>
                         <td>
-                            <button 
+                            <button
                                 className="btn btn-outline-danger"
                                 onClick={() => this.onDelete(data.USU_CODIGO)}>
-                                    Eliminar 
+                                Eliminar
                             </button>
                         </td>
                     </tr>
@@ -143,9 +151,10 @@ class UserList extends Component {
     render() {
 
         const { dataUser } = this.state;
+        const { admin } = this.state;
         return (
             <div className="container">
-                <UserForm dataUser={dataUser} t={this.test.bind(this)} />
+                <UserForm admin={admin} dataUser={dataUser} t={this.test.bind(this)} />
                 <div className="col mt-5 mx-auto">
                     <table className="table table-hover table-striped">
                         <thead className="thead-dark">
@@ -156,9 +165,16 @@ class UserList extends Component {
                                 <th scope="col">Cedula</th>
                                 <th scope="col">#_Celular</th>
                                 <th colSpan="2">
-                                    Acción 
-                                    <span>  <Link className="btn btn-outline-success " to={"#"} >Nuevo</Link></span>
-                                    
+                                    Acción
+                                    <button
+                                        className="btn btn-outline-success"
+                                        onClick={() => this.getAdmin()}
+                                        data-backdrop="false"
+                                        data-toggle="modal"
+                                        data-target="#staticBackdrop">
+                                        Nuevo
+                                    </button>
+
                                 </th>
                             </tr>
                         </thead>

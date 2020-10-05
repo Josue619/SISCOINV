@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 
 
 
-const Logo = styled.a`
+const Logo = styled.p`
     color: var(--blanco);
     font-size: 4rem;
     line-height: 1;

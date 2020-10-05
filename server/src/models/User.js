@@ -23,6 +23,12 @@ class User {
         return false;
     }
 
+    async verifyCardID(card_ID) {
+        const db_user = await db.findAll({where: { USU_CEDULA: card_ID }});
+        if (db_user.length > 0) return true;
+        return false;
+    }
+
 }
 
 module.exports = User;

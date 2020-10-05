@@ -38,6 +38,16 @@ export function getUsers() {
     });
 }
 
+export function createUser(data) {
+    return axios.post(`${baseUserUrl}/user`, data, {
+        headers: {
+            "Content-Type": "application/json",
+            "auth_token": token.get(),
+            Authorization: `Bearer ${(token.get())}`,
+        }
+    });
+}
+
 export class MainService {
     data = [];
 
