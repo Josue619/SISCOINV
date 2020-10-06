@@ -48,9 +48,22 @@ export function createUser(data) {
     });
 }
 
-export class MainService {
-    data = [];
-
+export function updateUser(data) {
+    return axios.put(`${baseUserUrl}/user`, data, {
+        headers: {
+            "Content-Type": "application/json",
+            "auth_token": token.get(),
+            Authorization: `Bearer ${(token.get())}`,
+        }
+    });
 }
 
-export default MainService;
+export function deleteUser(data) {
+    return axios.put(`${baseUserUrl}/userD`, data, {
+        headers: {
+            "Content-Type": "application/json",
+            "auth_token": token.get(),
+            Authorization: `Bearer ${(token.get())}`,
+        }
+    });
+}

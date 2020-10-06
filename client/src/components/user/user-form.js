@@ -1,122 +1,201 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createUser, updateUser } from '../../services/main.service';
+
+import Swal from 'sweetalert2';
+
+//Estilos personalizados
+import { Formulario, Campo } from '../ui/Formulario';
+import { BotonUser, BotonUserCerrar } from '../ui/Boton';
+import { FormUser } from '../ui/FormUsuario';
 
 
-class UserForm extends Component {
+const UserForm2 = ({ admin, dataUser, clearData }) => {
 
-    edit = false;
+    const [user, setUser] = useState({
+        code: 0,
+        roleID: 2,
+        username: '',
+        email: '',
+        password: '',
+        id_card: '',
+        cellphone: '',
+        created_by: '',
+        modified_by: ''
+    })
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataUser: {},
-            code: 0,
-            selectRole: 0,
-            stringRole: '',
-            username: '',
-            email: '',
-            password: '',
-            id_card: '',
-            cellphone: '',
-            created_by: '',
-            modified_by: ''
+    const onChange = event => {
+        const { name, value } = event.target;
+        setUser({ ...user, [name]: value });
+    }
+
+    useEffect(() => {
+        if (Object.entries(dataUser).length > 0) {
+            const role = Object.assign({}, dataUser.SEG_ROL);
+            setUser({
+                code: dataUser.USU_CODIGO,
+                roleID: role.id,
+                username: dataUser.USU_LOGIN,
+                email: dataUser.USU_EMAIL,
+                password: dataUser.USU_PASSWORD,
+                id_card: dataUser.USU_CEDULA,
+                cellphone: dataUser.USU_CELULAR,
+                created_by: dataUser.USU_CREADO_POR,
+                modified_by: admin,
+            })
+        } else {
+            setUser({
+                code: 0,
+                roleID: 2,
+                username: '',
+                email: '',
+                password: '',
+                id_card: '',
+                cellphone: '',
+                created_by: admin,
+                modified_by: admin
+            })
         }
+    }, [admin, dataUser]);
+
+    const createUserM = () => {
+        createUser(user).then(res => {
+            if (res.data.success) {
+                handleResponse();
+
+            } else {
+                const errors = res.data.errors;
+                handleError(errors);
+            }
+        });
     }
 
-    componentDidMount() {
-        //const {user} = this.props;
-        //this.setState({ dataUser: Object.assign({}, user)})
+    const updateUserM = () => {
+        updateUser(user).then(res => {
+            if (res.data.success) {
+                handleResponse();
+
+            } else {
+                const errors = res.data.errors;
+                handleError(errors);
+            }
+        });
     }
-    
-    test() {
-        //console.log(this.state.dataUser);
+
+    function handleResponse() {
+        window.location.reload();
     }
 
-    render() {
-        const {dataUser} = this.state;
+    function handleError(errors) {
+        showModalError(errors[0].msg)
+    }
 
-        //<option value={this.state.dataUser.id}>{this.state.selectRole}</option>
-        //<button type="button" id="openM" className="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-        //    Launch static backdrop modal
-        //</button>
+    function showModalError(msg) {
+        Swal.fire({
+            position: 'center',
+            icon: 'info',
+            title: msg,
+            showConfirmButton: false,
+            timer: 1800
+        })
+    }
 
-        
+    const password = (
+        <Campo>
+            <label htmlFor="password">Contraseña</label>
+            <input
+                type="password"
+                name="password"
+                placeholder="Contraseña"
+                value={user.password} onChange={onChange} />
+        </Campo>
+    );
 
-        
-        return (
-            <div className="container">
-                {console.log(dataUser)}
-
-                <div className="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content" role="document">
-
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">
-                                    {!this.edit ? 'Agregar Necesidad' : 'Modificar Necesidad'}
-                                </h5>
-                                <button type="button" id="closeM" className="close btn btn-danger" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div className="modal-body">
-                                <div className="form-group row  mx-auto justify-content-center">
-
-                                    <div className="form-group col-md-6">
+    return (
+        <div className="container">
+            <div className="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content" role="document">
+                        <div className="modal-header">
+                            <h2>Datos Generales Usuario</h2>
+                            <button type="button" id="closeM" className="close btn btn-danger"
+                                data-dismiss="modal" aria-label="Close" onClick={() => clearData()}>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <FormUser>
+                            <div className="contenedor-form sombra-dark modal-body ">
+                                <h3 id="exampleModalLabel">
+                                    {user.code === 0 ? 'Registrar usuario' : 'Actualizar usuario'}
+                                </h3>
+                                <Formulario>
+                                    <Campo>
                                         <label htmlFor="username">Nombre</label>
-                                        <input type="text" className="form-control" placeholder="Nombre"
-                                            value={this.state.username} onChange={(value) => this.setState({ username: value.target.value })} />
-                                    </div>
+                                        <input
+                                            type="text"
+                                            name="username"
+                                            placeholder="Nombre"
+                                            value={user.username} onChange={onChange} />
+                                    </Campo>
 
-                                    <div className="form-group col-md-6">
+                                    <Campo>
                                         <label htmlFor="email">Correo</label>
-                                        <input type="text" className="form-control" placeholder="Correo"
-                                            value={this.state.email} onChange={(value) => this.setState({ email: value.target.value })} />
-                                    </div>
+                                        <input
+                                            type="text" name="email"
+                                            placeholder="Correo"
+                                            value={user.email} onChange={onChange} />
+                                    </Campo>
 
-                                    <div className="form-group col-md-6">
-                                        <label htmlFor="password">Contraseña</label>
-                                        <input type="password" className="form-control" placeholder="Contraseña"
-                                            value={this.state.password} onChange={(value) => this.setState({ password: value.target.value })} />
-                                    </div>
+                                    {user.code === 0 ? password : ''}
 
-                                    <div className="form-group col-md-6">
+                                    <Campo>
                                         <label htmlFor="id_card">Identificación</label>
-                                        <input type="number" className="form-control" name="id_card" placeholder="# Identificación"
-                                            min="0" pattern="^[0-9]+" value={this.state.id_card}
-                                            onChange={(value) => this.setState({ id_card: value.target.value })} />
-                                    </div>
+                                        <input
+                                            type="number"
+                                            name="id_card"
+                                            placeholder="# Identificación"
+                                            min="0" pattern="^[0-9]+"
+                                            value={user.id_card}
+                                            onChange={onChange} />
+                                    </Campo>
 
-                                    <div className="form-group col-md-6">
+                                    <Campo>
                                         <label htmlFor="cellphone">Número Celular</label>
-                                        <input type="number" className="form-control" name="cellphone" placeholder="# Celular"
-                                            min="0" pattern="^[0-9]+" value={this.state.cellphone}
-                                            onChange={(value) => this.setState({ cellphone: value.target.value })} />
-                                    </div>
+                                        <input
+                                            type="number"
+                                            name="cellphone"
+                                            placeholder="# Celular"
+                                            min="0" pattern="^[0-9]+"
+                                            value={user.cellphone}
+                                            onChange={onChange} />
+                                    </Campo>
 
-                                    <div className="form-group col-md-6">
-                                        <label htmlFor="role">Role</label>
-                                        <select id="role" className="form-control" onChange={(value) => this.setState({ selectRole: value.target.value })}>
-                                            <option defaultValue>Selecione...</option>
-                                            <option value="2">Bodeguero</option>
+                                    <Campo>
+                                        <label htmlFor="role">Rol</label>
+                                        <select
+                                            id="role"
+                                            name="roleID"
+                                            value={user.roleID}
+                                            onChange={onChange}>
+                                            {/* <option defaultValue={user.selectRole}>{user.stringRole}</option> */}
                                             <option value="2">Vendedor</option>
+                                            <option value="3">Bodeguero</option>
                                         </select>
-                                    </div>
+                                    </Campo>
 
+                                </Formulario>
+                                <div className="modal-footer">
+                                    <BotonUserCerrar data-dismiss="modal" onClick={() => clearData()}>Cerrar</BotonUserCerrar>
+                                    {user.code}
+                                    <BotonUser onClick={() => user.code === 0 ? createUserM() : updateUserM()}>Guardar</BotonUser>
                                 </div>
                             </div>
+                        </FormUser>
 
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" id="test" className="btn btn-primary" onClick={() =>this.test()}>Understood</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div >
-        );
-    }
-
+            </div>
+        </div >
+    )
 }
 
-export default UserForm;
+export default UserForm2;

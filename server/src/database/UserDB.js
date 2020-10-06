@@ -37,6 +37,11 @@ var UserDB = db.define(nameTable, {
     },
 
     USU_CELULAR: Sequelize.STRING,
+    USU_STATE: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+        allowNull: false
+    },
     USU_CREADO_POR: Sequelize.STRING,
     USU_MODIFICADO_POR: Sequelize.STRING,
     USU_FECHA_CREADO: Sequelize.DATE,

@@ -1,10 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { getUsers } from '../../services/main.service';
-import UserForm from './user-form2';
+import { getUsers, profile, deleteUser } from '../../services/main.service';
+import UserForm from './user-form';
 import { FormUsuario } from '../ui/FormUsuario';
-
-import { profile } from '../../services/main.service';
-import Service from '../../services/main.service';
 
 //Styled components
 import styled from '@emotion/styled';
@@ -30,8 +27,6 @@ const INITIAL_STATE = {
 
 class UserList extends Component {
 
-    Service = new Service();
-
     constructor(props) {
         super(props);
         this.state = {
@@ -52,12 +47,12 @@ class UserList extends Component {
 
             } else {
                 const error = res.data.error.msg;
-                alert("Error web service: " + error);
+                this.handleError(error);
             }
         })
     }
 
-    onDelete(id) {
+    onDelete(user) {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -83,7 +78,7 @@ class UserList extends Component {
                     'El empleado ha sido removido del registro.',
                     'success'
                 )
-                this.sendDelete(id)
+                this.sendDelete(user)
             } else if (
                 /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
@@ -97,8 +92,12 @@ class UserList extends Component {
         })
     }
 
-    sendDelete(userId) {
-        console.log(userId);
+    sendDelete(user) {
+        deleteUser(user).then(res => {
+            if (res.data.success) {
+                this.handleResponse();
+            }
+        });
     }
 
     getAdmin() {
@@ -108,15 +107,30 @@ class UserList extends Component {
     }
 
     edit(data) {
-        //var element = document.getElementById("test");
-        //element.click();
-        //console.log(data);
         this.getAdmin();
         this.setState({ dataUser: data });
     }
 
-    test() {
+    clearData() {
         this.setState({ dataUser: {} });
+    }
+
+    handleResponse() {
+        window.location.reload();
+    }
+
+    handleError(error) {
+        this.showModalError(error);
+    }
+
+    showModalError(msg) {
+        Swal.fire({
+            position: 'center',
+            icon: 'info',
+            title: msg,
+            showConfirmButton: false,
+            timer: 1800
+        })
     }
 
     loadFillData() {
@@ -143,7 +157,7 @@ class UserList extends Component {
                         <td>
                             <button
                                 className="btn btn-outline-danger"
-                                onClick={() => this.onDelete(data.USU_CODIGO)}>
+                                onClick={() => this.onDelete(data)}>
                                 Eliminar
                             </button>
                         </td>
@@ -153,13 +167,6 @@ class UserList extends Component {
         });
     }
 
-    handleResponse(token) {
-
-    }
-
-    handleError(error) {
-
-    }
 
 
     render() {
@@ -169,38 +176,37 @@ class UserList extends Component {
         return (
             <FormUsuario>
 
-            
-            <Contenedor>
-                <UserForm admin={admin} dataUser={dataUser} t={this.test.bind(this)} />
-                <div className="col mt-5 mx-auto">
-                    <table className="table table-hover table-striped">
-                        <thead className="bg-primary thead-dark">
-                            <tr>
-                                <th scope="col">Role</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Cedula</th>
-                                <th scope="col">#_Celular</th>
-                                <th colSpan="2">
-                                    <button
-                                        className="btn btn-outline-success font-weight-bold d-block w-100"
-                                        onClick={() => this.getAdmin()}
-                                        data-backdrop="false"
-                                        data-toggle="modal"
-                                        data-target="#staticBackdrop">
+                <Contenedor>
+                    <UserForm admin={admin} dataUser={dataUser} clearData={this.clearData.bind(this)} />
+                    <div className="col mt-5 mx-auto">
+                        <table className="table table-hover table-striped">
+                            <thead className="bg-primary thead-dark">
+                                <tr>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Cedula</th>
+                                    <th scope="col">#_Celular</th>
+                                    <th colSpan="2">
+                                        <button
+                                            className="btn btn-outline-success font-weight-bold d-block w-100"
+                                            onClick={() => this.getAdmin()}
+                                            data-backdrop="false"
+                                            data-toggle="modal"
+                                            data-target="#staticBackdrop">
                                             Nuevo
                                     </button>
 
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.loadFillData()}
-                        </tbody>
-                    </table>
-                </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.loadFillData()}
+                            </tbody>
+                        </table>
+                    </div>
 
-            </Contenedor>
+                </Contenedor>
             </FormUsuario>
         );
     }

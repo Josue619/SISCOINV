@@ -23,5 +23,15 @@ router.post('/user',
 
 router.get('/users', verifyToken.TokenValidation, userController.getUsers);
 
+router.put('/user',
+  [
+    validator.check('email').isEmail().withMessage('Formato de correo electrónico incorrecto'),
+    validator.check('password').isLength({ min: 8 }).withMessage('La contraseña debe contener 8 caracteres')
+  ],
+  verifyUser.UserValidation, verifyToken.TokenValidation, userController.updateUser
+);
+
+router.put('/userD', verifyToken.TokenValidation, userController.deleteUser);
+
 
 module.exports = router;
