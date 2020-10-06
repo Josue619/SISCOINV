@@ -89,7 +89,7 @@ class Login extends Component {
                                 value={this.state.email} onChange={(value) => this.setState({ email: value.target.value })} />
                             </Campo>
 
-                            <Campo className="campo-form">
+                            <Campo>
                                 <label htmlFor="password">Password</label>
                                 <input type="password" name="password" placeholder="Contraceña"
                                 value={this.state.password} onChange={(value) => this.setState({ password: value.target.value })} />

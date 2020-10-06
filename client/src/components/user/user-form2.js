@@ -107,22 +107,19 @@ const UserForm2 = ({ admin ,dataUser, t }) => {
             <div className="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content" role="document">
-
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">
-                                {user.code === 0 ? 'Registrar usuario' : 'Actualizar usuario'}
-                            </h5>
+                            <h2>Datos Generales Usuario</h2>
                             <button type="button" id="closeM" className="close btn btn-danger"
                                 data-dismiss="modal" aria-label="Close" onClick={() => t()}>
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-
                         <FormUser>
                             <div className="contenedor-form sombra-dark modal-body ">
-
+                            <h3 id="exampleModalLabel">
+                                {user.code === 0 ? 'Registrar usuario' : 'Actualizar usuario'}
+                            </h3>
                                 <Formulario>
-
                                     <Campo>
                                         <label htmlFor="username">Nombre</label>
                                         <input
@@ -165,7 +162,7 @@ const UserForm2 = ({ admin ,dataUser, t }) => {
                                     </Campo>
 
                                     <Campo>
-                                        <label htmlFor="role">Role</label>
+                                        <label htmlFor="role">Rol</label>
                                         <select
                                             id="role"
                                             name="roleID"

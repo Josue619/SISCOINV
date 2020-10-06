@@ -11,9 +11,9 @@ export const FormUsuario = styled.div`
 `;
 
 export const FormUser = styled.div`
-    background-color: var(--gris2);
-    height: 59vh;
-    min-height: 800;
+    /*background-color: var(--gris2);*/
+    height: 66vh;
+    min-height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,12 +1,26 @@
 import React, { Component, Fragment } from 'react';
 import { getUsers } from '../../services/main.service';
 import UserForm from './user-form2';
+import { FormUsuario } from '../ui/FormUsuario';
 
 import { profile } from '../../services/main.service';
 import Service from '../../services/main.service';
 
+//Styled components
+import styled from '@emotion/styled';
+
 //sweetalert2
 import Swal from 'sweetalert2';
+
+
+const Contenedor = styled.div`
+    padding: 5rem 3rem;
+    max-width: 1200px;
+    width: 100%;
+    background-color: var(--blanco);
+    border-radius: 4rem;
+`;
+
 
 const INITIAL_STATE = {
     admin: '',
@@ -153,11 +167,14 @@ class UserList extends Component {
         const { dataUser } = this.state;
         const { admin } = this.state;
         return (
-            <div className="container">
+            <FormUsuario>
+
+            
+            <Contenedor>
                 <UserForm admin={admin} dataUser={dataUser} t={this.test.bind(this)} />
                 <div className="col mt-5 mx-auto">
                     <table className="table table-hover table-striped">
-                        <thead className="thead-dark">
+                        <thead className="bg-primary thead-dark">
                             <tr>
                                 <th scope="col">Role</th>
                                 <th scope="col">Nombre</th>
@@ -165,14 +182,13 @@ class UserList extends Component {
                                 <th scope="col">Cedula</th>
                                 <th scope="col">#_Celular</th>
                                 <th colSpan="2">
-                                    Acción
                                     <button
-                                        className="btn btn-outline-success"
+                                        className="btn btn-outline-success font-weight-bold d-block w-100"
                                         onClick={() => this.getAdmin()}
                                         data-backdrop="false"
                                         data-toggle="modal"
                                         data-target="#staticBackdrop">
-                                        Nuevo
+                                            Nuevo
                                     </button>
 
                                 </th>
@@ -184,7 +200,8 @@ class UserList extends Component {
                     </table>
                 </div>
 
-            </div>
+            </Contenedor>
+            </FormUsuario>
         );
     }
 

@@ -9,11 +9,12 @@
 }
 *, *:before, *:after {
   box-sizing: inherit;
-} 
+}
+
 html {
   box-sizing: border-box;
   height: 100%;
-  font-size: 62.5%; 
+  font-size: 62.5%;
   /* revisar */
 }
 body {
@@ -25,7 +26,7 @@ body {
 }
 
 
-h1, h2 {
+h1, h2, h3 {
   font-family: var(--headingFont);
   font-weight: 900;
   margin: 0 0 4rem 0;
@@ -41,6 +42,11 @@ h1 {
 h2 {
   font-size: 2.4rem;
 }
+
+h3 {
+  font-size: 2.0rem;
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -97,13 +103,13 @@ a {
   color: var(--blanco);
 }
 
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
   .contenedor-app {
       display: flex;
       min-height: 100vh;
   }
 
-  aside {
+ aside {
       background-color: var(--blanco);
       flex: 0 0 300px;
   }
@@ -111,11 +117,11 @@ a {
       flex: 1;
   }
 
-}
+}*/
 
 
 /* BARRA LATERAL */
-aside  {
+/*aside  {
   padding: 3rem;
 }
 
@@ -162,10 +168,10 @@ aside  {
 }
 .nav-principal a:first-of-type {
   margin-right: 2rem;
-}
+}*/
 
 /** Formulario crear y editar tareas **/
-.formulario {
+/*.formulario {
   background-color: var(--gris3);
   padding: 4rem;
 }
@@ -187,9 +193,10 @@ aside  {
   flex: 1;
   width: 100%;
 }
+*/
 
 /** TAREAS LISTADO **/
-.contenedor-tareas {
+/*.contenedor-tareas {
   padding: 4rem;
 }
 
@@ -209,7 +216,8 @@ aside  {
   margin-bottom: 1rem;
   border-radius: .5rem;
 
-}
+}*/
+/*
 .sombra {
   -webkit-box-shadow: 0px 4px 10px -3px rgba(117,117,117,1);
   -moz-box-shadow: 0px 4px 10px -3px rgba(117,117,117,1);
@@ -220,6 +228,8 @@ aside  {
   -moz-box-shadow: 0px 6px 11px -8px rgba(0,0,0,0.9);
   box-shadow: 0px 6px 11px -8px rgba(0,0,0,0.9);
 }
+-*/
+/*
 .tarea .acciones .btn:first-of-type {
   margin-right: 1rem;
 }
@@ -234,7 +244,8 @@ aside  {
   border-radius: 0;
   margin: 0;
 }
-
+*/
+/*
 .estado {
   margin-right: 1rem;
 }
@@ -270,10 +281,10 @@ aside  {
   margin: 2rem auto 0 auto;
   background-color: rgb(170, 0, 0);
   color: var(--blanco);
-}
+}*/
 
 
-
+/*
 .tarea-enter,
 .proyecto-enter {
   opacity: 0;
@@ -292,6 +303,7 @@ aside  {
   opacity: 0;
   transition: opacity 200ms;
 }
+*/
 
 /*.form-usuario {
     background-color: var(--gris2);
@@ -310,11 +322,12 @@ aside  {
     border-radius: 1rem;
 }
 
-.campo-form {
+/*.campo-form {
     display: flex;
     margin-bottom: 2rem;
     align-items: center;
-}
+}*/
+/*
 .campo-form:last-of-type {
   margin: 0;
 }
@@ -328,14 +341,14 @@ aside  {
   border: 1px solid #e1e1e1;
   padding: 1rem;
   flex: 1;
-}
-
+}*/
+/*
 .enlace-cuenta {
   margin-top: 2rem;
   display: block;
   opacity: .7;
-}
-
+}*/
+/*
 .alerta {
   position: fixed;
   top: 0;
@@ -348,7 +361,8 @@ aside  {
   font-size: 2.2rem;
   text-align: center;
   width: 100%;
-}
+}*/
+/*
 @media (min-width:768px) {
   .alerta {
       width: auto;
@@ -357,7 +371,8 @@ aside  {
       left: auto;
   }
 }
-
+*/
+/*
 .alerta-ok {
   background-color: rgb(109, 211, 109);
   color: rgb(2, 103, 2);
@@ -366,3 +381,4 @@ aside  {
   background-color: rgb(230, 78, 78);
   color: var(--blanco);
 }
+*/
