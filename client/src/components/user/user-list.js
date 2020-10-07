@@ -181,8 +181,8 @@ class UserList extends Component {
 
                     <div className="table-responsive">
 
-                        <table class="table">
-                            <thead class="thead-dark">
+                        <table className="table">
+                            <thead className="thead-dark">
                                 <tr>
                                     <th scope="col">Role</th>
                                     <th scope="col">Nombre</th>
