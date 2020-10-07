@@ -178,9 +178,11 @@ class UserList extends Component {
 
                 <Contenedor>
                     <UserForm admin={admin} dataUser={dataUser} clearData={this.clearData.bind(this)} />
-                    <div className="col mt-5 mx-auto">
-                        <table className="table table-hover table-striped">
-                            <thead className="bg-primary thead-dark">
+
+                    <div className="table-responsive">
+
+                        <table class="table">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Role</th>
                                     <th scope="col">Nombre</th>
@@ -204,6 +206,7 @@ class UserList extends Component {
                                 {this.loadFillData()}
                             </tbody>
                         </table>
+
                     </div>
 
                 </Contenedor>
