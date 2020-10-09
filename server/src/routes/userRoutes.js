@@ -21,7 +21,7 @@ router.post('/user',
   verifyUser.UserValidation, verifyToken.TokenValidation, userController.createUser
 );
 
-router.get('/users', verifyToken.TokenValidation, userController.getUsers);
+router.get('/users/:id', verifyToken.TokenValidation, userController.getUsers);
 
 router.put('/user',
   [

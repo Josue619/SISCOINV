@@ -31,6 +31,20 @@ class User {
         return false;
     }
 
+    async verifyRoll(id) {
+        let answer = false;
+        const db_user = await UserDB.findAll({
+            where: { USU_CODIGO: id }
+        });
+
+        if (db_user.length > 0) {
+           if (db_user[0].SEGROLId != '1') {
+            answer = true;
+           }
+        }
+        return answer;
+    }
+
     async updateVerifyEmail(user) {
         let answer = false;
         const db_users = await db.query(

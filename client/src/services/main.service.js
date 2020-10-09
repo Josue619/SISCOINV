@@ -29,7 +29,8 @@ export function profile() {
 }
 
 export function getUsers() {
-    return axios.get(`${baseUserUrl}/users`, {
+    const id = token.payload(token.get())._id;
+    return axios.get(`${baseUserUrl}/users/${id}`, {
         headers: {
             "Content-Type": "application/json",
             "auth_token": token.get(),

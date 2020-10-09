@@ -120,6 +120,7 @@ class UserList extends Component {
     }
 
     handleError(error) {
+        if (error === 'Permisos denegados') this.props.history.push('/');
         this.showModalError(error);
     }
 

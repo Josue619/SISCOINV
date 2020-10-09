@@ -14,7 +14,7 @@ const sequelize = new Sequelize(process.env.MYSQL_DB, process.env.DB_USER, proce
           },
         
         // http://docs.sequelizejs.com/manual/tutorial/querying.html#operators
-        operatorsAliases: false
+        operatorsAliases: 0
     }
 
 );

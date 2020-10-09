@@ -9,6 +9,11 @@ const { Op } = require("sequelize");
 class UserController {
 
     getUsers = async (req, res) => {
+        const userClass = new User();
+        const { id } = req.params;
+
+        if (await userClass.verifyRoll(id)) return res.json({ success: false, error: { "msg": "Permisos denegados" } });
+        
         const data = await UserDB.findAll({
             where: {
                 SEGROLId: {
