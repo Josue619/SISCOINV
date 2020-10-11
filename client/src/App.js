@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+//-----------------Seguridad------------------------
 import Navbar from './components/navigation/navbar';
 import Landing from './components/main/landing';
 import Login from './components/auth/login';
@@ -11,6 +12,13 @@ import UserList from './components/user/user-list';
 import AfterLogin from './services/after-login.service';
 import BeforeLogin from './services/before-login.service';
 import { Token } from './helpers/token.helper';
+//----------------------------------------------------
+
+//---------------Inventario---------------------------
+import INVArticulos from './components/invarticulos/invArticulos';
+//----------------------------------------------------
+
+
 
 class App extends Component {
   render() {
@@ -21,6 +29,7 @@ class App extends Component {
 
           <Navbar />
           <Route exact path="/" component={Landing} />
+          <Route exact path="/articulos" component={INVArticulos}/>
 
           <div className="form-principal">
             <BeforeLogin path='/login' exact component={Login} auth={!this.token.loggedIn()} />
