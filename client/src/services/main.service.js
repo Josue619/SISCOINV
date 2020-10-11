@@ -2,8 +2,9 @@ import axios from 'axios';
 import { Token } from '../helpers/token.helper';
 
 const token = new Token();
-const baseAuthUrl = 'http://localhost:3000/api/auth';
-const baseUserUrl = 'http://localhost:3000/api/user';
+const baseAuthUrl = /*'http://localhost:3000/api/auth';*/`${process.env.REACT_APP_URL_SERCLIENT}/api/auth`;
+const baseUserUrl = /*'http://localhost:3000/api/user';*/`${process.env.REACT_APP_URL_SERCLIENT}/api/user`;
+const baseArtiUrl = /*'http://192.168.0.109:3000/api/procesos';//*/`${process.env.REACT_APP_URL_SERCLIENT}/api/procesos`;
 
 export function admin_auth(data) {
     return axios.post(`${baseAuthUrl}/admin_auth`, data);
@@ -67,4 +68,10 @@ export function deleteUser(data) {
             Authorization: `Bearer ${(token.get())}`,
         }
     });
+}
+
+export function obtenerArticulos() {
+    let resultado = axios.get(`${baseArtiUrl}/obtieneArticulos`);
+    
+    return resultado;
 }
