@@ -25,8 +25,14 @@ class Server {
     }
 
     routes() {
+        /*-----------------Api usuarios-----------------*/
         this.app.use('/api/auth', authRoutes);
         this.app.use('/api/user', userRoutes);
+        /**-------------------------------------------- */
+
+        /**----------------Api de inventarios-----------*/
+        this.app.use('/api/procesos', require('./routes/spArticulosRoutes'));
+        /**--------------------------------------------- */
     }
 
     start() {
