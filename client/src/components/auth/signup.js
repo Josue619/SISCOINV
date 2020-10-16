@@ -135,9 +135,7 @@ class Signup extends Component {
 
         const signupLink = (
 
-            <Formulario
-                
-            >
+            <Formulario>
 
                 <h1>Registar una Cuenta</h1>
                 <Campo>
@@ -223,8 +221,6 @@ class Signup extends Component {
             <FormUsuario>
                 <div className="contenedor-form sombra-dark">
                     {this.validate ? signupLink : admin_authLink}
-
-                   
                 </div>
                 
             </FormUsuario>

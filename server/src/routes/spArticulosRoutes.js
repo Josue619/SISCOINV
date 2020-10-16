@@ -7,5 +7,8 @@ const verifyToken = require('../libs/verifyToken');
 //Obtiene los resultados de la consulta.
 router.get('/obtieneArticulos',articulosControllers.obtieneArticulos);
 
+//Inserta o actualiza los aticulos.
+router.post('/pr_insertActualizaArti',articulosControllers.pr_insertActualizaArti);
+
 
 module.exports =  router;

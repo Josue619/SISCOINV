@@ -26,12 +26,5 @@ router.post('/signup',
 
 router.post('/signin', authController.signin);
 router.get('/profile/:id', verifyToken.TokenValidation, authController.profile);
-router.post('/procedimiento',
-        //verifyToken.TokenValidation,
-        [
-          validator.check('descripcion').isEmpty().withMessage('La descripcion no puede ser nula')
-          
-        ],
-        authController.procedimiento);
 
 module.exports = router;

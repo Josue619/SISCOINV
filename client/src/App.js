@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //-----------------Seguridad------------------------
 import Navbar from './components/navigation/navbar';
@@ -15,21 +15,38 @@ import { Token } from './helpers/token.helper';
 //----------------------------------------------------
 
 //---------------Inventario---------------------------
-import INVArticulos from './components/invarticulos/invArticulos';
+import ListaArticulos from './components/invarticulos/listArticulos';
+import EditarProducto from './components/invarticulos/EditarProducto';
+import NuevoProductos from './components/invarticulos/NuevoProducto';
+
 //----------------------------------------------------
 
-
+//Redux
+import  { Provider } from 'react-redux';
+import store from './store';
 
 class App extends Component {
   render() {
     this.token = new Token();
-    return (
+    return (      
       <Router>
+        <Provider store={store}>
+
+        
         <div className="form-principal">
 
           <Navbar />
           <Route exact path="/" component={Landing} />
-          <Route exact path="/articulos" component={INVArticulos}/>
+
+          <Switch>
+            <Route exact path="/listarticulos" component={ListaArticulos}/>
+            <Route exact path="/productos/nuevo" component={NuevoProductos}/>
+            <Route exact path="/productos/editar/:id" component={EditarProducto} />
+          </Switch>
+          
+          
+          
+          
 
           <div className="form-principal">
             <BeforeLogin path='/login' exact component={Login} auth={!this.token.loggedIn()} />
@@ -40,6 +57,7 @@ class App extends Component {
           </div>
 
         </div>
+        </Provider>
       </Router>
     )
   }

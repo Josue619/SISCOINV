@@ -73,7 +73,7 @@ class Navbar extends Component {
         );
 
         const userLink = (
-                <Nav >
+                <Nav className="navbar-nav ml-auto">
                     <NavLink to="/profile">
                         Profile
                     </NavLink>

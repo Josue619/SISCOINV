@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const Formulario = styled.form`
-    max-width: 600px;
+    max-width: 800px;
     width: 95%;
     margin: 5rem auto 0 auto;
     fieldset {
@@ -22,11 +22,11 @@ export const Campo = styled.div`
     }
     input, 
     textarea {
-        flex: 1;
+        flex: auto;
         padding: 1rem;
     }
     textarea {
-        height: 400px;
+        height: 100px;
     }
 
     select {

@@ -70,8 +70,25 @@ export function deleteUser(data) {
     });
 }
 
+/**
+ * LLamada al api de articulos.
+ */
+/*---------------------------------------------*/
+
+/**
+ * Funcion que devuelve los articulos inventarios
+ * ----------------------------------------------- 
+*/
 export function obtenerArticulos() {
     let resultado = axios.get(`${baseArtiUrl}/obtieneArticulos`);
     
     return resultado;
+}
+
+/**
+ * Proceso insercion o actualizacion de articulos
+ */
+export function pr_insertActArticulos(producto) {
+    return axios.post(`${baseArtiUrl}/pr_insertActualizaArti`,producto);
+
 }
