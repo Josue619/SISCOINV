@@ -3,6 +3,9 @@ import { getUsers, profile, deleteUser } from '../../services/main.service';
 import UserForm from './user-form';
 import { FormUsuario } from '../ui/FormUsuario';
 
+//Pagination
+import Pagination from "react-js-pagination";
+
 //Styled components
 import styled from '@emotion/styled';
 
@@ -22,7 +25,12 @@ const Contenedor = styled.div`
 const INITIAL_STATE = {
     admin: '',
     dataUser: {},
-    userList: []
+    userList: [],
+    totalPages: 0,
+    totalItems: 0,
+    currentPage: 0,
+    itemsPages: 0,
+    search: ''
 }
 
 class UserList extends Component {
@@ -38,11 +46,22 @@ class UserList extends Component {
         this.loadList();
     }
 
-    loadList() {
+    loadList(pageNumber = 0) {
 
-        getUsers().then(res => {
+        const data = {
+            page: pageNumber,
+            search: this.state.search
+        }
+
+        getUsers(data).then(res => {
             if (res.data.success) {
-                const data = res.data.data;
+                const data = res.data.data.users;
+
+                this.setState({ totalPages: res.data.data.totalPages });
+                this.setState({ totalItems: res.data.data.totalItems });
+                this.setState({ currentPage: res.data.data.currentPage });
+                this.setState({ itemsPages: res.data.data.itemsPages });
+
                 this.setState({ userList: data });
 
             } else {
@@ -180,6 +199,14 @@ class UserList extends Component {
                 <Contenedor>
                     <UserForm admin={admin} dataUser={dataUser} clearData={this.clearData.bind(this)} />
 
+                    <div className="form-group row  mx-auto justify-content-center">
+                        <div className="form-inline my-2 my-lg-0">
+                            <input className="form-control mr-sm-2" type="search" name="search" id="search" placeholder="Buscar empleados"
+                                aria-label="Search" value={this.state.search} onChange={(value) => this.setState({ search: value.target.value })} />
+                            <button type="submit" className="btn btn-outline-success my-2 my-sm-0" onClick={(pageNumber) => this.loadList(0)}>Buscar</button>
+                        </div>
+                    </div>
+
                     <div className="table-responsive">
 
                         <table className="table">
@@ -207,6 +234,20 @@ class UserList extends Component {
                                 {this.loadFillData()}
                             </tbody>
                         </table>
+
+                        <div className="form-group row  mx-auto justify-content-center">
+                            <Pagination
+                                activePage={this.state.currentPage}
+                                itemsCountPerPage={this.state.itemsPages}
+                                totalItemsCount={this.state.totalItems}
+                                pageRangeDisplayed={this.state.totalPages}
+                                onChange={(pageNumber) => this.loadList(pageNumber)}
+                                itemClass="page-item"
+                                linkClass="page-link"
+                                firstPageText="First"
+                                lastPageText="Last"
+                            />
+                        </div>
 
                     </div>
 

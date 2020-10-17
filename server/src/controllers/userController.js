@@ -6,30 +6,65 @@ const RoleDB = require('../database/RoleDB');
 const jwt = require('jsonwebtoken');
 const { Op } = require("sequelize");
 
+const Pagination = require('../models/Pagination');
+
 class UserController {
+
+    // getUsers = async (req, res) => {
+    //     const userClass = new User();
+    //     const { id } = req.params;
+
+    //     if (await userClass.verifyRoll(id)) return res.json({ success: false, error: { "msg": "Permisos denegados" } });
+
+    //     const data = await UserDB.findAll({
+    //         where: {
+    //             SEGROLId: {
+    //                 [Op.or]: [2, 3]
+    //             },
+    //             USU_STATE: {
+    //                 [Op.and]: [true]
+    //             }
+    //         },
+    //         include: [RoleDB]
+    //     });
+
+    //     if (data.length > 0) {
+    //         return res.json({ success: true, data: data });
+    //     }
+    //     return res.json({ success: false, error: { "msg": "La lista no posee empleados en el registro." } });
+    // }
 
     getUsers = async (req, res) => {
         const userClass = new User();
+        const pageClass = new Pagination();
+
+        const size = 5;
         const { id } = req.params;
+        const title = req.body.search;
+        const page = req.body.page;
 
         if (await userClass.verifyRoll(id)) return res.json({ success: false, error: { "msg": "Permisos denegados" } });
-        
-        const data = await UserDB.findAll({
-            where: {
-                SEGROLId: {
-                    [Op.or]: [2, 3]
-                },
-                USU_STATE: {
-                    [Op.and]: [true]
-                }
-            },
-            include: [RoleDB]
-        });
 
-        if (data.length > 0) {
-            return res.json({ success: true, data: data });
-        }
-        return res.json({ success: false, error: { "msg": "La lista no posee empleados en el registro." } });
+        // var condition = title ? { USU_LOGIN: { [Op.like]: `%${title}%` } } : null;
+
+        const { limit, offset } = pageClass.getPagination(page, size);
+
+        const data = await UserDB.findAndCountAll({
+            include: [RoleDB],
+            where: {
+                SEGROLId: { [Op.or]: [2, 3] },
+                USU_STATE: { [Op.and]: [true] },
+                USU_LOGIN: { [Op.like]: [`%${title}%`] }
+            },
+            limit, offset
+        })
+            .then(data => {
+                const response = pageClass.getPagingData(data, page, limit);
+                res.json({ success: true, data: response });
+            })
+            .catch(err => {
+                res.json({ success: false, error: { "msg": "La lista no posee empleados en el registro." } });
+            });
     }
 
     getUser = async (req, res) => {
