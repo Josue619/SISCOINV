@@ -15,9 +15,9 @@ import { Token } from './helpers/token.helper';
 //----------------------------------------------------
 
 //---------------Inventario---------------------------
-import ListaArticulos from './components/invarticulos/listArticulos';
-import EditarProducto from './components/invarticulos/EditarProducto';
-import NuevoProductos from './components/invarticulos/NuevoProducto';
+import ListaArticulos from './components/inventarios/invarticulos/listArticulos';
+import EditarProducto from './components/inventarios/invarticulos/EditarProducto';
+import NuevoProductos from './components/inventarios/invarticulos/NuevoProducto';
 
 //----------------------------------------------------
 

@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 
 //Redux
 import { useDispatch} from 'react-redux';
-import { /*borrarProductoAction, */obternerProductoEditar } from '../../actions/productoActions';
+import { /*borrarProductoAction, */obternerProductoEditar } from '../../../actions/productoActions';
 
 const Producto = ({producto}) => {
     const { ATO_CODIGO, ATO_DESCRIPCION, ATO_MAR_MARCA, ATO_MOD_MODELO, Unidad_medida,ATO_FECHA_INGRESO  } =  producto;

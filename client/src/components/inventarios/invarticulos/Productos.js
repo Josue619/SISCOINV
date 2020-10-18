@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { obtenerProductosAction } from '../../actions/productoActions';
-import { obtenerUniMedisAction } from '../../actions/unimediActions';
+import { obtenerProductosAction } from '../../../actions/productoActions';
+import { obtenerUniMedisAction } from '../../../actions/unimediActions';
 
 
 const Productos = () => {

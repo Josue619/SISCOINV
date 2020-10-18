@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 
 //Actions de Redux
-import { crearNuevoProductoAction } from '../../actions/productoActions';
-import { mostrarAlerta, ocultarAlertaAction } from '../../actions/alertaActions';
+import { crearNuevoProductoAction } from '../../../actions/productoActions';
+import { mostrarAlerta, ocultarAlertaAction } from '../../../actions/alertaActions';
 
 import styled from '@emotion/styled';
 
 //Estilos personalizados
-import { Formulario, Campo } from '../ui/Formulario';
-import {FormUsuario} from '../ui/FormUsuario';
+import { Formulario, Campo } from '../../ui/Formulario';
+import {FormUsuario} from '../../ui/FormUsuario';
 import { Link } from 'react-router-dom';
 
 

@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link ,useHistory } from 'react-router-dom';
 
 //Actions Redux
-import { mostrarAlerta, ocultarAlertaAction } from '../../actions/alertaActions';
-import { editarProductoAction} from '../../actions/productoActions';
+import { mostrarAlerta, ocultarAlertaAction } from '../../../actions/alertaActions';
+import { editarProductoAction} from '../../../actions/productoActions';
 
 //Styled components
 import styled from '@emotion/styled';
 
 //Estilos personalizados
-import { Formulario, Campo } from '../ui/Formulario';
+import { Formulario, Campo } from '../../ui/Formulario';
 
 //import { Boton } from '../ui/Boton';
-import {FormUsuario} from '../ui/FormUsuario';
+import {FormUsuario} from '../../ui/FormUsuario';
 
 
 const Boton = styled.button`
