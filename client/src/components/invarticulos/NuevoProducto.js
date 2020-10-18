@@ -10,13 +10,14 @@ import styled from '@emotion/styled';
 //Estilos personalizados
 import { Formulario, Campo } from '../ui/Formulario';
 import {FormUsuario} from '../ui/FormUsuario';
+import { Link } from 'react-router-dom';
 
 
 //Elementos con estilos
 const Boton = styled.button`
     display: block;
     font-weight: 700;
-    text-transform: uppercase;
+    //text-transform: uppercase;
     border: 1px solid #d1d1d1;
     padding: .8rem 2rem;
     margin: .1rem auto; 
@@ -35,26 +36,11 @@ const Boton = styled.button`
     }
 `;
 
-const BotonUserCerrar = styled.a`
+const BotonUserCerrar = styled(Link)`
+    margin-top: 2rem;
     display: block;
-    font-weight: auto;
-    text-transform: uppercase;
-    border: 1px solid #d1d1d1;
-    padding: .8rem 2rem;
-    margin: .1rem auto; 
-    text-align: center;
-    background-color: gray/*${props => props.bgColor ? '#DA552F' : '#2f3848'}*/;
-    color: ${props => props.bgColor ? 'blanco' : '#FFF'};
-
-    &:last-of-type {
-        margin-right:10;
-    }
-
-    &:hover {
-        cursor: pointer;
-        background-color: var(--gris1);
-        color: red;
-    }
+    opacity: .50;
+    font-size: 150%;
 `;
 
 
@@ -67,9 +53,13 @@ const NuevoProductos = ({history}) => {
     const [ATO_MAR_MARCA, guardarMarca]= useState('');
     const [ATO_MOD_MODELO, guardarModelo]= useState('');
     const [ATO_UNIDAD_MEDIDA, guardarUnidadMedida]= useState(0);
+    const [ATO_FECHA_INGRESO] = useState(new Date());
 
     //utilizar use dispacth y te crea una funcion
     const dispatch = useDispatch();
+
+     //Carga Unidades
+     const unidades = useSelector(state => state.unimedi.unimedida);
 
     //Acceder al state del store
     const cargando = useSelector( state => state.productos.loading);
@@ -129,15 +119,11 @@ const NuevoProductos = ({history}) => {
             ATO_DETALLE,
             ATO_MAR_MARCA,
             ATO_MOD_MODELO,
-            ATO_UNIDAD_MEDIDA
+            ATO_UNIDAD_MEDIDA,
+            ATO_FECHA_INGRESO
         });
-
+        
         //redireccionar
-        history.push('/listarticulos');
-
-    }
-
-    const regresarListado = () => {
         history.push('/listarticulos');
     }
     
@@ -211,9 +197,16 @@ const NuevoProductos = ({history}) => {
                             value={ATO_UNIDAD_MEDIDA}
                             onChange={e => guardarUnidadMedida(e.target.value)}
                         >
-                            <option defaultValue>Selecione...</option>
-                            <option value="1">Unidades</option>
-                            <option value="2">Kilogramos</option>
+                           {unidades.length === 0 ? 'No hay productos' :(
+                                unidades.unidades.map(unidad =>(
+                                    <option 
+                                        key={unidad.UNI_MED_ID}
+                                        value={unidad.UNI_MED_ID}
+                                    >
+                                        {unidad.UNI_MED_DESCRIPCION}
+                                    </option>
+                                ))
+                             )}
                         </select>
                         
                     </Campo>
@@ -221,12 +214,11 @@ const NuevoProductos = ({history}) => {
                     <Boton>
                         Agregar Artículo
                     </Boton>
-                    <BotonUserCerrar onClick={regresarListado}>
-                        Regresar Listado
-                    </BotonUserCerrar>
-
-                
                 </Formulario>
+                <BotonUserCerrar to={'/listarticulos'}>
+                    Regresar Listado
+                </BotonUserCerrar>
+
                 { cargando ? <p>Cargando...</p> :null }
                 { error ? <p className="alert alert-danger p2 mt-4 text-center">Hubo error</p> : null}
             </div>

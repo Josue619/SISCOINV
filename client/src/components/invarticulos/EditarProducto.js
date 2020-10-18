@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link ,useHistory } from 'react-router-dom';
 
 //Actions Redux
 import { mostrarAlerta, ocultarAlertaAction } from '../../actions/alertaActions';
@@ -38,27 +38,13 @@ const Boton = styled.button`
     }
 `;
 
-const BotonUserCerrar = styled.a`
+const BotonUserCerrar = styled(Link)`
+    margin-top: 2rem;
     display: block;
-    font-weight: auto;
-    text-transform: uppercase;
-    border: 1px solid #d1d1d1;
-    padding: .8rem 2rem;
-    margin: .1rem auto; 
-    text-align: center;
-    background-color: gray/*${props => props.bgColor ? '#DA552F' : '#2f3848'}*/;
-    color: ${props => props.bgColor ? 'blanco' : '#FFF'};
-
-    &:last-of-type {
-        margin-right:10;
-    }
-
-    &:hover {
-        cursor: pointer;
-        background-color: var(--gris1);
-        color: red;
-    }
+    opacity: .50;
+    font-size: 150%;
 `;
+
 
 const EditarProducto = () => {
 
@@ -66,6 +52,10 @@ const EditarProducto = () => {
 
     const dispatch = useDispatch();
 
+    //Carga Unidades
+    const unidades = useSelector(state => state.unimedi.unimedida);
+    
+    
     //Nuevo state de producto
     const [ producto, guardarProducto] = useState({
         ATO_CODIGO: '',
@@ -81,6 +71,7 @@ const EditarProducto = () => {
     const error =  useSelector(state => state.productos.error);
     const alerta = useSelector(state => state.alerta.alerta);
 
+
     //Llenar el state automaticamente
     useEffect(() => {
         guardarProducto(productoeditar);
@@ -94,9 +85,12 @@ const EditarProducto = () => {
             [e.target.name]: e.target.value
         })
     }
+
     if(!producto) return history.push('/listarticulos');
 
     const {ATO_CODIGO, ATO_DESCRIPCION, ATO_DETALLE, ATO_MAR_MARCA, ATO_MOD_MODELO, ATO_UNIDAD_MEDIDA} =  producto;
+
+   
     
     const submitEditarProducto = e => {
         e.preventDefault();
@@ -128,17 +122,11 @@ const EditarProducto = () => {
         dispatch(ocultarAlertaAction());
         
         dispatch( editarProductoAction(producto));
-
+        
         history.push('/listarticulos');
 
         
     }
-
-    const regresarListado = () => {
-        history.push('/listarticulos');
-     
-    }
-     
    
     return ( 
         
@@ -199,19 +187,28 @@ const EditarProducto = () => {
                             value={ATO_UNIDAD_MEDIDA}
                             onChange={onChangeFormulario}
                         >
-                            <option defaultValue>Selecione...</option>
-                            <option value="1">Unidades</option>
-                            <option value="2">Kilogramos</option>
+                            {unidades.length === 0 ? 'No hay productos' :(
+                                unidades.unidades.map(unidad =>(
+                                    <option
+                                        key={unidad.UNI_MED_ID}
+                                        value={unidad.UNI_MED_ID}>
+                                            {unidad.UNI_MED_DESCRIPCION}
+                                    </option>
+                                ))
+                             )}
+
                         </select>
                         
                     </Campo>
                     <Boton>
                         Guardar Cambios
                     </Boton>
-                    <BotonUserCerrar onClick={regresarListado}>
-                        Regresar Listado
-                    </BotonUserCerrar>
                 </Formulario>
+                
+                <BotonUserCerrar to={'/listarticulos'}>
+                    Regresar Listado
+                </BotonUserCerrar>
+
                 { error ? <p className="alert alert-danger p2 mt-4 text-center">Hubo error</p> : null}
             </div>
        

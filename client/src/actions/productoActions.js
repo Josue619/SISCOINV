@@ -14,7 +14,7 @@ import {
     PRODUCTO_EDITADO_ERROR
 
 } from '../types';
-import { obtenerArticulos, pr_insertActArticulos} from '../services/main.service';
+import { obtenerArticulos, pr_insertActArticulos} from '../services/inv.services';
 import Swal from 'sweetalert2';
 
 //Crear nuevos productos
@@ -24,8 +24,6 @@ export function crearNuevoProductoAction(producto){
         
         try {
             //Insertar en la api
-            console.log(producto);
-            /*await clienteAxios.post('/productos',producto);*/
             const resultado = await pr_insertActArticulos(producto);
             
             if(resultado.data[0].Lv_mensaje !== null){

@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { obtenerProductosAction } from '../../actions/productoActions';
+import { obtenerUniMedisAction } from '../../actions/unimediActions';
+
 
 const Productos = () => {
     
@@ -13,8 +15,11 @@ const Productos = () => {
     useEffect( ()=> {
         //consultar la api
         const cargarProductos = () => dispatch(obtenerProductosAction());
+        const cargarUniMedi = () => dispatch(obtenerUniMedisAction());
         
-       cargarProductos();
+        
+        cargarProductos();
+        cargarUniMedi();
        // eslint-disable-next-line
     },[]);
 
@@ -22,18 +27,17 @@ const Productos = () => {
    const productos =  useSelector(state => state.productos.productos);
    const error =  useSelector( state => state.productos.error);
    const cargando =  useSelector(state => state.productos.loading);
+
+   
  
     return ( 
         <Fragment>
             <h2>Listado de Artículos Inventario</h2>
-            <Link to={"/productos/nuevo"} className="btn btn-danger ">
-                Agregar Artículo &#43;
-            </Link>
             
-            {error ? <p className="font-weight-blod btn btn-secondary text-center mt-4">Hubo un error: {error}</p> : null}
+            {error ? <p className="font-weight-blod alert alert-danger text-center mt-4">Hubo un error: {error}</p> : null}
             {cargando ? <p className="text-center">Cargando....</p> : null}
 
-            <table className="table  table-striped">
+            <table className="table  table-striped table-hover">
                 <thead className="table-dark">
                     <tr>
                         <th scope="col">Código</th>
@@ -42,7 +46,11 @@ const Productos = () => {
                         <th scope="col">Modelo</th>
                         <th scope="col">Unidad Medida</th>
                         <th scope="col">Fecha Ingreso</th>
-                        <th scope="col">Acciones</th>
+                        <th colSpan="2">
+                            <Link to={"/productos/nuevo"} className="btn btn-success ">
+                                Agregar Artículo &#43;
+                            </Link>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

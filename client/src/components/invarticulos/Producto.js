@@ -36,6 +36,7 @@ const Producto = ({producto}) => {
             }
           });
     }*/
+    //format(new Date(ATO_FECHA_INGRESO) ,'dd/MM/yyyy')
 
     //funcion que redirige de forma programada
     const redireccionarEdicion =  producto => {
@@ -45,13 +46,13 @@ const Producto = ({producto}) => {
     }
 
     return (  
-        <tr>
+        <tr key={ATO_CODIGO}>
             <td>{ATO_CODIGO}</td>
             <td>{ATO_DESCRIPCION}</td>
             <td>{ATO_MAR_MARCA}</td>
             <td>{ATO_MOD_MODELO}</td>
             <td>{Unidad_medida}</td>
-            <td>{format(new Date(ATO_FECHA_INGRESO) ,'dd/MM/yyyy') }</td>
+            <td>{format(new Date(ATO_FECHA_INGRESO),'MM/dd/yyyy')}</td>
             <td>
                 <button 
                     type="button" 
