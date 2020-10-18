@@ -154,12 +154,13 @@ class UserList extends Component {
     }
 
     loadFillData() {
+        //<td>{data.SEG_ROL.ROL_DESCRIPCION}</td>
 
         return this.state.userList.map((data) => {
             return (
                 <Fragment key={data.USU_CODIGO}>
                     <tr>
-                        <td>{data.SEG_ROL.ROL_DESCRIPCION}</td>
+                        <td>{data.seg_rol.ROL_DESCRIPCION}</td>
                         <td>{data.USU_LOGIN}</td>
                         <td>{data.USU_EMAIL}</td>
                         <td>{data.USU_CEDULA}</td>
