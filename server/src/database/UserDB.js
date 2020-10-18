@@ -4,7 +4,7 @@ const db = require('../config/database');
 // import model for FK roleID
 const Role = require('./RoleDB');
 
-var nameTable = 'SEG_USUARIOS';
+var nameTable = 'seg_usuarios';
 
 var UserDB = db.define(nameTable, {
     USU_CODIGO: {
