@@ -8,7 +8,7 @@ const uniMedi = db.define('inv_unidad_medida',{
         autoIncrement: true,
     },
 
-    UNI_CODIUNIDAD: {
+    UNI_MED_CODIUNIDAD: {
         type: Sequelize.STRING,
         unique: true,
         required: true

@@ -8,7 +8,7 @@ import { mostrarAlerta, ocultarAlertaAction } from '../../../actions/alertaActio
 import styled from '@emotion/styled';
 
 //Estilos personalizados
-import { Formulario, Campo } from '../../ui/Formulario';
+import { Formulario, Campo, Select } from '../../ui/Formulario';
 import {FormUsuario} from '../../ui/FormUsuario';
 import { Link } from 'react-router-dom';
 
@@ -38,7 +38,7 @@ const Boton = styled.button`
 
 const BotonUserCerrar = styled(Link)`
     margin-top: 2rem;
-    display: block;
+    //display: block;
     opacity: .50;
     font-size: 150%;
 `;
@@ -68,6 +68,9 @@ const NuevoProductos = ({history}) => {
 
     //Manda a llamar el action del producto.
     const aregagrProducto = producto => dispatch( crearNuevoProductoAction(producto) );
+    
+    //Oculta la alerta inicio.
+    
 
     //Cuando el usuario haga submit
     const submitNuevoProducto = e => {
@@ -102,13 +105,12 @@ const NuevoProductos = ({history}) => {
                 msg: 'Debe selecionar la Unidad de Medida',
                 clases: 'alert alert-danger text-center text-uppercase p3'
             }
+            //ATO_UNIDAD_MEDIDA = '1';
             dispatch(mostrarAlerta(alerta));
 
             return;
         }
-
-
-
+        
         //si no hay errores
         dispatch(ocultarAlertaAction());
 
@@ -124,7 +126,7 @@ const NuevoProductos = ({history}) => {
         });
         
         //redireccionar
-        history.push('/listarticulos');
+        history.push('/inv/listarticulos');
     }
     
     return ( 
@@ -191,23 +193,24 @@ const NuevoProductos = ({history}) => {
                     
                     <Campo>
                         <label htmlFor="unidadmed">Unidad Medida</label>
-                        <select 
+                        <Select 
                             id="ATO_UNIDAD_MEDIDA"
                             name="ATO_UNIDAD_MEDIDA"
                             value={ATO_UNIDAD_MEDIDA}
                             onChange={e => guardarUnidadMedida(e.target.value)}
                         >
                            {unidades.length === 0 ? 'No hay productos' :(
-                                unidades.unidades.map(unidad =>(
+                                unidades.map(unidad =>(
                                     <option 
                                         key={unidad.UNI_MED_ID}
                                         value={unidad.UNI_MED_ID}
                                     >
                                         {unidad.UNI_MED_DESCRIPCION}
                                     </option>
+                                    
                                 ))
                              )}
-                        </select>
+                        </Select>
                         
                     </Campo>
 
@@ -215,7 +218,7 @@ const NuevoProductos = ({history}) => {
                         Agregar Artículo
                     </Boton>
                 </Formulario>
-                <BotonUserCerrar to={'/listarticulos'}>
+                <BotonUserCerrar to={'/inv/listarticulos'}>
                     Regresar Listado
                 </BotonUserCerrar>
 

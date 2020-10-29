@@ -1,6 +1,6 @@
 import React from 'react';
-import Productos from './Productos';
 import { useHistory } from 'react-router-dom';
+import UniMedidas from './UniMedidas';
 
 
 //Styled components
@@ -18,7 +18,7 @@ const Formulario = styled.div`
 
 const Contenedor = styled.div`
     padding: 5rem 3rem;
-    max-width: 1200px;
+    max-width: 800px;
     width: 100%;
     background-color: var(--blanco);
     border-radius: 1rem;
@@ -45,7 +45,7 @@ export const Boton = styled.button`
     }
 `;
 
-const ListaArticulos = () => {
+const ListUniMedida = () => {
 
   const history = useHistory();// habilitar history para redirecion
 
@@ -60,12 +60,11 @@ const ListaArticulos = () => {
     <Formulario>
       <Contenedor>
       <div className="table-responsive">
-        <Productos />
-
-        <Boton 
-          onClick={redireccionarMenu}>
-            Regresar al Menú
-        </Boton>
+          <UniMedidas />
+          <Boton 
+            onClick={redireccionarMenu}>
+                Regresar al Menú
+          </Boton>
       </div>
       </Contenedor>
     </Formulario>
@@ -73,4 +72,4 @@ const ListaArticulos = () => {
    );
 }
  
-export default ListaArticulos;
+export default ListUniMedida;

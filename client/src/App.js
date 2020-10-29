@@ -15,9 +15,16 @@ import { Token } from './helpers/token.helper';
 //----------------------------------------------------
 
 //---------------Inventario---------------------------
+import MenuInventario from './components/main/menuInventarios';
 import ListaArticulos from './components/inventarios/invarticulos/listArticulos';
 import EditarProducto from './components/inventarios/invarticulos/EditarProducto';
 import NuevoProductos from './components/inventarios/invarticulos/NuevoProducto';
+import ListaUnidadMedida from './components/inventarios/unidadesmedida/ListUniMedida';
+import NuevaUnidadMedi from './components/inventarios/unidadesmedida/NuevaUnidadMedi';
+import EditarUnidadMedi from './components/inventarios/unidadesmedida/EditarUniMedi';
+import ListBodVen from './components/inventarios/vendeBode/ListBodVen';
+import NuevoBodeVende from './components/inventarios/vendeBode/NuevoBodeVende';
+
 
 //----------------------------------------------------
 
@@ -39,9 +46,19 @@ class App extends Component {
           <Route exact path="/" component={Landing} />
 
           <Switch>
-            <Route exact path="/listarticulos" component={ListaArticulos}/>
-            <Route exact path="/productos/nuevo" component={NuevoProductos}/>
-            <Route exact path="/productos/editar/:id" component={EditarProducto} />
+            <Route exact path='/inv/minventario' component={MenuInventario}/>
+            <Route exact path="/inv/listarticulos" component={ListaArticulos}/>
+            <Route exact path="/inv/productos/nuevo" component={NuevoProductos}/>
+            <Route exact path="/inv/productos/editar/:id" component={EditarProducto} />
+
+            <Route exact path="/inv/listunidadmedida" component={ListaUnidadMedida} />
+            <Route exact path="/inv/munidadmedi/nuevo" component={NuevaUnidadMedi} />
+            <Route exact path="/inv/munidadmedi/editar/:id" component={EditarUnidadMedi} />
+            
+            <Route exact path="/inv/munidadmedi/listbodven" component={ListBodVen} />
+            <Route exact path="/inv/munidadmedi/nuevobodevende" component={NuevoBodeVende} />
+
+            
           </Switch>
           
           

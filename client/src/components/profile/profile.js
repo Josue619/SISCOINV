@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { profile } from '../../services/main.service';
 
+import SidebarMod from '../layout/SidebarMod';
+import { Formulario, Campo } from '../ui/Formulario';
+
+
 class Profile extends Component {
-    
+
     constructor() {
         super();
         this.state = {
             name: '',
             email: ''
         }
+
     }
 
     
@@ -19,22 +24,25 @@ class Profile extends Component {
                 email: res.data.USU_EMAIL
             });
         });
-        
-        
-        
-
     }
+    
 
     render() {
         return (
-            <div className="contendor-tareas">
-                <div className="proyectos">
+            <div className="contenedor-app table-responsive">
+            <SidebarMod />
+            <Formulario>
+                <Campo>
                     <h1>Sistema de Control Inventarios</h1>
-                    
-                    <table className="table col-md-4 mx-auto">
+                </Campo>
+                <Campo>
+                    <h2>Información Usuario</h2>
+                </Campo>
+                <Campo>
+                    <table className="table table-bordered">
                         <tbody>
                             <tr>
-                                <td>Name</td>
+                                <td>Usuario:</td>
                                 <td>{this.state.name}</td>
                             </tr>
                             <tr>
@@ -43,8 +51,9 @@ class Profile extends Component {
                             </tr>
                         </tbody>
                     </table>
-
-                </div>
+                </Campo>
+                        
+            </Formulario>
             </div>
         )
     }

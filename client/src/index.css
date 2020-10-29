@@ -24,13 +24,22 @@ body {
 }
 
 
-h1, h2, h3 {
+h1, h2 {
   font-family: var(--headingFont);
   font-weight: 900;
   margin: 0 0 4rem 0;
   text-align: center;
   color: var(--gris2);
 }
+
+h3 {
+  font-family: var(--headingFont);
+  font-weight: 900;
+  margin: 0 0 3rem 0;
+  text-align: left;
+  color: var(--gris3);
+}
+
 h1 span {
   font-weight: 400;
 }
@@ -55,53 +64,11 @@ a {
   color: var(--gris2);
 }
 
-/** BOTONES **/
-/** 
-.btn {
-  margin-top: 2rem;
-  font-family: var(--headingFont);
-  padding: 1.5rem;
-  font-size: 1.4;
-  font-weight: 400;
-  border-radius: .5rem;
-  border: none;  
-  transition: background-color .3s ease;
-}
-
-.btn:hover {
-  cursor: pointer;
-}
-.btn-primario {
-  background-color: var(--gris2);
-  color: var(--blanco);
-}
-.btn-primario:hover {
-  background: var(--gris3);
-}
-.btn-secundario {
-  background-color: var(--gris1);
-}
-.btn-block {
-  display: block;
-  width: 100%;
-}
-.btn-submit:hover {
-  background-color: var(--gris2);
-}
-.btn-blank {
-  margin: 0;
-  padding: 0;
-  display: block;
-  background-color: transparent;
-}
-
-**/
-
 .cerrar-sesion {
   color: var(--blanco);
 }
 
-/*@media (min-width: 768px) {
+@media (min-width: 768px) {
   .contenedor-app {
       display: flex;
       min-height: 100vh;
@@ -115,14 +82,38 @@ a {
       flex: 1;
   }
 
-}*/
+}
+/* Styles for wrapping the search box */
+
+.main {
+  width: 50%;
+  margin: 50px auto;
+}
+
+/* Bootstrap 4 text input with search icon */
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
 
 
 /* BARRA LATERAL */
-/*aside  {
+aside  {
   padding: 3rem;
 }
-
+/*
 .formulario-nuevo-proyecto {
   margin-top: 6rem;
 }

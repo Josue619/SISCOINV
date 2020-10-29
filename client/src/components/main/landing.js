@@ -26,9 +26,11 @@ class Landing extends Component {
         return (
             <Formulario>
                 <Contenedor>
-                    <h1 className="text-center">Bienvenido Sistema Control Inventarios</h1>                    
+                    <h1 className="text-center">Bienvenido Sistema Control Inventarios</h1>
+                    
                 </Contenedor>
             </Formulario>
+
         )
     }
 }

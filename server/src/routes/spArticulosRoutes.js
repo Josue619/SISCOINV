@@ -5,10 +5,14 @@ const router =  express.Router();
 
 //Obtiene los resultados de la consulta.
 router.get('/obtieneArticulos',articulosControllers.obtieneArticulos);
-router.get('/obtieneUnimedida',unimediControllers.obtenerUnidadMedida);
 
 //Inserta o actualiza los aticulos.
 router.post('/pr_insertActualizaArti',articulosControllers.pr_insertActualizaArti);
+
+//Elimina un articulo
+router.post('/pr_inv_del_articulo',articulosControllers.pr_inv_del_articulo);
+
+
 
 
 module.exports =  router;

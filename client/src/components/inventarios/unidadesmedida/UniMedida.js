@@ -1,22 +1,23 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { format } from 'date-fns'
+
 
 import Swal from 'sweetalert2';
 
 //Redux
 import { useDispatch} from 'react-redux';
-import { borrarProductoAction, obternerProductoEditar } from '../../../actions/productoActions';
+import { borrarUniMediAction, obternerUniMediEditar } from '../../../actions/unimediActions';
 
-const Producto = ({producto}) => {
-    const { ATO_CODIGO, ATO_DESCRIPCION, ATO_MAR_MARCA, ATO_MOD_MODELO, Unidad_medida,ATO_FECHA_INGRESO  } =  producto;
+const UniMedida = (unidades) => {
+
+    const { UNI_MED_CODIUNIDAD, UNI_MED_DESCRIPCION } =  unidades.unidad;
 
     const dispatch = useDispatch();
     const history = useHistory();// habilitar history para redirecion
    
 
     //Confirmar si desea eliminarlo
-    const confirmarEliminarProducto = producto => {
+    const confirmarEliminarUnimedi = unidamedida => {
 
         //Preguntar al usuario
         Swal.fire({
@@ -31,41 +32,37 @@ const Producto = ({producto}) => {
           }).then((result) => {
             if (result.value) {
                  //pasarlo al action
-                 dispatch(borrarProductoAction(producto));
+                 dispatch(borrarUniMediAction(unidamedida));
               
             }
           });
     }
-    //format(new Date(ATO_FECHA_INGRESO) ,'dd/MM/yyyy')
+    
 
     //funcion que redirige de forma programada
-    const redireccionarEdicion =  producto => {
-        
-        dispatch( obternerProductoEditar(producto) );
-        history.push(`/inv/productos/editar/${producto.ATO_CODIGO}`);
+    const redireccionarEdicion =  unidadmedida => {
+        dispatch( obternerUniMediEditar(unidadmedida) );
+        history.push(`/inv/munidadmedi/editar/${unidadmedida.UNI_MED_ID}`);
 
     }
+    
 
-    return (
+    return (  
         <tr>
-            <td>{ATO_CODIGO}</td>
-            <td>{ATO_DESCRIPCION}</td>
-            <td>{ATO_MAR_MARCA}</td>
-            <td>{ATO_MOD_MODELO}</td>
-            <td>{Unidad_medida}</td>
-            <td>{format(new Date(ATO_FECHA_INGRESO),'MM/dd/yyyy')}</td>
+            <td>{UNI_MED_CODIUNIDAD}</td>
+            <td>{UNI_MED_DESCRIPCION}</td>
             <td>
                 <button 
                     type="button" 
                     className="btn btn-primary mr-2"
-                    onClick={() => redireccionarEdicion(producto)}
+                    onClick={() => redireccionarEdicion(unidades.unidad)}
                 >
                     Editar
                 </button>
                 <button 
                     type="button" 
                     className="btn btn-danger"
-                    onClick={ () => confirmarEliminarProducto(producto)}
+                    onClick={ () => confirmarEliminarUnimedi(unidades.unidad)}
                 >
                     Eliminar
                 </button>
@@ -74,4 +71,4 @@ const Producto = ({producto}) => {
     );
 }
  
-export default Producto;
+export default UniMedida;

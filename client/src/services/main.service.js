@@ -2,8 +2,8 @@ import axios from 'axios';
 import { Token } from '../helpers/token.helper';
 
 const token = new Token();
-const baseAuthUrl = /*'http://localhost:3000/api/auth';*/`${process.env.REACT_APP_URL_SERCLIENT}/api/auth`;
-const baseUserUrl = /*'http://localhost:3000/api/user';*/`${process.env.REACT_APP_URL_SERCLIENT}/api/user`;
+const baseAuthUrl = `${process.env.REACT_APP_URL_SERCLIENT}/api/auth`;
+const baseUserUrl = `${process.env.REACT_APP_URL_SERCLIENT}/api/user`;
 
 
 export function admin_auth(data) {

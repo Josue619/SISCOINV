@@ -32,6 +32,10 @@ class Server {
 
         /**----------------Api de inventarios-----------*/
         this.app.use('/api/procesos', require('./routes/spArticulosRoutes'));
+        this.app.use('/api/mantenimiento', require('./routes/invUniMediRoutes'));
+        this.app.use('/api/mantenimiento', require('./routes/invbodvenRoutes'));
+        
+
         /**--------------------------------------------- */
     }
 

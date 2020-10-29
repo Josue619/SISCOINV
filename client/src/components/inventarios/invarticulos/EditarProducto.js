@@ -10,7 +10,7 @@ import { editarProductoAction} from '../../../actions/productoActions';
 import styled from '@emotion/styled';
 
 //Estilos personalizados
-import { Formulario, Campo } from '../../ui/Formulario';
+import { Formulario, Campo, Select } from '../../ui/Formulario';
 
 //import { Boton } from '../ui/Boton';
 import {FormUsuario} from '../../ui/FormUsuario';
@@ -86,7 +86,7 @@ const EditarProducto = () => {
         })
     }
 
-    if(!producto) return history.push('/listarticulos');
+    if(!producto) return history.push('/inv/listarticulos');
 
     const {ATO_CODIGO, ATO_DESCRIPCION, ATO_DETALLE, ATO_MAR_MARCA, ATO_MOD_MODELO, ATO_UNIDAD_MEDIDA} =  producto;
 
@@ -123,7 +123,7 @@ const EditarProducto = () => {
         
         dispatch( editarProductoAction(producto));
         
-        history.push('/listarticulos');
+        history.push('/inv/listarticulos');
 
         
     }
@@ -181,33 +181,35 @@ const EditarProducto = () => {
                     
                     <Campo>
                         <label htmlFor="unidadmed">Unidad Medida</label>
-                        <select 
+                        <Select 
                             id="UNIDAD_MEDIDA"
                             name="ATO_UNIDAD_MEDIDA"
                             value={ATO_UNIDAD_MEDIDA}
                             onChange={onChangeFormulario}
                         >
                             {unidades.length === 0 ? 'No hay productos' :(
-                                unidades.unidades.map(unidad =>(
+                                unidades.map(unidad =>(
                                     <option
                                         key={unidad.UNI_MED_ID}
                                         value={unidad.UNI_MED_ID}>
-                                            {unidad.UNI_MED_DESCRIPCION}
+                                        {unidad.UNI_MED_DESCRIPCION}
                                     </option>
                                 ))
-                             )}
+                            )}
+                        </Select>
 
-                        </select>
-                        
                     </Campo>
                     <Boton>
                         Guardar Cambios
                     </Boton>
                 </Formulario>
+                <div>
+                    <BotonUserCerrar to={'/inv/listarticulos'}>
+                        Regresar Listado
+                    </BotonUserCerrar>
+
+                </div>
                 
-                <BotonUserCerrar to={'/listarticulos'}>
-                    Regresar Listado
-                </BotonUserCerrar>
 
                 { error ? <p className="alert alert-danger p2 mt-4 text-center">Hubo error</p> : null}
             </div>

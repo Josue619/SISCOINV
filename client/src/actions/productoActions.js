@@ -3,8 +3,10 @@ import {
     AGREGAR_PRODUCTO_EXITO,
     AGREGAR_PRODUCTO_ERROR,
     COMENZAR_DESCARGA_PRODUCTOS,
+    PRODUCTO_CONSULTAR_EXITO,
     DESCARGA_PRODUCTOS_EXITO,
     DESCARGA_PRODUCTOS_ERROR,
+    OBTENER_PRODUCTO_CONSULTAR,
     OBTENER_PRODUCTO_ELIMINAR,
     PRODUCTO_ELIMINADO_EXITO,
     PRODUCTO_ELIMINADO_ERROR,
@@ -14,7 +16,7 @@ import {
     PRODUCTO_EDITADO_ERROR
 
 } from '../types';
-import { obtenerArticulos, pr_insertActArticulos} from '../services/inv.services';
+import { obtenerArticulos, pr_insertActArticulos, pr_inv_del_articulo } from '../services/inv.services';
 import Swal from 'sweetalert2';
 
 //Crear nuevos productos
@@ -52,7 +54,6 @@ export function crearNuevoProductoAction(producto){
                 title: 'Hubo un error',
                 text: error +'. Intenta de nuevo'
             });
-
         }
     }
 }
@@ -105,18 +106,29 @@ const descargaProductosError = () => ({
 });
 
 //Selecciona y elimina el producto
-export function borrarProductoAction(id) {
+export function borrarProductoAction(producto) {
     return async (dispatch) => {
-        dispatch(obtenerProductoEliminar(id) );
+        dispatch(obtenerProductoEliminar(producto.ATO_CODIGO) );
 
         try {
             /*await clienteAxios.delete(`/productos/${id}`);*/
-            dispatch(eliminarProductoExito());
-            Swal.fire(
-                'Eliminado!',
-                'El producto se elimino correctamente.',
-                'success'
-              );
+            const resultado = await pr_inv_del_articulo(producto);
+            
+            if(resultado.data[0].Lv_mensaje !== null){
+
+                dispatch( eliminarProductoError(true) );
+                alertaMensajeError(resultado.data[0].Message,'error','Error MySQL: '+resultado.data[0].Code);
+                
+                
+            }else{
+                dispatch(eliminarProductoExito());
+
+                Swal.fire(
+                    'Eliminado!',
+                    'El producto se elimino correctamente.',
+                    'success'
+                );
+            }
             
         } catch (error) {
             console.log(error);
@@ -157,7 +169,6 @@ export function editarProductoAction(producto) {
         dispatch( editarProducto());
         try {
             const resultado = await pr_insertActArticulos(producto);
-            console.log(resultado);
             
             if(resultado.data[0].Lv_mensaje !== null){
                 dispatch( editarProductoError() );
@@ -188,6 +199,28 @@ const editarProductoError = () => ({
     payload: true
 });
 
+//Selecciona y elimina el producto
+export function consultarProductoAction(producto) {
+    console.log(producto);
+    return (dispatch) => {
+        
+        dispatch(obtenerProductoArticulo(producto.search) );
+        dispatch(consultarProductoExito());
+       
+        
+    }
+}
+
+
+const obtenerProductoArticulo = id => ({
+    type: OBTENER_PRODUCTO_CONSULTAR,
+    payload: id
+});
+
+const consultarProductoExito = () => ({
+    type: PRODUCTO_CONSULTAR_EXITO
+});
+
  //Dispara mensaje
 const alertaMensajeError = (msg, icon, title) => {
     Swal.fire({
@@ -197,13 +230,4 @@ const alertaMensajeError = (msg, icon, title) => {
     });
 
 }
-
-//Dispara mesanje temporal
-/*const alertaMensajeTemporal = (msg, title) => {
-    Swal.fire({
-        title: title,
-        text: msg,
-        timer: 5000,
-        showConfirmButton: false
-        });
-}*/
+//Consulta Producto

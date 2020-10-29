@@ -30,14 +30,16 @@ export const Campo = styled.div`
     }
 
     select {
-     background: transparent;
+     //background: transparent;
      background-color: var(--gris1);
-     border: none;
-     font-size: auto;
+     border: auto;
+     font-size: 120%;
      height: 30px;
      padding: 5px;
-     width: 250px;
+     width: 1000px;
+     
   }
+  
 `;
 
 export const InputSubmit = styled.input`
@@ -54,6 +56,27 @@ export const InputSubmit = styled.input`
     &:hover {
         cursor: pointer;
     }
+`;
+
+export const Select = styled.select`
+  width: 100%;
+  height:35px;
+  background: white;
+  color: gray;
+  padding-left: 5px;
+  font-size: 14px;
+  border:none;
+  margin-left: 10px;
+
+       option {
+         color: black;
+         background: white;
+         font-weight: small;
+         display: flex;
+         white-space: pre;
+         min-height: 20px;
+         padding: 0px 2px 1px;
+       }
 `;
 
 export const Error = styled.p`

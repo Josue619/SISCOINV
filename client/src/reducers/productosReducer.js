@@ -4,6 +4,8 @@ import {
     AGREGAR_PRODUCTO_ERROR,
     COMENZAR_DESCARGA_PRODUCTOS,
     DESCARGA_PRODUCTOS_EXITO,
+    OBTENER_PRODUCTO_CONSULTAR,
+    PRODUCTO_CONSULTAR_EXITO,
     DESCARGA_PRODUCTOS_ERROR,
     OBTENER_PRODUCTO_ELIMINAR,
     PRODUCTO_ELIMINADO_EXITO,
@@ -18,10 +20,12 @@ import {
 //Cada reducers tiene su propio state
 const initialState = {
     productos: [],
+    produunid: [],
     error: null,
     loading: false,
     productoEliminar: null,
-    productoeditar: null
+    productoeditar: null,
+    productoconsultar: null
 
 }
 
@@ -67,6 +71,19 @@ export default function(state = initialState, action){
                 productos: state.productos.filter(producto => producto.ATO_CODIGO !== state.productoEliminar),
                 productoEliminar: null
             }
+        case OBTENER_PRODUCTO_CONSULTAR:
+            return{
+                ...state,
+                productoconsultar: action.payload
+               
+            }
+        case PRODUCTO_CONSULTAR_EXITO:
+            return{
+                ...state,
+                productos: state.productos.filter(producto => producto.ATO_CODIGO === state.productoconsultar || producto.ATO_DESCRIPCION.includes(state.productoconsultar)),
+                productoconsultar: null
+            }
+        
         case OBTENER_PRODUCTO_EDITAR:
             return{
                 ...state,
