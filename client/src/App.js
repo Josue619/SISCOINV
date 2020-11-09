@@ -24,6 +24,7 @@ import NuevaUnidadMedi from './components/inventarios/unidadesmedida/NuevaUnidad
 import EditarUnidadMedi from './components/inventarios/unidadesmedida/EditarUniMedi';
 import ListBodVen from './components/inventarios/vendeBode/ListBodVen';
 import NuevoBodeVende from './components/inventarios/vendeBode/NuevoBodeVende';
+import EditarBodeVende from './components/inventarios/vendeBode/EditarBodeVende';
 
 
 //----------------------------------------------------
@@ -55,8 +56,9 @@ class App extends Component {
             <Route exact path="/inv/munidadmedi/nuevo" component={NuevaUnidadMedi} />
             <Route exact path="/inv/munidadmedi/editar/:id" component={EditarUnidadMedi} />
             
-            <Route exact path="/inv/munidadmedi/listbodven" component={ListBodVen} />
-            <Route exact path="/inv/munidadmedi/nuevobodevende" component={NuevoBodeVende} />
+            <Route exact path="/inv/listbodven" component={ListBodVen} />
+            <Route exact path="/inv/mbodevende/nuevobodevende" component={NuevoBodeVende} />
+            <Route exact path="/inv/mbodevende/editarbodevende/:id" component={EditarBodeVende} />
 
             
           </Switch>

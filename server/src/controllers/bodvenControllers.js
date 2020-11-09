@@ -66,7 +66,7 @@ exports.actualizarBodeVende = async (req, res ) => {
     
     try {
         // Extraer el Unidades medida y comprobar si existe
-        const bodevende = req.query;
+        const bodevende = req.body;
         console.log(bodevende);
         
         await InvBodeVende.update({

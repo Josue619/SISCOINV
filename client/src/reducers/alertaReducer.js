@@ -7,8 +7,8 @@ import {
 const initialState = {
     alerta: null
 }
-
-export default function(state = initialState, action){
+/* eslint import/no-anonymous-default-export: [2, {"allowAnonymousFunction": true}] */
+export default function(state = initialState, action){    
     switch(action.type){
 
         case MOSTRAR_ALERTA:
@@ -25,4 +25,6 @@ export default function(state = initialState, action){
         default:
             return state;
     }
+    
 }
+// eslint-disable-next-line

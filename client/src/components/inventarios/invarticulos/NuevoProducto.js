@@ -199,7 +199,8 @@ const NuevoProductos = ({history}) => {
                             value={ATO_UNIDAD_MEDIDA}
                             onChange={e => guardarUnidadMedida(e.target.value)}
                         >
-                           {unidades.length === 0 ? 'No hay productos' :(
+                            <option defaultValue>Selecione...</option>
+                            {unidades.length === 0 ? 'No hay productos' :(
                                 unidades.map(unidad =>(
                                     <option 
                                         key={unidad.UNI_MED_ID}
@@ -211,7 +212,6 @@ const NuevoProductos = ({history}) => {
                                 ))
                              )}
                         </Select>
-                        
                     </Campo>
 
                     <Boton>

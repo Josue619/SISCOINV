@@ -1,33 +1,34 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link ,useHistory } from 'react-router-dom';
 
-//Actions de Redux
-import { crearNuevoBodeVedenActions } from '../../../actions/bodevendeActions';
+//Actions Redux
 import { mostrarAlerta, ocultarAlertaAction } from '../../../actions/alertaActions';
+import { editarBodeVendeAction } from '../../../actions/bodevendeActions'
 
-
+//Styled components
 import styled from '@emotion/styled';
 
 //Estilos personalizados
 import { Formulario, Campo, Select } from '../../ui/Formulario';
+
+//import { Boton } from '../ui/Boton';
 import {FormUsuario} from '../../ui/FormUsuario';
-import { Link } from 'react-router-dom';
 
 
-//Elementos con estilos
 const Boton = styled.button`
     display: block;
-    font-weight: 700;
-    //text-transform: uppercase;
+    font-weight: auto;
+    text-transform: uppercase;
     border: 1px solid #d1d1d1;
     padding: .8rem 2rem;
-    margin: .1rem auto; 
+    margin: auto auto; 
     text-align: center;
     background-color: ${props => props.bgColor ? '#DA552F' : '#2f3848'};
     color: ${props => props.bgColor ? 'blanco' : '#FFF'};
 
     &:last-of-type {
-        margin-right:10;
+        margin-right:40;
     }
 
     &:hover {
@@ -39,56 +40,64 @@ const Boton = styled.button`
 
 const BotonUserCerrar = styled(Link)`
     margin-top: 2rem;
-    //display: block;
+    display: block;
     opacity: .50;
     font-size: 150%;
 `;
 
-const NuevoBodeVende = ({history}) => {
+
+
+const EditarBodeVende = () => {
 
     //Carga usuarios
     const usuarios =  useSelector(state => state.usuarios.usuario.data.users);
     //Carga el usuario logueado
     const usuariologueo = useSelector(state => state.usuarios.usuariologue);
-
-    //console.log(usuariologueo);
     
-     //State del componente
-    const [BOD_VEN_CODIGO, guardarCodiBodeVend]= useState('');
-    const [BOD_VEN_USUARIO, guardarUsuario]= useState('');
-    const [BOD_VEN_TIPO, guardarTipo]= useState('');
-    const [BOD_VEN_CREADO]= useState(usuariologueo);
-    const [BOD_VEN_FECHA]=useState(new Date());
-   
+    const history =  useHistory();
 
-    //utilizar use dispacth y te crea una funcion
     const dispatch = useDispatch();
-    
-    const cargando = useSelector( state => state.bodevend.loading);
+
+    //Nuevo state
+    const [ bodevende, guardarBodeVende] = useState({
+        BOD_VEN_CODIGO: '',
+        BOD_VEN_USUARIO: '',
+        BOD_VEN_TIPO: '',
+        BOD_VEN_MODIFICADO: usuariologueo,
+        BOD_VEN_FECHAMODO: new Date()
+    });
+
+    //Producto a editar
+    const bodevendeditar =  useSelector(state => state.bodevend.bodevedeeditar);
     const error =  useSelector(state => state.bodevend.error);
     const alerta = useSelector(state => state.alerta.alerta);
 
-    //Manda a llamar el action del producto.
-    const aregagrBodeVende = bodevende => dispatch( crearNuevoBodeVedenActions(bodevende) );
-    
+    //Leer los datos del formulario
+    const onChangeFormulario = e => {
+        guardarBodeVende({
+            ...bodevende,
+            [e.target.name]: e.target.value
+        })
+    }
 
-    //Agregar nuevo bodeguero o vendedor
-    const submitNuevoBodeVende = e => {
-        e.preventDefault(); 
+     //Llenar el state automaticamente
+     useEffect(() => {
+        guardarBodeVende(bodevendeditar);
 
-        if(BOD_VEN_CODIGO.trim() ===''){
+    }, [bodevendeditar]);
+
+    if(!bodevende || !usuarios) return history.push('/inv/listbodven');
+
+    const {BOD_VEN_CODIGO, BOD_VEN_USUARIO, BOD_VEN_TIPO} =  bodevende;
+
+    const submitEditarBodeVende = e => {
+        e.preventDefault();
+
+         //Validar formulario
+         if(BOD_VEN_USUARIO <= 0){
+
             const alerta = {
-                msg: 'El campo Código Bodeguero o Vendedor es obligatorio',
-                clases: 'alert alert-danger text-center text-uppercase p3'
-            }
-            dispatch(mostrarAlerta(alerta));
-
-            return;
-        }
-
-        if(BOD_VEN_USUARIO <= 0){
-            const alerta = {
-                msg: 'Debe seleccionar un usuario para relacionarlo',
+                msg: 'El campo Descripción del Artículo es obligatorio',
                 clases: 'alert alert-danger text-center text-uppercase p3'
             }
             dispatch(mostrarAlerta(alerta));
@@ -97,8 +106,9 @@ const NuevoBodeVende = ({history}) => {
         }
 
         if(BOD_VEN_TIPO.trim() === ''){
+
             const alerta = {
-                msg: 'Debe seleccionar el tipo si es Bodeguero o Vendedor',
+                msg: 'Debe selecionar la Unidad de Medida',
                 clases: 'alert alert-danger text-center text-uppercase p3'
             }
             dispatch(mostrarAlerta(alerta));
@@ -109,44 +119,30 @@ const NuevoBodeVende = ({history}) => {
         //si no hay errores
         dispatch(ocultarAlertaAction());
 
-        //Crear el nuevo bodeguero vendedor
-        aregagrBodeVende({BOD_VEN_CODIGO,
-                         BOD_VEN_USUARIO,
-                         BOD_VEN_TIPO,
-                         BOD_VEN_CREADO,
-                         BOD_VEN_FECHA
-        });
+        dispatch( editarBodeVendeAction(bodevende));
 
-        //redireccionar
+        //Redirecciona al listado
         history.push('/inv/listbodven');
+
     }
 
 
     return ( 
         <FormUsuario
-            onSubmit={submitNuevoBodeVende}
+            onSubmit={submitEditarBodeVende}
         >
             <div className="contenedor-form sombra-dark">
-                <h1>Nuevo Bodeguero / Vendedor</h1>
+                <h1>Edición Código: {BOD_VEN_CODIGO}</h1>
                 {alerta ? <p className={alerta.clases}> {alerta.msg}</p> : null}
+
                 <Formulario>
-                    <Campo>
-                        <label htmlFor="codi">Código</label>
-                        <input 
-                            type="text"
-                            name="BOD_VEN_CODIGO" 
-                            placeholder="Código del bodeguero o vendedor"
-                            value={BOD_VEN_CODIGO} 
-                            onChange={e => guardarCodiBodeVend(e.target.value)}
-                        />
-                    </Campo>
-                    <Campo>
+                <Campo>
                         <label htmlFor="usuarios">Usuario Relacionado</label>
                         <Select 
                             id="BOD_VEN_USUARIO"
                             name="BOD_VEN_USUARIO"
                             value={BOD_VEN_USUARIO}
-                            onChange={e => guardarUsuario(e.target.value)}
+                            onChange={onChangeFormulario}
                         >
                             <option defaultValue>Selecione...</option>
                             {usuarios.length === 0 ? 'No hay productos' :(
@@ -168,7 +164,7 @@ const NuevoBodeVende = ({history}) => {
                             id="BOD_VEN_TIPO"
                             name="BOD_VEN_TIPO"
                             value={BOD_VEN_TIPO}
-                            onChange={e => guardarTipo(e.target.value)}
+                            onChange={onChangeFormulario}
                         >
                             <option defaultValue>Selecione...</option>
                             <option value="BO">Bodeguero</option>
@@ -177,24 +173,20 @@ const NuevoBodeVende = ({history}) => {
                     </Campo>
 
                     <Boton>
-                        Agregar Bodeguero/Vendedor
+                        Editar Bodeguero/Vendedor
                     </Boton>
-
                 </Formulario>
 
                 <BotonUserCerrar to={'/inv/listbodven'}>
                     Regresar Listado
                 </BotonUserCerrar>
 
-                { cargando ? <p>Cargando...</p> :null }
                 { error ? <p className="alert alert-danger p2 mt-4 text-center">Hubo error</p> : null}
-
             </div>
+            
         </FormUsuario>
-
-
-       
+        
      );
 }
  
-export default NuevoBodeVende;
+export default EditarBodeVende;

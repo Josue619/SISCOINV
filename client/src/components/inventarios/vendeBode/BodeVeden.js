@@ -1,23 +1,64 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
+
+import BootstrapTable from 'react-bootstrap-table-next';
+import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
+
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 
 import Swal from 'sweetalert2';
 
 //Redux
 import { useDispatch} from 'react-redux';
-import { crearNuevoBodeVeden ,borrarBodeVendeAction } from '../../../actions/bodevendeActions';
+import { obternerBodeVendeEditar ,borrarBodeVendeAction } from '../../../actions/bodevendeActions';
 
 const BodeVende = (bodevende) => {
 
-    const { BOD_VEN_CODIGO, BOD_VEN_USUARIO, USU_LOGIN, descriptipo } =  bodevende.bodven;
+    const { SearchBar, ClearSearchButton } = Search;
+    const { ExportCSVButton } = CSVExport;
+
+    //const { BOD_VEN_CODIGO, USU_LOGIN, descriptipo } =  bodevende.bodven;
+     //Columns
+     const columns = [
+        {dataField: "BOD_VEN_CODIGO",
+         text: "Código",
+         headerTitle: true,
+         headerClasses: "bg-dark text-white",
+         sort: true,
+         classes: "btn btn-outline-dark col-md-12",
+         events: {
+            onClick: (e, column, columnIndex, row, rowIndex) => {
+              redireccionarEdicion(row);
+            }
+         }
+        },
+        {dataField: "USU_LOGIN", 
+         text: "Loguin ",
+         sort: true,
+         headerTitle: true,
+         headerClasses: "bg-dark text-white",
+        },
+        {dataField: "descriptipo", 
+         text: "Tipo",
+         sort: true,
+         headerClasses: "bg-dark text-white",
+         headerTitle: true
+        }
+    ];
+
 
     const dispatch = useDispatch();
     const history = useHistory();// habilitar history para redirecion
     
 
     //Confirmar si desea eliminarlo
-    const confirmarEliminarUnimedi = bodevende => {
+    const confirmarEliminar = bodevende => {
 
         //Preguntar al usuario
         Swal.fire({
@@ -41,34 +82,53 @@ const BodeVende = (bodevende) => {
 
     //funcion que redirige de forma programada
     const redireccionarEdicion =  bodevende => {
-        //dispatch( obternerUniMediEditar(unidadmedida) );
-        //history.push(`/inv/munidadmedi/editar/${unidadmedida.UNI_MED_ID}`);
+        dispatch( obternerBodeVendeEditar(bodevende) );
+        history.push(`/inv/mbodevende/editarbodevende/${bodevende.BOD_VEN_CODIGO}`);
 
     }
-    
+
+    const selectRow = {
+        mode: 'radio',
+        clickToSelect: false,
+        onSelect: (row, isSelect, rowIndex, e) => {
+            confirmarEliminar(row);
+        }
+        
+    };
 
     return (  
-        <tr>
-            <td>{BOD_VEN_CODIGO}</td>
-            <td>{USU_LOGIN}</td>
-            <td>{descriptipo}</td>
-            <td>
-                <button 
-                    type="button" 
-                    className="btn btn-primary mr-2"
-                    onClick={() => redireccionarEdicion(bodevende.bodven)}
-                >
-                    Editar
-                </button>
-                <button 
-                    type="button" 
-                    className="btn btn-danger"
-                    onClick={ () => confirmarEliminarUnimedi(bodevende.bodven)}
-                >
-                    Eliminar
-                </button>
-            </td>
-        </tr>
+        <ToolkitProvider
+            keyField="BOD_VEN_CODIGO"
+            bootstrap4
+            data={  bodevende.bodven }
+            columns={ columns }
+            search
+        >
+            {
+                props => (
+                    <div style={{ padding: "20px" }}>
+                        <h3>Busqueda de Bodeguero/Vendedor:</h3>
+                        <SearchBar placeholder="Buscar....." { ...props.searchProps } />
+                        <hr />
+                        <ClearSearchButton className="button btn btn-info" text="Limpiar Busqueda" { ...props.searchProps } />
+                        <ExportCSVButton className="button btn btn-link" { ...props.csvProps }>Exportar Archivo CSV!!</ExportCSVButton>
+                        <Link to={"/inv/mbodevende/nuevobodevende"} className="btn btn-success ">Nuevo Bodeguero o Vendedor &#43;</Link>
+                        <hr />
+                        <BootstrapTable
+                            disableSelectText={true}
+                            striped
+                            hover
+                            //condensed
+                            bordered={ true }
+                            selectRow={ selectRow }
+                            noDataIndication="There is no data"
+                            { ...props.baseProps }
+                            pagination={paginationFactory()}
+                        />
+                    </div>
+                )
+            }
+        </ToolkitProvider>
     );
 }
  

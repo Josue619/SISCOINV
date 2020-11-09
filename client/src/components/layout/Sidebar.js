@@ -32,7 +32,7 @@ const Sidebar = () => {
             <div className="card">
                 <ul className="list-group">
                     <li className="list-group-item list-group-item-light"><StyledLink to={"/inv/listunidadmedida"}>Unidades Medida</StyledLink></li>
-                    <li className="list-group-item list-group-item-light"><StyledLink to={"/inv/munidadmedi/listbodven"}>Bodegueros y Vendedores</StyledLink></li>
+                    <li className="list-group-item list-group-item-light"><StyledLink to={"/inv/listbodven"}>Bodegueros y Vendedores</StyledLink></li>
                     
                 </ul>
             </div>

@@ -10,17 +10,21 @@ import { AGREGAR_BODEGUERO_VENDEDOR,
          BODEGUERO_VENDEDOR_EDITADO_ERROR,
          COMENZAR_DESCARGA_BODEGUERO_VENDEDOR,
          DESCARGA_BODEGUERO_VENDEDOR_EXITO,
-         DESCARGA_BODEGUERO_VENDEDOR_ERROR
+         DESCARGA_BODEGUERO_VENDEDOR_ERROR,
+         OBTENER_BODEVENDE_CONSULTAR,
+         PRODUCTO_BODEVENDE_EXITO
 } from '../types';
 
 import { agregarNuevoBodeVende, editarBodeVende, eliminarBodeVende, obtenerListadoBodeVede } from '../services/inv.services';
 
 import Swal from 'sweetalert2';
 
-export function crearNuevoBodeVeden(bodevende) {
+export function crearNuevoBodeVedenActions(bodevende) {
     return async (dispatch) => {
         dispatch( agregarBodeVende() );
 
+        console.log(bodevende)
+        
         try {
             //Insertar en la api
             await agregarNuevoBodeVende(bodevende);
@@ -49,9 +53,9 @@ const agregarBodeVende = () => ({
 });
 
 //Si el producto se guarda en la base datos 
-const agregarBodeVendeExito = unimedida => ({
+const agregarBodeVendeExito = bodevende => ({
     type: AGREGAR_BODEGUERO_VENDEDOR_EXITO,
-    payload: unimedida
+    payload: bodevende
 });
 
 //si hubo un error
@@ -172,6 +176,24 @@ const editarBodeVendeExito = producto =>({
 const editarUniMediError = () => ({
     type: BODEGUERO_VENDEDOR_EDITADO_ERROR,
     payload: true
+});
+
+//Selecciona y elimina el producto
+export function consultarBodeVendeAction(bodevende) {
+    
+    return (dispatch) => {
+        dispatch(obtenerBodeVendeArticulo(bodevende.search) );
+        dispatch(consultarBodeVendexito());
+    }
+}
+
+const obtenerBodeVendeArticulo = id => ({
+    type: OBTENER_BODEVENDE_CONSULTAR,
+    payload: id
+});
+
+const consultarBodeVendexito = () => ({
+    type: PRODUCTO_BODEVENDE_EXITO
 });
 
 

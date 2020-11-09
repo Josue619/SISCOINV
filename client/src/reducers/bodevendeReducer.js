@@ -24,7 +24,6 @@ const initialState = {
     bodevedeEliminar: null,
     bodevedeeditar: null,
     bodevedeconsultar: null
-
 }
 
 export default function(state = initialState, action) {
@@ -93,7 +92,7 @@ export default function(state = initialState, action) {
         case PRODUCTO_BODEVENDE_EXITO:
             return{
                 ...state,
-                bodevende: state.bodevende.filter(bodven => bodven.BOD_VEN_CODIGO === state.bodevedeconsultar || bodven.BOD_VEN_TIPO === state.bodevedeconsultar),
+                bodevende: state.bodevende.filter(bodven => bodven.BOD_VEN_CODIGO === state.bodevedeconsultar || bodven.descriptipo === state.bodevedeconsultar || bodven.USU_LOGIN.includes(state.bodevedeconsultar)),
                 bodevedeconsultar: null
             }
 

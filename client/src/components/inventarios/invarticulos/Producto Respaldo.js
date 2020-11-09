@@ -2,8 +2,10 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+//import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.css';
 import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
 
 import BootstrapTable from 'react-bootstrap-table-next';
@@ -19,6 +21,7 @@ import { borrarProductoAction, obternerProductoEditar } from '../../../actions/p
 
 
 const Producto = ({producto}) => {
+    //const { ATO_CODIGO, ATO_DESCRIPCION, ATO_MAR_MARCA, ATO_MOD_MODELO, Unidad_medida,ATO_FECHA_INGRESO  } =  producto;
     const { SearchBar, ClearSearchButton } = Search;
     const { ExportCSVButton } = CSVExport;
 
@@ -26,12 +29,16 @@ const Producto = ({producto}) => {
     const columns = [
         {dataField: "ATO_CODIGO",
          text: "Código Artículo",
-         headerTitle: true,
-         headerClasses: "bg-dark text-white",
          sort: true,
-         classes: "btn btn-outline-dark col-md-12",
+         //filter: textFilter(),// apply text filter
          events: {
             onClick: (e, column, columnIndex, row, rowIndex) => {
+              //console.log(e);
+              //console.log(column);
+              //console.log(columnIndex);
+              //console.log(row);
+              //console.log(rowIndex);
+              //alert('Click on Product ID field');
               redireccionarEdicion(row);
             }
          }
@@ -39,42 +46,20 @@ const Producto = ({producto}) => {
         {dataField: "ATO_DESCRIPCION", 
          text: "Descripción Artículo",
          sort: true,
-         headerTitle: true,
-         headerClasses: "bg-dark text-white",
+         //filter: textFilter() // apply text filter
         },
         {dataField: "ATO_MAR_MARCA", 
          text: "Marca Artículo",
          sort: true,
-         headerClasses: "bg-dark text-white",
-         headerTitle: true
+         //filter: textFilter() // apply text filter 
         },
         {dataField: "ATO_MOD_MODELO", 
          text: "Modelo Artículo",
          sort: true,
-         headerClasses: "bg-dark text-white",
-         headerTitle: true
+         //filter: textFilter() // apply text filter
         },
-        {dataField: "Unidad_medida", 
-         text: "Unidad Medida", 
-         sort: true, 
-         headerClasses: "bg-dark text-white",  
-         headerTitle: true
-        },
-        {dataField: "ATO_FECHA_INGRESO",
-         text: "Fecha Ingreso", 
-         sort: true, 
-         headerClasses: "bg-dark text-white",
-         headerTitle: true,
-         formatter: (cell) => {
-            let dateObj = cell;
-            if (typeof cell !== 'object') {
-              dateObj = new Date(cell);
-            }
-            return `${('0' + dateObj.getUTCDate()).slice(-2)}/${('0' + (dateObj.getUTCMonth() + 1)).slice(-2)}/${dateObj.getUTCFullYear()}`;
-          }
-
-        }
-        
+        {dataField: "Unidad_medida", text: "Unidad Medida", sort: true},
+        {dataField: "ATO_FECHA_INGRESO", text: "Fecha Ingreso", sort: true}
     ];
 
     const dispatch = useDispatch();
@@ -102,22 +87,55 @@ const Producto = ({producto}) => {
             }
           });
     }
+    
 
     //funcion que redirige de forma programada
     const redireccionarEdicion =  producto => {
         
         dispatch( obternerProductoEditar(producto) );
         history.push(`/inv/productos/editar/${producto.ATO_CODIGO}`);
-    }
 
-    const selectRow = {
-        mode: 'radio',
-        clickToSelect: false,
-        onSelect: (row, isSelect, rowIndex, e) => {
-          confirmarEliminarProducto(row);
-        }
-        
-      };
+    }
+    /*
+    <tr>
+            <td>{ATO_CODIGO}</td>
+            <td>{ATO_DESCRIPCION}</td>
+            <td>{ATO_MAR_MARCA}</td>
+            <td>{ATO_MOD_MODELO}</td>
+            <td>{Unidad_medida}</td>
+            <td>{format(new Date(ATO_FECHA_INGRESO),'MM/dd/yyyy')}</td>
+            <td>
+                <button 
+                    type="button" 
+                    className="btn btn-primary mr-2"
+                    onClick={() => redireccionarEdicion(producto)}
+                >
+                    Editar
+                </button>
+                <button 
+                    type="button" 
+                    className="btn btn-danger"
+                    onClick={ () => confirmarEliminarProducto(producto)}
+                >
+                    Eliminar
+                </button>
+            </td>
+        </tr>
+
+          <BootstrapTable
+            bootstrap4
+            keyField="id"
+            data={producto}
+            columns={columns}
+            headerWrapperClasses="foo"
+            filter={ filterFactory() }
+            pagination={paginationFactory({sizePerPage: 5})}
+            striped
+            hover
+            condensed
+        />
+            <Link to={"/inv/productos/nuevo"} className="btn btn-success col-md-1 ">Agregar Artículo &#43;</Link>
+        */
 
     return (
         <ToolkitProvider
@@ -132,26 +150,25 @@ const Producto = ({producto}) => {
                     <div style={{ padding: "20px" }}>
                         <h3>Busqueda de Artículos:</h3>
                         <SearchBar placeholder="Buscar Artículos por sus características" { ...props.searchProps } />
-                        <hr />
                         <ClearSearchButton className="button btn btn-info" text="Limpiar Busqueda" { ...props.searchProps } />
                         <ExportCSVButton className="button btn btn-link" { ...props.csvProps }>Exportar Archivo CSV!!</ExportCSVButton>
                         <Link className="btn btn-success" to={"/inv/productos/nuevo"} >Nuevo Artículo &#43;</Link>
+                        
                         <hr />
                         <BootstrapTable
-                            disableSelectText={true}
+                            pagination={paginationFactory({sizePerPage: 5})}
                             striped
                             hover
-                            //condensed
-                            bordered={ true }
-                            selectRow={ selectRow }
-                            noDataIndication="No hay datos que mostrar"
+                            noDataIndication="There is no data"
+                            classes="table-dark"
+
                             { ...props.baseProps }
-                            pagination={paginationFactory()}
                         />
                     </div>
                 )
             }
         </ToolkitProvider>
+
     );
 }
  
