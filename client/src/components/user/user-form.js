@@ -29,7 +29,6 @@ const UserForm2 = ({ admin, dataUser, clearData }) => {
     }
 
     useEffect(() => {
-
         const handleEsc = (event) => {
             if (event.keyCode === 27) {
                 clearData();
@@ -37,7 +36,6 @@ const UserForm2 = ({ admin, dataUser, clearData }) => {
         };
 
         window.addEventListener('keydown', handleEsc);
-
 
         if (Object.entries(dataUser).length > 0) {
             const role = Object.assign({}, dataUser.SEG_ROL);
