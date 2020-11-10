@@ -37,7 +37,7 @@ const Sidebar = () => {
                     
                 </ul>
             </div>
-            <hr className="my-4" />
+            <hr className="my-4"/>
             
             
             <h1>Procesos</h1>
