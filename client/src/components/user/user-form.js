@@ -29,6 +29,14 @@ const UserForm2 = ({ admin, dataUser, clearData }) => {
     }
 
     useEffect(() => {
+        const handleEsc = (event) => {
+            if (event.keyCode === 27) {
+                clearData();
+            }
+        };
+
+        window.addEventListener('keydown', handleEsc);
+
         if (Object.entries(dataUser).length > 0) {
             const role = Object.assign({}, dataUser.SEG_ROL);
             setUser({
@@ -55,7 +63,12 @@ const UserForm2 = ({ admin, dataUser, clearData }) => {
                 modified_by: admin
             })
         }
-    }, [admin, dataUser]);
+
+        return () => {
+            window.removeEventListener('keydown', handleEsc);
+        };
+
+    }, [admin, dataUser, clearData]);
 
     const createUserM = () => {
         createUser(user).then(res => {
