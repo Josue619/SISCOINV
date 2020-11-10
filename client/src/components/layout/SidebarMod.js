@@ -30,6 +30,7 @@ const Sidebar = () => {
             <h1>Modulos</h1>
             <ul>
                 <li><StyledLink to={"/inv/minventario"}>Módulo Inventario</StyledLink></li>
+                <hr />
                 <li><StyledLink to={"/users"}>Módulo Usuarios</StyledLink></li>
             </ul>
         </aside>
