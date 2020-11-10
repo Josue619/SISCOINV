@@ -10,30 +10,6 @@ const Pagination = require('../models/Pagination');
 
 class UserController {
 
-    // getUsers = async (req, res) => {
-    //     const userClass = new User();
-    //     const { id } = req.params;
-
-    //     if (await userClass.verifyRoll(id)) return res.json({ success: false, error: { "msg": "Permisos denegados" } });
-
-    //     const data = await UserDB.findAll({
-    //         where: {
-    //             SEGROLId: {
-    //                 [Op.or]: [2, 3]
-    //             },
-    //             USU_STATE: {
-    //                 [Op.and]: [true]
-    //             }
-    //         },
-    //         include: [RoleDB]
-    //     });
-
-    //     if (data.length > 0) {
-    //         return res.json({ success: true, data: data });
-    //     }
-    //     return res.json({ success: false, error: { "msg": "La lista no posee empleados en el registro." } });
-    // }
-
     getUsers = async (req, res) => {
         const userClass = new User();
         const pageClass = new Pagination();
@@ -45,17 +21,28 @@ class UserController {
 
         if (await userClass.verifyRoll(id)) return res.json({ success: false, error: { "msg": "Permisos denegados" } });
 
-        // var condition = title ? { USU_LOGIN: { [Op.like]: `%${title}%` } } : null;
-
         const { limit, offset } = pageClass.getPagination(page, size);
+
+        const nullSearch = {
+            SEGROLId: { [Op.ne]: [1] },
+            USU_STATE: { [Op.and]: [true] }
+        };
+
+        const search = {
+            SEGROLId: { [Op.ne]: [1] },
+            USU_STATE: { [Op.and]: [true] },
+            [Op.or]: [
+                { USU_LOGIN: { [Op.like]: [`%${title}%`] } },
+                { '$SEG_ROL.ROL_DESCRIPCION$': { [Op.like]: [`%${title}%`] } },
+                { USU_EMAIL: { [Op.like]: [`%${title}%`] } },
+                { USU_CEDULA: { [Op.like]: [`%${title}%`] } },
+                { USU_CELULAR: { [Op.like]: [`%${title}%`] } }
+            ]
+        };
 
         const data = await UserDB.findAndCountAll({
             include: [RoleDB],
-            where: {
-                SEGROLId: { [Op.or]: [2, 3] },
-                USU_STATE: { [Op.and]: [true] },
-                USU_LOGIN: { [Op.like]: [`%${title}%`] }
-            },
+            where: title ? search : nullSearch,
             limit, offset
         })
             .then(data => {
