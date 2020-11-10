@@ -29,19 +29,21 @@ const Sidebar = () => {
             <aside>
             <h1>Mantenimientos</h1>
 
-            <div className="card">
-                <ul className="list-group">
-                    <li className="list-group-item list-group-item-light"><StyledLink to={"/inv/listunidadmedida"}>Unidades Medida</StyledLink></li>
-                    <li className="list-group-item list-group-item-light"><StyledLink to={"/inv/listbodven"}>Bodegueros y Vendedores</StyledLink></li>
+            <div className="form-group col-12">
+                <ul>
+                    <li><StyledLink to={"/inv/listunidadmedida"}>Unidades Medida</StyledLink></li>
+                    <hr className="my-4" />
+                    <li><StyledLink to={"/inv/listbodven"}>Bodegueros y Vendedores</StyledLink></li>
                     
                 </ul>
             </div>
+            <hr className="my-4" />
             
             
             <h1>Procesos</h1>
-            <div className="card">
-                <ul className="list-group">
-                    <li className="list-group-item"><StyledLink to={"/inv/listarticulos"}>Artículos Inventarios</StyledLink></li>
+            <div className="form-group col-12">
+                <ul>
+                    <li><StyledLink to={"/inv/listarticulos"}>Artículos Inventarios</StyledLink></li>
                 </ul>
             </div>
             
