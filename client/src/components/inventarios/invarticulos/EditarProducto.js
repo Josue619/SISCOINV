@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link ,useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 //Actions Redux
 import { mostrarAlerta, ocultarAlertaAction } from '../../../actions/alertaActions';
@@ -38,12 +38,12 @@ const Boton = styled.button`
     }
 `;
 
-const BotonUserCerrar = styled(Link)`
+/*const BotonUserCerrar = styled.button`
     margin-top: 2rem;
     display: block;
     opacity: .50;
     font-size: 150%;
-`;
+`;*/
 
 
 const EditarProducto = () => {
@@ -124,8 +124,11 @@ const EditarProducto = () => {
         dispatch( editarProductoAction(producto));
         
         history.push('/inv/listarticulos');
+    }
 
-        
+    const onclickRegresar = () => {
+        dispatch(ocultarAlertaAction());
+        history.push('/inv/listarticulos');
     }
    
     return ( 
@@ -204,10 +207,7 @@ const EditarProducto = () => {
                     </Boton>
                 </Formulario>
                 <div>
-                    <BotonUserCerrar to={'/inv/listarticulos'}>
-                        Regresar Listado
-                    </BotonUserCerrar>
-
+                    <button className="btn btn-light btn-link" onClick={onclickRegresar}>Regresar Listado</button>
                 </div>
                 
 

@@ -1,11 +1,7 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import {Link, useHistory } from 'react-router-dom';
 
-import { Link } from 'react-router-dom';
 
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
-import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';

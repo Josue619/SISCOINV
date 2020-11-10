@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link ,useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 //Actions Redux
 import { mostrarAlerta, ocultarAlertaAction } from '../../../actions/alertaActions';
@@ -37,15 +37,6 @@ const Boton = styled.button`
         color: blue;
     }
 `;
-
-const BotonUserCerrar = styled(Link)`
-    margin-top: 2rem;
-    display: block;
-    opacity: .50;
-    font-size: 150%;
-`;
-
-
 
 const EditarBodeVende = () => {
 
@@ -126,6 +117,11 @@ const EditarBodeVende = () => {
 
     }
 
+    const onclickRegresar = () => {
+        dispatch(ocultarAlertaAction());
+        history.push('/inv/listbodven');
+    }
+
 
     return ( 
         <FormUsuario
@@ -177,9 +173,7 @@ const EditarBodeVende = () => {
                     </Boton>
                 </Formulario>
 
-                <BotonUserCerrar to={'/inv/listbodven'}>
-                    Regresar Listado
-                </BotonUserCerrar>
+                <button className="btn btn-light btn-link" onClick={onclickRegresar}>Regresar Listado</button>
 
                 { error ? <p className="alert alert-danger p2 mt-4 text-center">Hubo error</p> : null}
             </div>

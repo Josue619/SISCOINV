@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 //Estilos personalizados
 import { Formulario, Campo, Select } from '../../ui/Formulario';
 import {FormUsuario} from '../../ui/FormUsuario';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 
 //Elementos con estilos
@@ -34,13 +34,6 @@ const Boton = styled.button`
         background-color: var(--gris3);
         color: blue;
     }
-`;
-
-const BotonUserCerrar = styled(Link)`
-    margin-top: 2rem;
-    //display: block;
-    opacity: .50;
-    font-size: 150%;
 `;
 
 
@@ -68,9 +61,6 @@ const NuevoProductos = ({history}) => {
 
     //Manda a llamar el action del producto.
     const aregagrProducto = producto => dispatch( crearNuevoProductoAction(producto) );
-    
-    //Oculta la alerta inicio.
-    
 
     //Cuando el usuario haga submit
     const submitNuevoProducto = e => {
@@ -126,6 +116,11 @@ const NuevoProductos = ({history}) => {
         });
         
         //redireccionar
+        history.push('/inv/listarticulos');
+    }
+
+    const onclickRegresar = () => {
+        dispatch(ocultarAlertaAction());
         history.push('/inv/listarticulos');
     }
     
@@ -218,9 +213,7 @@ const NuevoProductos = ({history}) => {
                         Agregar Artículo
                     </Boton>
                 </Formulario>
-                <BotonUserCerrar to={'/inv/listarticulos'}>
-                    Regresar Listado
-                </BotonUserCerrar>
+                <button className="btn btn-light" onClick={onclickRegresar}>Regresar Listado</button>
 
                 { cargando ? <p>Cargando...</p> :null }
                 { error ? <p className="alert alert-danger p2 mt-4 text-center">Hubo error</p> : null}
