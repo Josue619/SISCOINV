@@ -9,9 +9,9 @@ import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.c
 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-</React.StrictMode>,
+  //<React.StrictMode>
+    <App />,
+//</React.StrictMode>,
   document.getElementById('root')
 );
 

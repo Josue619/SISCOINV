@@ -4,8 +4,8 @@ import styled from '@emotion/styled';
 
 
 const StyledLink = styled(Link)`
-    color: darkgray;
-    font-size: 1.4rem;
+    color: darkslategrey;
+    font-size: 1.3rem;
     font-weight: 700;
     line-height: 3rem;
     font-family: 'PT Sans', sans-serif;
@@ -27,25 +27,33 @@ const StyledLink = styled(Link)`
 const Sidebar = () => {
     return ( 
             <aside>
-            <h1>Mantenimientos</h1>
-
-            <div className="form-group col-12">
-                <ul>
-                    <li><StyledLink to={"/inv/listunidadmedida"}>Unidades Medida</StyledLink></li>
-                    <hr className="my-4" />
-                    <li><StyledLink to={"/inv/listbodven"}>Bodegueros y Vendedores</StyledLink></li>
-                    
-                </ul>
+            <div className="panel panel-default">
+                <div className="panel-heading"><h1>Mantenimientos</h1></div>
+                <ul className="list-group">
+                        <li ><StyledLink to={"/inv/listbodven"}>* Bodegueros y Vendedores</StyledLink></li>
+                        <li ><StyledLink to={"/inv/listtipoempaque"}>* Tipos de Empaques</StyledLink></li>
+                        <li ><StyledLink to={"/inv/listunidadmedida"}>* Unidades Medida</StyledLink></li>
+                    </ul>
+                
+                
             </div>
             <hr className="my-4"/>
             
-            
-            <h1>Procesos</h1>
-            <div className="form-group col-12">
-                <ul>
-                    <li><StyledLink to={"/inv/listarticulos"}>Artículos Inventarios</StyledLink></li>
-                </ul>
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h1>Procesos</h1>
+                </div>
+                <div className="panel-body">
+                    <ul  className="list-group">
+                        <li><StyledLink to={"/inv/listarticulos"}>* Artículos Inventarios</StyledLink></li>
+                    </ul>
+                </div>
             </div>
+           
+            
+            
+               
+            
             
             
         </aside>

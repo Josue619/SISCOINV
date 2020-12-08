@@ -23,8 +23,6 @@ export function crearNuevoBodeVedenActions(bodevende) {
     return async (dispatch) => {
         dispatch( agregarBodeVende() );
 
-        console.log(bodevende)
-        
         try {
             //Insertar en la api
             await agregarNuevoBodeVende(bodevende);

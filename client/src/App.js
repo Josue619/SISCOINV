@@ -15,18 +15,27 @@ import { Token } from './helpers/token.helper';
 //----------------------------------------------------
 
 //---------------Inventario---------------------------
+//---------------Menus--------------------------------
 import MenuInventario from './components/main/menuInventarios';
+//---------------Articulos--------------------------------
 import ListaArticulos from './components/inventarios/invarticulos/listArticulos';
 import EditarProducto from './components/inventarios/invarticulos/EditarProducto';
 import NuevoProductos from './components/inventarios/invarticulos/NuevoProducto';
+import ProductosLocal from './components/inventarios/invarticulos/ProductosLocal';
+
+//---------------Unidades Medida--------------------------------
 import ListaUnidadMedida from './components/inventarios/unidadesmedida/ListUniMedida';
 import NuevaUnidadMedi from './components/inventarios/unidadesmedida/NuevaUnidadMedi';
 import EditarUnidadMedi from './components/inventarios/unidadesmedida/EditarUniMedi';
+//---------------Bodegueros y Vendedores--------------------------------
 import ListBodVen from './components/inventarios/vendeBode/ListBodVen';
 import NuevoBodeVende from './components/inventarios/vendeBode/NuevoBodeVende';
 import EditarBodeVende from './components/inventarios/vendeBode/EditarBodeVende';
-
-
+//----------------------------------------------------
+//-------------Tipos Empaques-------------------------
+import ListTipoEmpaque from './components/inventarios/tiposempaque/ListTipoEmpaque';
+import EditarTipoempaque from './components/inventarios/tiposempaque/EditarTipoEmapque';
+import NuevoTipoEmpaque from './components/inventarios/tiposempaque/NuevoTipoEmpaque';
 //----------------------------------------------------
 
 //Redux
@@ -51,6 +60,7 @@ class App extends Component {
             <Route exact path="/inv/listarticulos" component={ListaArticulos}/>
             <Route exact path="/inv/productos/nuevo" component={NuevoProductos}/>
             <Route exact path="/inv/productos/editar/:id" component={EditarProducto} />
+            <Route exact path="/inv/productos/productolocali/:id" component={ProductosLocal} />
 
             <Route exact path="/inv/listunidadmedida" component={ListaUnidadMedida} />
             <Route exact path="/inv/munidadmedi/nuevo" component={NuevaUnidadMedi} />
@@ -59,6 +69,10 @@ class App extends Component {
             <Route exact path="/inv/listbodven" component={ListBodVen} />
             <Route exact path="/inv/mbodevende/nuevobodevende" component={NuevoBodeVende} />
             <Route exact path="/inv/mbodevende/editarbodevende/:id" component={EditarBodeVende} />
+
+            <Route exact path="/inv/listtipoempaque" component={ListTipoEmpaque} />
+            <Route exact path="/inv/mtipoempaque/editartipoempa/:id" component={EditarTipoempaque} />
+            <Route exact path="/inv/mtipoempaque/nuevotipoempa" component={NuevoTipoEmpaque} />
 
             
           </Switch>

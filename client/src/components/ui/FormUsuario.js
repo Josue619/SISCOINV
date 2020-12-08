@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 
 export const FormUsuario = styled.div`
     background-color: var(--gris2);
-    height: 100vh;
+    height: 94.3vh;
     min-height: 800px;
     display: flex;
     align-items: center;

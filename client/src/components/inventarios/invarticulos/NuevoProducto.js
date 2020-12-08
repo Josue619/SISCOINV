@@ -8,9 +8,36 @@ import { mostrarAlerta, ocultarAlertaAction } from '../../../actions/alertaActio
 import styled from '@emotion/styled';
 
 //Estilos personalizados
-import { Formulario, Campo, Select } from '../../ui/Formulario';
+import { Formulario, Select } from '../../ui/Formulario';
 import {FormUsuario} from '../../ui/FormUsuario';
-//import { Link } from 'react-router-dom';
+
+
+const Campo = styled.div`
+    margin-bottom: 1.0rem;
+    display:flex;
+    align-items: center;
+    label {
+        flex: 0 0 150px;
+        font-size: 1.6rem;
+    }
+    input, 
+    textarea {
+        flex: auto;
+        padding: 1rem;
+    }
+    textarea {
+        height: 100px;
+    }
+    
+`;
+
+const Contenedor = styled.div`
+    padding: 5rem 3rem;
+    max-width: 800px;
+    width: 100%;
+    background-color: var(--gris1);
+    border-radius: 3rem;
+`;
 
 
 //Elementos con estilos
@@ -45,14 +72,21 @@ const NuevoProductos = ({history}) => {
     const [ATO_DETALLE, guardarDetalle]= useState('');
     const [ATO_MAR_MARCA, guardarMarca]= useState('');
     const [ATO_MOD_MODELO, guardarModelo]= useState('');
+    const [ATO_CANTIDAD_EMPAQUE, guardarCantidadEmpaque]= useState(0);
+    const [ATO_MED_MEDIDA_EMPAQUE, guardarUnidadMedidaEmpaque]= useState(0);
+    const [ATO_PIEZAS_UNIDADES, guardarPiezasEmpaque]= useState(0);
+    const [ATO_TIPO_EMPAQUE, guardarTipoEmpaque]= useState(0);
     const [ATO_UNIDAD_MEDIDA, guardarUnidadMedida]= useState(0);
+
     const [ATO_FECHA_INGRESO] = useState(new Date());
 
     //utilizar use dispacth y te crea una funcion
     const dispatch = useDispatch();
 
-     //Carga Unidades
+     //Carga datos combox
      const unidades = useSelector(state => state.unimedi.unimedida);
+     const tiposempaques = useSelector(state => state.tipoempa.tipoempaque);
+     
 
     //Acceder al state del store
     const cargando = useSelector( state => state.productos.loading);
@@ -112,6 +146,10 @@ const NuevoProductos = ({history}) => {
             ATO_MAR_MARCA,
             ATO_MOD_MODELO,
             ATO_UNIDAD_MEDIDA,
+            ATO_CANTIDAD_EMPAQUE,
+            ATO_MED_MEDIDA_EMPAQUE,
+            ATO_PIEZAS_UNIDADES,
+            ATO_TIPO_EMPAQUE,
             ATO_FECHA_INGRESO
         });
         
@@ -128,10 +166,11 @@ const NuevoProductos = ({history}) => {
         <FormUsuario
             onSubmit={submitNuevoProducto}
         >
-            <div className="contenedor-form sombra-dark">
+            <Contenedor>
                 <h1>Nuevo Artículo</h1>
                 {alerta ? <p className={alerta.clases}> {alerta.msg}</p> : null}
-                <Formulario>
+                <Formulario className="form-group">
+                   
                     <Campo>
                         <label htmlFor="codiArti">Código Artículo</label>
                         <input 
@@ -191,6 +230,7 @@ const NuevoProductos = ({history}) => {
                         <Select 
                             id="ATO_UNIDAD_MEDIDA"
                             name="ATO_UNIDAD_MEDIDA"
+                            className="custom-select"
                             value={ATO_UNIDAD_MEDIDA}
                             onChange={e => guardarUnidadMedida(e.target.value)}
                         >
@@ -208,7 +248,73 @@ const NuevoProductos = ({history}) => {
                              )}
                         </Select>
                     </Campo>
-
+                    <Campo>
+                        <label htmlFor="Empacado en:">Empacado en:</label>
+                        <input 
+                            type="number"
+                            step="0.01"
+                            name="ATO_CANTIDAD_EMPAQUE" 
+                            placeholder="Empacado en:"
+                            value={ATO_CANTIDAD_EMPAQUE}
+                            onChange={e => guardarCantidadEmpaque(e.target.value)}
+                            
+                        />
+                    </Campo>
+                    <Campo>
+                        <label htmlFor="tipoempaque">Tipo Empaque</label>
+                        <Select 
+                                id="ATO_TIPO_EMPAQUE"
+                                name="ATO_TIPO_EMPAQUE"
+                                value={ATO_TIPO_EMPAQUE}
+                                onChange={e => guardarTipoEmpaque(e.target.value)}
+                            >
+                                <option defaultValue>Selecione...</option>
+                                {tiposempaques.length === 0 ? 'No hay datos' :(
+                                    tiposempaques.map(tipoemp =>(
+                                        <option 
+                                            key={tipoemp.TIPO_EMP_ID}
+                                            value={tipoemp.TIPO_EMP_ID}
+                                        >
+                                            {tipoemp.TIPO_EMP_DESCRIPCION}
+                                        </option>
+                                    ))
+                                )}
+                        </Select>
+                    </Campo>
+                    <Campo>
+                        <label htmlFor="unidadmed">U.M Empaque</label>
+                        <Select 
+                                id="ATO_MED_MEDIDA_EMPAQUE"
+                                name="ATO_MED_MEDIDA_EMPAQUE"
+                                value={ATO_MED_MEDIDA_EMPAQUE}
+                                onChange={e => guardarUnidadMedidaEmpaque(e.target.value)}
+                            >
+                                <option defaultValue>Selecione...</option>
+                                {unidades.length === 0 ? 'No hay productos' :(
+                                    unidades.map(unidad =>(
+                                        <option 
+                                            key={unidad.UNI_MED_ID}
+                                            value={unidad.UNI_MED_ID}
+                                        >
+                                            {unidad.UNI_MED_DESCRIPCION}
+                                        </option>
+                                        
+                                    ))
+                                )}
+                        </Select>
+                    </Campo>
+                    <Campo>
+                        <label htmlFor="Piezas o Uds:">Piezas/Uds</label>
+                            <input 
+                                type="number"
+                                //step="0.01"
+                                name="ATO_PIEZAS_UNIDADES" 
+                                placeholder="Empacado en:"
+                                value={ATO_PIEZAS_UNIDADES}
+                                onChange={e => guardarPiezasEmpaque(e.target.value)}
+                            />
+                    </Campo>
+                   
                     <Boton>
                         Agregar Artículo
                     </Boton>
@@ -217,7 +323,8 @@ const NuevoProductos = ({history}) => {
 
                 { cargando ? <p>Cargando...</p> :null }
                 { error ? <p className="alert alert-danger p2 mt-4 text-center">Hubo error</p> : null}
-            </div>
+            </Contenedor>
+
     
         </FormUsuario>
      );

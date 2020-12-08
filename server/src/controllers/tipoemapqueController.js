@@ -1,21 +1,20 @@
-const InvUnidMedida =  require('../models/invUnidMedida');
+const InvTipoEmpaque =  require('../models/tiposempaques');
 const { validationResult } =  require('express-validator');
 
-//Obtiene las uniades de medida
-exports.obtenerUnidadMedida = async (req, res) => {
+//Obtiene los tipos de empaques
+exports.obtenerTiposEmpaques = async (req, res) => {
     try {
-        const unidades = await InvUnidMedida.findAll();
-        res.json({ unidades });
+        const tipoempaque = await InvTipoEmpaque.findAll();
+        res.json({ tipoempaque });
 
     } catch (error) {
         console.log(error);
         res.status(500).send('Hubo un error: '+ error);
     }
-
 }
 
-//Crea una nueva unidad medida
-exports.crearUnidadMedi =  async (req, res) => {
+//Crea una tipo de empaque
+exports.crearTipoEmpaque =  async (req, res) => {
    
     // Revisar si hay errores
     const errores = validationResult(req);
@@ -27,9 +26,9 @@ exports.crearUnidadMedi =  async (req, res) => {
     try {
 
         // Creamos la unidad de medida
-        const unimedi = new InvUnidMedida(req.body);
-        await unimedi.save();
-        res.json({ unimedi });
+        const tipoempaque = new InvTipoEmpaque(req.body);
+        await tipoempaque.save();
+        res.json({ tipoempaque });
     
     } catch (error) {
         console.log(error);
@@ -39,23 +38,22 @@ exports.crearUnidadMedi =  async (req, res) => {
 }
 
 // Actualizar unidad medida
-exports.actualizarUnidadMedi = async (req, res ) => {
+exports.actualizarTipoEmpaque = async (req, res ) => {
     
     try {
         // Extraer el Unidades medida y comprobar si existe
-        const unidadmedida = req.body;
+        const tipoempaque = req.body;
         
-        await InvUnidMedida.update({
-            UNI_MED_CODIUNIDAD: unidadmedida.UNI_MED_CODIUNIDAD,
-            UNI_MED_DESCRIPCION: unidadmedida.UNI_MED_DESCRIPCION
+        await InvTipoEmpaque.update({
+            TIPO_EMP_DESCRIPCION: tipoempaque.TIPO_EMP_DESCRIPCION
         },
             {
-                where: { UNI_MED_ID: unidadmedida.UNI_MED_ID }
+                where: { TIPO_EMP_ID: tipoempaque.TIPO_EMP_ID }
             });
         
             res.status(200).json({
                 success: true,
-                message: 'El usuario fue actualizado.'
+                message: 'Proceso actualizado.'
             });
 
     } catch (error) {
@@ -65,7 +63,7 @@ exports.actualizarUnidadMedi = async (req, res ) => {
 }
 
 // Elimina una tarea
-exports.eliminarUniMedida = async (req, res) => {
+exports.eliminarTipoEmpaque = async (req, res) => {
     
     const errores = validationResult(req);
     
@@ -75,9 +73,9 @@ exports.eliminarUniMedida = async (req, res) => {
     }
 
     try {
-       const resultado = await InvUnidMedida.destroy({
+       const resultado = await InvTipoEmpaque.destroy({
            where: {
-                UNI_MED_ID:req.body.UNI_MED_ID
+                TIPO_EMP_ID:req.body.TIPO_EMP_ID
             }
         });
         console.log(resultado);

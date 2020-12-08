@@ -1,6 +1,6 @@
 import React from 'react';
-import Productos from './Productos';
 import { useHistory } from 'react-router-dom';
+import TiposEmpaques from './TipoEmpaques';
 
 
 //Styled components
@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 const Formulario = styled.div`
     background-color: var(--gris2);
     height: 100vh;
-    min-height: 100px;
+    min-height: 800px;
     display: flex;
     align-items: start;
     justify-content: center;
@@ -18,13 +18,13 @@ const Formulario = styled.div`
 
 const Contenedor = styled.div`
     padding: 5rem 3rem;
-    max-width: 1200px;
+    max-width: 800px;
     width: 100%;
     background-color: var(--blanco);
-    border-radius: 2rem;
+    border-radius: 1rem;
 `;
 
-const Boton = styled.button`
+export const Boton = styled.button`
     //display: block;
     font-weight: 700;
     //text-transform: uppercase;
@@ -45,7 +45,7 @@ const Boton = styled.button`
     }
 `;
 
-const ListaArticulos = () => {
+const ListTipoEmpaque = () => {
 
   const history = useHistory();// habilitar history para redirecion
 
@@ -59,15 +59,18 @@ const ListaArticulos = () => {
   return ( 
     <Formulario>
       <Contenedor>
-          <Productos />
+      <div className="table-responsive">
+          <TiposEmpaques />
+          
           <Boton 
             onClick={redireccionarMenu}>
-              Regresar al Menú
+                Regresar al Menú
           </Boton>
+      </div>
       </Contenedor>
     </Formulario>
       
    );
 }
  
-export default ListaArticulos;
+export default ListTipoEmpaque;

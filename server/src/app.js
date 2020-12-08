@@ -34,6 +34,8 @@ class Server {
         this.app.use('/api/procesos', require('./routes/spArticulosRoutes'));
         this.app.use('/api/mantenimiento', require('./routes/invUniMediRoutes'));
         this.app.use('/api/mantenimiento', require('./routes/invbodvenRoutes'));
+        this.app.use('/api/mantenimiento', require('./routes/invtipoempRoutes'));
+        
         
 
         /**--------------------------------------------- */

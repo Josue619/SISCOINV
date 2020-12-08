@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 //Actions Redux
 import { mostrarAlerta, ocultarAlertaAction } from '../../../actions/alertaActions';
-import { editarUniMediAction} from '../../../actions/unimediActions';
+import { editarTipoEmpaqueAction} from '../../../actions/tipoempaqueActions';
 
 //Styled components
 import styled from '@emotion/styled';
@@ -38,7 +38,7 @@ const Boton = styled.button`
     }
 `;
 
-const EditarUnidadMedida = () => {
+const EditarTipoEmpaque = () => {
 
     const history =  useHistory();
 
@@ -46,45 +46,44 @@ const EditarUnidadMedida = () => {
 
     
     //Nuevo state de producto
-    const [ unidademedi, guardarProducto] = useState({
-        UNI_MED_ID:'',
-        UNI_MED_CODIUNIDAD:'',
-        UNI_MED_DESCRIPCION:''
+    const [ tipoempaque, guardarProducto] = useState({
+        TIPO_EMP_ID:'',
+        TIPO_EMP_SIGLAS:'',
+        TIPO_EMP_DESCRIPCION:''
     });
 
     
     //Producto a editar
-    const productoeditar =  useSelector(state => state.unimedi.unimedidaeditar);
+    const tipoempaqueeditar =  useSelector(state => state.tipoempa.tipoempeditar);
     const error =  useSelector(state => state.unimedi.error);
     const alerta = useSelector(state => state.alerta.alerta);
 
 
     //Llenar el state automaticamente
     useEffect(() => {
-        guardarProducto(productoeditar);
+        guardarProducto(tipoempaqueeditar);
 
-    }, [productoeditar]);
+    }, [tipoempaqueeditar]);
 
     //Leer los datos del formulario
     const onChangeFormulario = e => {
+        
         guardarProducto({
-            ...unidademedi,
+            ...tipoempaque,
             [e.target.name]: e.target.value
         });
 
     }
 
-    if(!unidademedi) return history.push('/inv/listunidadmedida');
+    if(!tipoempaque) return history.push('/inv/listtipoempaque');
 
-    //console.log(producto);
-    const { UNI_MED_ID, UNI_MED_CODIUNIDAD, UNI_MED_DESCRIPCION } =  unidademedi;
-   
+    const { TIPO_EMP_ID, TIPO_EMP_SIGLAS, TIPO_EMP_DESCRIPCION } =  tipoempaque;   
     
     const submitEditarProducto = e => {
         e.preventDefault();
 
          //Validar formulario
-        if(UNI_MED_DESCRIPCION.trim() === ''){
+        if(TIPO_EMP_DESCRIPCION.trim() === ''){
 
             const alerta = {
                 msg: 'El campo Descripción del Artículo es obligatorio',
@@ -95,7 +94,7 @@ const EditarUnidadMedida = () => {
             return;
         }
 
-        if(UNI_MED_CODIUNIDAD.trim() === ''){
+        if(TIPO_EMP_SIGLAS.trim() === ''){
 
             const alerta = {
                 msg: 'El campo codigo abreviado no puede ser vacio',
@@ -109,16 +108,16 @@ const EditarUnidadMedida = () => {
         //si no hay errores
         dispatch(ocultarAlertaAction());
 
-        console.log(unidademedi);
         
-        dispatch( editarUniMediAction(unidademedi));
         
-        history.push('/inv/listunidadmedida');
+        dispatch( editarTipoEmpaqueAction(tipoempaque));
+        
+        history.push('/inv/listtipoempaque');
     }
 
     const onclickRegresar = () => {
         dispatch(ocultarAlertaAction());
-        history.push('/inv/listunidadmedida');
+        history.push('/inv/listtipoempaque');
     }
 
     return ( 
@@ -126,7 +125,7 @@ const EditarUnidadMedida = () => {
                 onSubmit={submitEditarProducto}
             >
                 <div className="contenedor-form sombra-dark">
-                    <h1>Edición Unida Medida: {UNI_MED_ID}</h1>
+                    <h1>Edición Tipo Empaque: {TIPO_EMP_ID}</h1>
                     {alerta ? <p className={alerta.clases}> {alerta.msg}</p> : null}
 
                     <Formulario>
@@ -134,20 +133,20 @@ const EditarUnidadMedida = () => {
                             <label htmlFor="descripcion">Descripción</label>
                             <input 
                               type="text"
-                              name="UNI_MED_DESCRIPCION" 
-                              placeholder="Descripción de la unidad medida"
-                              value={UNI_MED_DESCRIPCION}
+                              name="TIPO_EMP_DESCRIPCION" 
+                              placeholder="Descripción tipo empaque"
+                              value={TIPO_EMP_DESCRIPCION}
                               onChange={onChangeFormulario}
                             />
                         </Campo>
 
                         <Campo>
-                            <label htmlFor="modelo">Siglas Unidad Medida</label>
+                            <label htmlFor="modelo">Siglas</label>
                             <input 
                                 type="text"
-                                name="UNI_MED_CODIUNIDAD" 
-                                placeholder="Modelo del artículo"
-                                value={UNI_MED_CODIUNIDAD}
+                                name="TIPO_EMP_SIGLAS" 
+                                placeholder="Siglas"
+                                value={TIPO_EMP_SIGLAS}
                                 onChange={onChangeFormulario}
                             />
                         </Campo>
@@ -166,4 +165,4 @@ const EditarUnidadMedida = () => {
      );
 }
  
-export default EditarUnidadMedida;
+export default EditarTipoEmpaque;

@@ -2,15 +2,12 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-//import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-//import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
-//import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
-
+//Bootstraptable liberia
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
-
 import paginationFactory from "react-bootstrap-table2-paginator";
 
+//Liberia de mensajes
 import Swal from 'sweetalert2';
 
 //Redux
@@ -25,7 +22,7 @@ const Producto = ({producto}) => {
     //Columns
     const columns = [
         {dataField: "ATO_CODIGO",
-         text: "Código Artículo",
+         text: "Cód. Artículo",
          headerTitle: true,
          headerClasses: "bg-dark text-white",
          sort: true,
@@ -37,29 +34,59 @@ const Producto = ({producto}) => {
          }
         },
         {dataField: "ATO_DESCRIPCION", 
-         text: "Descripción Artículo",
+         text: "Descripción",
+         sort: true,
+         headerTitle: true,
+         headerClasses: "bg-dark text-white",
+        },
+        {dataField: "ATO_DETALLE", 
+         text: "Detalle Artículo",
          sort: true,
          headerTitle: true,
          headerClasses: "bg-dark text-white",
         },
         {dataField: "ATO_MAR_MARCA", 
-         text: "Marca Artículo",
+         text: "Marca",
          sort: true,
          headerClasses: "bg-dark text-white",
          headerTitle: true
         },
         {dataField: "ATO_MOD_MODELO", 
-         text: "Modelo Artículo",
+         text: "Modelo",
          sort: true,
          headerClasses: "bg-dark text-white",
          headerTitle: true
         },
         {dataField: "Unidad_medida", 
-         text: "Unidad Medida", 
+         text: "U.Medida", 
          sort: true, 
          headerClasses: "bg-dark text-white",  
          headerTitle: true
         },
+        {dataField: "ATO_CANTIDAD_EMPAQUE", 
+         text: "Empacado en", 
+         sort: true, 
+         headerClasses: "bg-dark text-white",  
+         headerTitle: true
+        },
+        {dataField: "tipoempaque", 
+         text: "Tipo Empaque", 
+         sort: true, 
+         headerClasses: "bg-dark text-white",  
+         headerTitle: true
+        },
+        {dataField: "UNI_MED_EMP", 
+         text: "U.M Empaque", 
+         sort: true, 
+         headerClasses: "bg-dark text-white",  
+         headerTitle: true
+        },
+        {dataField: "ATO_PIEZAS_UNIDADES", 
+        text: "Piezas/Unidades", 
+        sort: true, 
+        headerClasses: "bg-dark text-white",  
+        headerTitle: true
+       },
         {dataField: "ATO_FECHA_INGRESO",
          text: "Fecha Ingreso", 
          sort: true, 
@@ -120,37 +147,38 @@ const Producto = ({producto}) => {
       };
 
     return (
-        <ToolkitProvider
-            keyField="ATO_CODIGO"
-            bootstrap4
-            data={ producto }
-            columns={ columns }
-            search
-        >
-            {
-                props => (
-                    <div style={{ padding: "20px" }}>
-                        <h3>Busqueda de Artículos:</h3>
-                        <SearchBar placeholder="Buscar Artículos por sus características" { ...props.searchProps } />
-                        <hr />
-                        <ClearSearchButton className="button btn btn-info" text="Limpiar Busqueda" { ...props.searchProps } />
-                        <ExportCSVButton className="button btn btn-link" { ...props.csvProps }>Exportar Archivo CSV!!</ExportCSVButton>
-                        <Link className="btn btn-success" to={"/inv/productos/nuevo"} >Nuevo Artículo &#43;</Link>
-                        <hr />
-                        <BootstrapTable
-                            disableSelectText={true}
-                            striped
-                            hover
-                            //condensed
-                            bordered={ true }
-                            selectRow={ selectRow }
-                            noDataIndication="No hay datos que mostrar"
-                            { ...props.baseProps }
-                            pagination={paginationFactory()}
-                        />
-                    </div>
-                )
-            }
+      <ToolkitProvider
+        keyField="ATO_CODIGO"
+        bootstrap4
+        data={ producto }
+        columns={ columns }
+        search={ { searchFormatted: true } }
+      >
+        {
+          props => (
+            <>
+              <h3>Busqueda de Artículos:</h3>
+              <SearchBar placeholder="Buscar Artículos por sus características"  className="custome-search-field" { ...props.searchProps } />
+              <hr />
+              <ClearSearchButton className="button btn btn-info" text="Limpiar Busqueda" { ...props.searchProps } />
+              <ExportCSVButton className="button btn btn-link" { ...props.csvProps }>Exportar Archivo CSV!!</ExportCSVButton>
+              <Link className="btn btn-success" to={"/inv/productos/nuevo"} >Nuevo Artículo &#43;</Link>
+              <hr />
+              <BootstrapTable
+                  classes = "table-responsive "
+                  disableSelectText={true}
+                  striped
+                  hover
+                  condensed
+                  bordered={ true }
+                  selectRow={ selectRow }
+                  noDataIndication="No hay datos que mostrar"
+                  { ...props.baseProps }
+                  pagination={paginationFactory({sizePerPage: 5})}
+              />
+            </>
+          )
+        }
         </ToolkitProvider>
     );
 }

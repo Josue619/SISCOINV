@@ -24,6 +24,15 @@ export function obtenerArticulos() {
 }
 
 /**
+ * Funcion que devuelve las localizaciones de un producto.
+ */
+
+export function obtenerArticulosLocalizacion(producto) {
+    let resultado = axios.post(`${baseProcesosUrl}/obtieneArtiLocal`,producto);
+    return resultado;
+}
+
+/**
  * Proceso insercion o actualizacion de articulos
  */
 export function pr_insertActArticulos(producto) {
@@ -122,3 +131,49 @@ export function obtenerListadoBodeVede() {
     return axios.get(`${baseMantenUrl}/obtienebodven`);
 
 }
+
+/**
+ * Llamada al api de tipos de empaques
+ */
+
+ /**
+  * Agrega los tipos de empaques
+  */
+
+/**
+ * Funcion que optiene los tipos de empaques 
+ */
+export function agregarNuevoTipoEmpaque(tipoempaque) {
+    console.log(tipoempaque);
+    return axios.post(`${baseMantenUrl}/creartipoempaque`,tipoempaque);
+}
+
+/**
+ * Editar tipo empaque
+ * ----------------------------------------------------
+ */
+export function editarTipoEmpaque(tipoempaque) {
+    console.log(tipoempaque);
+    return axios.put(`${baseMantenUrl}/actualizartipoempaque`,tipoempaque);
+
+}
+
+/**
+ * Borrar Tipo de Empaque
+ * ----------------------------------------------------
+ */
+export function eliminarTimpoEmpaque(tipoempaque) {
+    return axios.post(`${baseMantenUrl}/eliminartipoempaque`,tipoempaque);
+
+}
+
+/**
+ * Obtiene la listado Bodegueros y vendedores
+ * ----------------------------------------------------
+ */
+export function obtenerListadoTipoEmpaque() {
+    return axios.get(`${baseMantenUrl}/obtienetipoempaque`);
+
+}
+
+

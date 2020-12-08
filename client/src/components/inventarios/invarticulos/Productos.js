@@ -6,6 +6,7 @@ import Producto from './Producto';
 import { useSelector, useDispatch } from 'react-redux';
 import { obtenerProductosAction } from '../../../actions/productoActions';
 import { obtenerUniMedisAction } from '../../../actions/unimediActions';
+import { obtenerTipoEmpaqueAction } from '../../../actions/tipoempaqueActions';
 
 
 const Productos = () => {
@@ -16,10 +17,12 @@ const Productos = () => {
         //consultar la api
         const cargarProductos = () => dispatch(obtenerProductosAction());
         const cargarUniMedi = () => dispatch(obtenerUniMedisAction());
+        const cargarTipoEmp = () => dispatch(obtenerTipoEmpaqueAction());
         
         
         cargarProductos();
         cargarUniMedi();
+        cargarTipoEmp();
        // eslint-disable-next-line
     },[]);
 
@@ -34,7 +37,7 @@ const Productos = () => {
             
             {error ? <p className="font-weight-blod alert alert-danger text-center mt-4">Hubo un error: {error}</p> : null}
             {cargando ? <p className="text-center">Cargando....</p> : null}
-            <div className="form-group row  mx-auto ">
+            <div className="table-horiz-scroll">
                 <Producto
                     producto={productos}
                 />

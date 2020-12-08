@@ -15,7 +15,7 @@ import {
 
 } from '../types';
 import { obtenerListadoUnidadeMedi, agregarNuevaUnidadMedida, eliminarUnidadMedida, editarUnidadMedida} from '../services/inv.services';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 //Agrear nueva unidad medida
 export function crearNuevaUniMediAction(unidadmedida){
@@ -29,7 +29,7 @@ export function crearNuevaUniMediAction(unidadmedida){
             dispatch(agregarUniMediExito(unidadmedida));
 
             //Alerta
-            alertaMensaje('La Unidad Medida se aagregó correctamente','success', 'Correcto');
+            alertaMensaje('El registro se agrego correctamente','success', 'Correcto');
 
         } catch (error) {
             console.log(error);
@@ -63,11 +63,12 @@ const agregarUniMediError = estado => ({
 //Selecciona y elimina unidad medida
 export function borrarUniMediAction(unimedida) {
     return async (dispatch) => {
+       
         dispatch(obtenerUniMediEliminar(unimedida.UNI_MED_ID) );
 
         try {
-            const resultado = await eliminarUnidadMedida(unimedida);
-            console.log(resultado);
+            await eliminarUnidadMedida(unimedida);
+            //console.log(resultado);
             
             dispatch(eliminarUniMediExito());
             Swal.fire(
@@ -91,7 +92,7 @@ const obtenerUniMediEliminar = id => ({
 });
 
 const eliminarUniMediExito = () => ({
-    type:UNIDAD_MEDIDA_ELIMINADO_EXITO    
+    type:UNIDAD_MEDIDA_ELIMINADO_EXITO
 });
 
 const eliminarUniMediError = () => ({

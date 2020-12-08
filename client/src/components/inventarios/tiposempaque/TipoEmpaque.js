@@ -1,6 +1,7 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import {Link, useHistory } from 'react-router-dom';
+
+
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
@@ -12,18 +13,17 @@ import Swal from 'sweetalert2';
 
 //Redux
 import { useDispatch} from 'react-redux';
-import { obternerBodeVendeEditar ,borrarBodeVendeAction } from '../../../actions/bodevendeActions';
+import { borrarTipoEmpaqueAction, obternerTipoEmpaqueEditar } from '../../../actions/tipoempaqueActions';
 
-const BodeVende = (bodevende) => {
+const TipoEmpaque = (tipoempaque) => {
 
     const { SearchBar, ClearSearchButton } = Search;
     const { ExportCSVButton } = CSVExport;
 
-    //const { BOD_VEN_CODIGO, USU_LOGIN, descriptipo } =  bodevende.bodven;
      //Columns
      const columns = [
-        {dataField: "BOD_VEN_CODIGO",
-         text: "Código",
+        {dataField: "TIPO_EMP_SIGLAS",
+         text: "Código Abreviado",
          headerTitle: true,
          headerClasses: "bg-dark text-white",
          sort: true,
@@ -34,27 +34,21 @@ const BodeVende = (bodevende) => {
             }
          }
         },
-        {dataField: "USU_LOGIN", 
-         text: "Loguin ",
+        {dataField: "TIPO_EMP_DESCRIPCION", 
+         text: "Descripción Tipo Empaque",
          sort: true,
          headerTitle: true,
          headerClasses: "bg-dark text-white",
-        },
-        {dataField: "descriptipo", 
-         text: "Tipo",
-         sort: true,
-         headerClasses: "bg-dark text-white",
-         headerTitle: true
         }
     ];
 
-
     const dispatch = useDispatch();
     const history = useHistory();// habilitar history para redirecion
-    
+   
 
     //Confirmar si desea eliminarlo
-    const confirmarEliminar = bodevende => {
+    const confirmarEliminarUnimedi = tipoempa => {
+
 
         //Preguntar al usuario
         Swal.fire({
@@ -69,46 +63,45 @@ const BodeVende = (bodevende) => {
           }).then((result) => {
             if (result.value) {
                  //pasarlo al action
-                 dispatch(borrarBodeVendeAction(bodevende));
-              
+                 dispatch(borrarTipoEmpaqueAction(tipoempa));
             }
           });
     }
     
 
     //funcion que redirige de forma programada
-    const redireccionarEdicion =  bodevende => {
-        dispatch( obternerBodeVendeEditar(bodevende) );
-        history.push(`/inv/mbodevende/editarbodevende/${bodevende.BOD_VEN_CODIGO}`);
-
+    const redireccionarEdicion =  tipoemp => {
+        dispatch( obternerTipoEmpaqueEditar(tipoemp) );
+        history.push(`/inv/mtipoempaque/editartipoempa/${tipoemp.TIPO_EMP_ID}`);
     }
 
     const selectRow = {
         mode: 'radio',
         clickToSelect: false,
         onSelect: (row, isSelect, rowIndex, e) => {
-            confirmarEliminar(row);
+          confirmarEliminarUnimedi(row);
         }
         
-    };
+      };
 
+      
     return (  
         <ToolkitProvider
-            keyField="BOD_VEN_CODIGO"
+            keyField="TIPO_EMP_ID"
             bootstrap4
-            data={  bodevende.bodven }
+            data={  tipoempaque.empaque }
             columns={ columns }
             search
         >
             {
                 props => (
                     <div style={{ padding: "20px" }}>
-                        <h3>Busqueda de Bodeguero/Vendedor:</h3>
-                        <SearchBar placeholder="Buscar....." { ...props.searchProps } />
+                        <h3>Busquedas:</h3>
+                        <SearchBar placeholder="Buscar..." { ...props.searchProps } />
                         <hr />
                         <ClearSearchButton className="button btn btn-info" text="Limpiar Busqueda" { ...props.searchProps } />
                         <ExportCSVButton className="button btn btn-link" { ...props.csvProps }>Exportar Archivo CSV!!</ExportCSVButton>
-                        <Link to={"/inv/mbodevende/nuevobodevende"} className="btn btn-success ">Nuevo Bodeguero o Vendedor &#43;</Link>
+                        <Link to={"/inv/mtipoempaque/nuevotipoempa"} className="btn btn-success ">Nuevo Tipo Empaque &#43;</Link>
                         <hr />
                         <BootstrapTable
                             classes = "table-responsive"
@@ -118,7 +111,7 @@ const BodeVende = (bodevende) => {
                             //condensed
                             bordered={ true }
                             selectRow={ selectRow }
-                            noDataIndication="There is no data"
+                            noDataIndication="No hay datos que mostrar"
                             { ...props.baseProps }
                             pagination={paginationFactory()}
                         />
@@ -129,4 +122,4 @@ const BodeVende = (bodevende) => {
     );
 }
  
-export default BodeVende;
+export default TipoEmpaque;

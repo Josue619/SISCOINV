@@ -20,7 +20,6 @@ import {
 //Cada reducers tiene su propio state
 const initialState = {
     productos: [],
-    produunid: [],
     error: null,
     loading: false,
     productoEliminar: null,
