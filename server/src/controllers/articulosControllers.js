@@ -25,7 +25,7 @@ exports.obtieneArticulos = async (req, res) => {
 exports.obtieneArticulosLocalizacion = async (req, res) => {
     const producto = req.body;
 
-    await db.query('CALL pr_obtener_articulo_localizacion(:ATO_CODIGO);',{
+    await db.query('CALL pr_obtener_articulo_localizacion(:ATO_CODIGO);',{ 
         
         replacements : {ATO_CODIGO: producto.ATO_CODIGO}
      })
@@ -45,7 +45,6 @@ exports.obtieneArticulosLocalizacion = async (req, res) => {
 //Obtiene los datos del articulo
 exports.pr_insertActualizaArti = async (req, res) => {
     const producto = req.body;
-    console.log(producto);
    
     await db.query('CALL pr_inst_upd_inv_articulos(:codiArt, :descripcion, :detalle, :marca, :modelo, :empacadoen, :unidaMediEmp, :piezasunidades, :tipoempaque, :unidadmedida);',{
         replacements : {codiArt: producto.ATO_CODIGO,

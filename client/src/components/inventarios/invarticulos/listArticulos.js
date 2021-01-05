@@ -1,6 +1,7 @@
 import React from 'react';
 import Productos from './Productos';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 //Styled components
@@ -9,7 +10,7 @@ import styled from '@emotion/styled';
 //Estilos personalizados---------------
 const Formulario = styled.div`
     background-color: var(--gris2);
-    height: 100vh;
+    height: 90vh;
     min-height: 100px;
     display: flex;
     align-items: start;
@@ -47,12 +48,25 @@ const Boton = styled.button`
 
 const ListaArticulos = () => {
 
+  const permisopantalla =  useSelector(state => state.usuarios.permisoejecutable);
+
   const history = useHistory();// habilitar history para redirecion
 
    //funcion que redirige de forma programada
    const redireccionarMenu =  () => {
     history.push('/inv/minventario');
+  }
 
+  if(permisopantalla !== 'S'){
+    console.log(permisopantalla);
+    return(
+      <Formulario>
+          <Contenedor>
+              <h1>No posee permiso a este sitio</h1>
+              <Boton onClick={redireccionarMenu}> Regresar al Menú </Boton>
+           </Contenedor>
+      </Formulario>
+    );
   }
 
   // Extrar proyectos de state inicial

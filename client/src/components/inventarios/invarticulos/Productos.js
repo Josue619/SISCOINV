@@ -37,11 +37,10 @@ const Productos = () => {
             
             {error ? <p className="font-weight-blod alert alert-danger text-center mt-4">Hubo un error: {error}</p> : null}
             {cargando ? <p className="text-center">Cargando....</p> : null}
-            <div className="table-horiz-scroll">
-                <Producto
-                    producto={productos}
-                />
-            </div>
+            <Producto
+                producto={productos}
+            />
+            
         </Fragment>
         
      );

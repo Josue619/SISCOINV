@@ -4,6 +4,7 @@ import { Token } from '../helpers/token.helper';
 const token = new Token();
 const baseAuthUrl = `${process.env.REACT_APP_URL_SERCLIENT}/api/auth`;
 const baseUserUrl = `${process.env.REACT_APP_URL_SERCLIENT}/api/user`;
+const baseUtilUrl = `${process.env.REACT_APP_URL_SERCLIENT}/api/utilitarios`;
 
 
 export function admin_auth(data) {
@@ -68,4 +69,10 @@ export function deleteUser(data) {
             Authorization: `Bearer ${(token.get())}`,
         }
     });
+}
+
+//Valida permiso a la pantalla
+export function permisoEjecutable(data){
+    //console.log(data);
+    return axios.post(`${baseUtilUrl}/permisopantalla`,data);
 }

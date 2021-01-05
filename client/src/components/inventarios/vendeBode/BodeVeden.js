@@ -19,8 +19,7 @@ const BodeVende = (bodevende) => {
     const { SearchBar, ClearSearchButton } = Search;
     const { ExportCSVButton } = CSVExport;
 
-    //const { BOD_VEN_CODIGO, USU_LOGIN, descriptipo } =  bodevende.bodven;
-     //Columns
+    //Columns
      const columns = [
         {dataField: "BOD_VEN_CODIGO",
          text: "Código",
@@ -111,7 +110,7 @@ const BodeVende = (bodevende) => {
                         <Link to={"/inv/mbodevende/nuevobodevende"} className="btn btn-success ">Nuevo Bodeguero o Vendedor &#43;</Link>
                         <hr />
                         <BootstrapTable
-                            classes = "table-responsive"
+                            //classes = "table-responsive"
                             disableSelectText={true}
                             striped
                             hover

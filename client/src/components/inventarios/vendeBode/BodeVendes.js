@@ -37,9 +37,13 @@ const BodeVendes = () => {
             
             {error ? <p className="font-weight-blod alert alert-danger text-center mt-4">Hubo un error: {error}</p> : null}
             {cargando ? <p className="text-center">Cargando....</p> : null}
-            <BodeVende
-                bodven= {bodevende}
-            />
+            <div  className="table-horiz-scroll">
+                <BodeVende
+                    bodven= {bodevende}
+                />
+
+            </div>
+            
             
         </Fragment>
         

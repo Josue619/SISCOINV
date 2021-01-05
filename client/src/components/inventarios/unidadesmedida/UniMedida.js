@@ -105,7 +105,7 @@ const UniMedida = (unidades) => {
                         <Link to={"/inv/munidadmedi/nuevo"} className="btn btn-success ">Nueva Unidad Medida &#43;</Link>
                         <hr />
                         <BootstrapTable
-                            classes = "table-responsive"
+                            //classes = "table-responsive"
                             disableSelectText={true}
                             striped
                             hover

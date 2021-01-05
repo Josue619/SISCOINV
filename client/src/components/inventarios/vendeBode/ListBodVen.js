@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import {  useSelector } from 'react-redux';
 import BodeVendes from './BodeVendes';
 
 //Styled components
@@ -45,26 +46,41 @@ export const Boton = styled.button`
 `;
 
 const ListBodVen = () => {
+    const permisopantalla =  useSelector(state => state.usuarios.permisoejecutable);
+    const history = useHistory();// habilitar history para redirecion
+   
+     //funcion que redirige de forma programada
+     const redireccionarMenu =  () => {
+        history.push('/inv/minventario');
+    }
+    
+    if(permisopantalla !== 'S'){
+        console.log(permisopantalla);
+        //history.push('/inv/minventario');
+        return(
+            <Formulario>
+                <Contenedor>
 
-  const history = useHistory();// habilitar history para redirecion
-
-   //funcion que redirige de forma programada
-   const redireccionarMenu =  () => {
-    history.push('/inv/minventario');
-
-  }
+                   <h1>No posee permiso al listado de Bodegueros Vendedores</h1>
+                    
+                   <Boton onClick={redireccionarMenu}> Regresar al Menú </Boton>
+                </Contenedor>
+            </Formulario>
+        );
+    }
+   
+    
 
   // Extrar proyectos de state inicial
   return ( 
     <Formulario>
       <Contenedor>
-      <div className="table-responsive">
           <BodeVendes />
           <Boton 
             onClick={redireccionarMenu}>
                 Regresar al Menú
           </Boton>
-      </div>
+      
       </Contenedor>
     </Formulario>
       

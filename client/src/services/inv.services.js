@@ -133,6 +133,13 @@ export function obtenerListadoBodeVede() {
 }
 
 /**
+ * Obterner listado de usuarios de vendedores.
+ */
+export function obtenerUsuarios(){
+    return axios.get(`${baseMantenUrl}/obtieneusuarios`);
+}
+
+/**
  * Llamada al api de tipos de empaques
  */
 
@@ -144,7 +151,6 @@ export function obtenerListadoBodeVede() {
  * Funcion que optiene los tipos de empaques 
  */
 export function agregarNuevoTipoEmpaque(tipoempaque) {
-    console.log(tipoempaque);
     return axios.post(`${baseMantenUrl}/creartipoempaque`,tipoempaque);
 }
 
@@ -153,7 +159,6 @@ export function agregarNuevoTipoEmpaque(tipoempaque) {
  * ----------------------------------------------------
  */
 export function editarTipoEmpaque(tipoempaque) {
-    console.log(tipoempaque);
     return axios.put(`${baseMantenUrl}/actualizartipoempaque`,tipoempaque);
 
 }
@@ -173,6 +178,41 @@ export function eliminarTimpoEmpaque(tipoempaque) {
  */
 export function obtenerListadoTipoEmpaque() {
     return axios.get(`${baseMantenUrl}/obtienetipoempaque`);
+}
+
+/**
+ * Llama al api de localizaciones
+ */
+
+ /**
+  * Obtiene Listado de localizaciones
+  */
+ export function obtenerListadoLocalizacion() {
+    return axios.get(`${baseMantenUrl}/obtienelocalizacion`);
+
+}
+
+/**
+ * Agrega una nueva localizacion
+ */
+export function agregarNuevaLocalizacion(localizacion) {
+    return axios.post(`${baseMantenUrl}/crearlocalizacion`,localizacion);
+}
+
+/**
+ * Borrar una localizacion
+ */
+export function eliminarLocalizacion(localizacion) {
+    return axios.post(`${baseMantenUrl}/eliminarlocalizacion`,localizacion);
+
+}
+
+/**
+ * Editar una localizacion
+ */
+export function editarLocalizacion(localizacion) {
+    console.log(localizacion);
+    return axios.put(`${baseMantenUrl}/actualizarlocalizacion`,localizacion);
 
 }
 

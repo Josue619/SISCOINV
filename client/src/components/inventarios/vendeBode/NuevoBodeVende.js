@@ -39,7 +39,7 @@ const Boton = styled.button`
 const NuevoBodeVende = ({history}) => {
 
     //Carga usuarios
-    const usuarios =  useSelector(state => state.usuarios.usuario.data.users);
+    const usuarios =  useSelector(state => state.usuarios.usuario);
     //Carga el usuario logueado
     const usuariologueo = useSelector(state => state.usuarios.usuariologue);
 
@@ -49,7 +49,7 @@ const NuevoBodeVende = ({history}) => {
     const [BOD_VEN_CODIGO, guardarCodiBodeVend]= useState('');
     const [BOD_VEN_USUARIO, guardarUsuario]= useState('');
     const [BOD_VEN_TIPO, guardarTipo]= useState('');
-    const [BOD_VEN_CREADO]= useState(usuariologueo);
+    const [BOD_VEN_CREADO]= useState(usuariologueo.USU_LOGIN);
     const [BOD_VEN_FECHA]=useState(new Date());
    
 

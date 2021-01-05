@@ -37,6 +37,27 @@ exports.obtenerBodeVende = async (req, res) => {
     
 }
 
+//Obtiene los usuarios del sistema para cargarlos.
+//Obtiene los datos del articulo
+exports.obtenerUsuariosVende = async (req, res) => {
+
+    await db.query('CALL pr_obtener_usuarios();',{
+        /*replacements : {codiArt: codiArt,
+                        descripcion : descripcion
+        }*/
+     })
+     .then(function(response){ 
+         //res.json({ success: false, error: { "msg": 'Ingrese el código de authenticación.' } });
+         res.json(response); 
+     })
+      .catch(function(err){ 
+          console.log(err,'Hubo un error');
+          res.json({ success: false, error: {"msg": err + '.' } });
+          res.json(err); 
+     });
+    
+}
+
 //Crea una nueva unidad medida
 exports.crearBodVen =  async (req, res) => {
    

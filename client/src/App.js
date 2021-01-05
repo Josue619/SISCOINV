@@ -17,6 +17,7 @@ import { Token } from './helpers/token.helper';
 //---------------Inventario---------------------------
 //---------------Menus--------------------------------
 import MenuInventario from './components/main/menuInventarios';
+
 //---------------Articulos--------------------------------
 import ListaArticulos from './components/inventarios/invarticulos/listArticulos';
 import EditarProducto from './components/inventarios/invarticulos/EditarProducto';
@@ -38,6 +39,12 @@ import EditarTipoempaque from './components/inventarios/tiposempaque/EditarTipoE
 import NuevoTipoEmpaque from './components/inventarios/tiposempaque/NuevoTipoEmpaque';
 //----------------------------------------------------
 
+//-------------Localizaciones--------------------------
+import ListLocalizaciones from './components/inventarios/localizaciones/ListLocalizaciones';
+import NuevaLocalizacion from  './components/inventarios/localizaciones/NuevaLocalizacion';
+import EditarLocalizacion from './components/inventarios/localizaciones/EditarLocalizacion';
+//----------------------------------------------------
+
 //Redux
 import  { Provider } from 'react-redux';
 import store from './store';
@@ -45,13 +52,10 @@ import store from './store';
 class App extends Component {
   render() {
     this.token = new Token();
-    return (      
+    return (
       <Router>
         <Provider store={store}>
-
-        
         <div className="form-principal">
-
           <Navbar />
           <Route exact path="/" component={Landing} />
 
@@ -74,12 +78,11 @@ class App extends Component {
             <Route exact path="/inv/mtipoempaque/editartipoempa/:id" component={EditarTipoempaque} />
             <Route exact path="/inv/mtipoempaque/nuevotipoempa" component={NuevoTipoEmpaque} />
 
-            
+            <Route exact path="/inv/listlocalizacion" component={ListLocalizaciones} />
+            <Route exact path="/inv/mlocalizacion/nuevaloca" component={NuevaLocalizacion} />
+            <Route exact path="/inv/mlocalizacion/editarloca/:id" component={EditarLocalizacion} />
+
           </Switch>
-          
-          
-          
-          
 
           <div className="form-principal">
             <BeforeLogin path='/login' exact component={Login} auth={!this.token.loggedIn()} />

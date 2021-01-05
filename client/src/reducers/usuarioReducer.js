@@ -2,7 +2,8 @@ import {
     COMENZAR_DESCARGA_USUARIO,
     DESCARGA_USUARIO_EXITO,
     DESCARGA_USUARIO_ERROR,
-    DESCARGA_USUARIO_LOGUEO
+    DESCARGA_USUARIO_LOGUEO,
+    OBTENER_CONSULTA
 } from '../types';
 
 
@@ -11,7 +12,8 @@ const initialState = {
     usuario: [],
     usuariologue: '',
     error: null,
-    loading: false
+    loading: false,
+    permisoejecutable: ''
 }
 
 /* eslint import/no-anonymous-default-export: [2, {"allowAnonymousFunction": true}] */
@@ -43,6 +45,13 @@ export default function(state = initialState, action) {
                 loading: true,
                 error: null,
                 usuariologue: action.payload
+            }
+        case OBTENER_CONSULTA:
+            return{
+                ...state,
+                loading: true,
+                error: null,
+                permisoejecutable: action.payload
             }
 
         default: 

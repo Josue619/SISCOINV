@@ -6,7 +6,7 @@ import unimediReducer from './unimediReducer';
 import bodevendeReducer from './bodevendeReducer';
 import usuarioReducer from './usuarioReducer';
 import tipoempaque from './tipoempaqueReduce';
-
+import localizaciones from './localizacionReducer';
 export default combineReducers({
     productos: productosReducer,
     productoslocal: productolocalReducer,
@@ -14,5 +14,6 @@ export default combineReducers({
     unimedi: unimediReducer,
     bodevend: bodevendeReducer,
     usuarios: usuarioReducer,
-    tipoempa: tipoempaque
+    tipoempa: tipoempaque,
+    localiza: localizaciones
 })

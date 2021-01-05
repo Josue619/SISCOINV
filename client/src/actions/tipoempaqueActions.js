@@ -22,7 +22,6 @@ import Swal from 'sweetalert2';
 export function crearNuevaTipoEmpaqueAction(tipoempaque){
     return async (dispatch) =>{
         dispatch( agregarTipoEmpaque() );
-        console.log(tipoempaque);
         try {
             //Insertar en la api
             await agregarNuevoTipoEmpaque(tipoempaque);

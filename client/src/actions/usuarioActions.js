@@ -2,15 +2,14 @@ import {
     COMENZAR_DESCARGA_USUARIO,
     DESCARGA_USUARIO_EXITO,
     DESCARGA_USUARIO_ERROR,
-    DESCARGA_USUARIO_LOGUEO
+    DESCARGA_USUARIO_LOGUEO,
+    OBTENER_CONSULTA
 } from '../types';
 
-import { getUsers, profile} from '../services/main.service'
+import { profile , permisoEjecutable } from '../services/main.service';
+import { obtenerUsuarios } from '../services/inv.services';
+import Swal from 'sweetalert2';
 
-const data = {
-    page: 0,
-    search: ''
-}
 
 //Funcion que descarga los vendedores.
 export function obtenerUsuariosAction(){
@@ -18,7 +17,7 @@ export function obtenerUsuariosAction(){
         dispatch(descargarUsuarios());
         
         try {
-            const respuesta = await getUsers(data);
+            const respuesta = await obtenerUsuarios();
             dispatch( descargaUsuariosExitosa(respuesta.data));
         } catch (error) {
             console.log(error);
@@ -49,7 +48,8 @@ export function obtenerUsuariosLogueoAction() {
         
         try {
             const respuesta = await profile();
-            dispatch( descargaUsuariosLogueoExitosa(respuesta.data.USU_LOGIN));
+            
+            dispatch( descargaUsuariosLogueoExitosa(respuesta.data));
         } catch (error) {
             console.log(error);
             dispatch( descargaUsuariosError() )
@@ -61,3 +61,40 @@ const descargaUsuariosLogueoExitosa = usuarios => ({
     type: DESCARGA_USUARIO_LOGUEO,
     payload: usuarios
 });
+
+export function permisoEjecutableActions(datos){
+    return async (dispatch) => {
+        dispatch(descargarUsuarios());
+        try {
+            const respuesta = await permisoEjecutable(datos);
+            dispatch( descargaResultado(respuesta.data[0]));
+
+            if(respuesta.data[0].permiso === 'S'){
+                console.log('Tiene permiso');
+            }else{
+                alertaMensaje('No tiene permiso para entrar a este ejecutable hable con el administrador','error','Permisos Usuario');
+            }
+
+        } catch (error) {
+            console.log(error);
+            dispatch( descargaUsuariosError() )
+        }
+    }
+}
+
+
+const descargaResultado = datos => ({
+    type: OBTENER_CONSULTA,
+    payload: datos.permiso
+});
+
+ //Dispara mensaje
+ const alertaMensaje = (msg, icon, title) => {
+    Swal.fire({
+        icon: icon,
+        title: title,
+        text: msg
+    });
+
+}
+

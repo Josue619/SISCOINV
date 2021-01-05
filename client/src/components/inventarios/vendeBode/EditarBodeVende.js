@@ -41,9 +41,10 @@ const Boton = styled.button`
 const EditarBodeVende = () => {
 
     //Carga usuarios
-    const usuarios =  useSelector(state => state.usuarios.usuario.data.users);
+    const usuarios =  useSelector(state => state.usuarios.usuario);
     //Carga el usuario logueado
     const usuariologueo = useSelector(state => state.usuarios.usuariologue);
+    const fechasis = new Date();
     
     const history =  useHistory();
 
@@ -54,8 +55,8 @@ const EditarBodeVende = () => {
         BOD_VEN_CODIGO: '',
         BOD_VEN_USUARIO: '',
         BOD_VEN_TIPO: '',
-        BOD_VEN_MODIFICADO: usuariologueo,
-        BOD_VEN_FECHAMODO: new Date()
+        BOD_VEN_MODIFICADO: '',
+        BOD_VEN_FECHAMODO: ''
     });
 
     //Producto a editar
@@ -79,7 +80,7 @@ const EditarBodeVende = () => {
 
     if(!bodevende || !usuarios) return history.push('/inv/listbodven');
 
-    const {BOD_VEN_CODIGO, BOD_VEN_USUARIO, BOD_VEN_TIPO} =  bodevende;
+    let {BOD_VEN_CODIGO, BOD_VEN_USUARIO, BOD_VEN_TIPO, BOD_VEN_MODIFICADO, BOD_VEN_FECHAMODO} =  bodevende;
 
     const submitEditarBodeVende = e => {
         e.preventDefault();
@@ -106,11 +107,14 @@ const EditarBodeVende = () => {
 
             return;
         }
+        
+        BOD_VEN_MODIFICADO = usuariologueo.USU_LOGIN;
+        BOD_VEN_FECHAMODO = fechasis;
 
         //si no hay errores
         dispatch(ocultarAlertaAction());
 
-        dispatch( editarBodeVendeAction(bodevende));
+        dispatch( editarBodeVendeAction({BOD_VEN_CODIGO, BOD_VEN_USUARIO, BOD_VEN_TIPO, BOD_VEN_MODIFICADO, BOD_VEN_FECHAMODO}));
 
         //Redirecciona al listado
         history.push('/inv/listbodven');

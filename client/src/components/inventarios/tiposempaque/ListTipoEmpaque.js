@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import TiposEmpaques from './TipoEmpaques';
+import {  useSelector } from 'react-redux';
 
 
 //Styled components
@@ -47,13 +48,37 @@ export const Boton = styled.button`
 
 const ListTipoEmpaque = () => {
 
-  const history = useHistory();// habilitar history para redirecion
+    const permisopantalla =  useSelector(state => state.usuarios.permisoejecutable);
 
-   //funcion que redirige de forma programada
-   const redireccionarMenu =  () => {
-    history.push('/inv/minventario');
+    const history = useHistory();// habilitar history para redirecion
 
-  }
+    //funcion que redirige de forma programada
+    const redireccionarMenu =  () => {
+        history.push('/inv/minventario');
+    }
+
+    if(permisopantalla !== 'S'){
+        console.log(permisopantalla);
+        return (
+            <Formulario>
+                <Contenedor>
+                    <h1>No posee permisos para este componente</h1>
+                    
+                    <Boton 
+                        onClick={redireccionarMenu}>
+                            Regresar al Menú
+                    </Boton>
+                
+                </Contenedor>
+            </Formulario>
+        );
+        //history.push('/inv/minventario');
+        
+    }else{
+        console.log(permisopantalla);
+        
+    }
+
 
   // Extrar proyectos de state inicial
   return ( 

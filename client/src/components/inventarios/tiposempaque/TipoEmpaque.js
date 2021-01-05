@@ -104,7 +104,7 @@ const TipoEmpaque = (tipoempaque) => {
                         <Link to={"/inv/mtipoempaque/nuevotipoempa"} className="btn btn-success ">Nuevo Tipo Empaque &#43;</Link>
                         <hr />
                         <BootstrapTable
-                            classes = "table-responsive"
+                            //classes = "table-responsive"
                             disableSelectText={true}
                             striped
                             hover

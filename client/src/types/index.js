@@ -108,4 +108,30 @@ export const DESCARGA_USUARIO_EXITO = 'DESCARGA_USUARIO_EXITO';
 export const DESCARGA_USUARIO_ERROR = 'DESCARGA_USUARIO_ERROR';
 
 
+//Agregar
+export const AGREGAR = 'AGREGAR';
+export const AGREGAR_EXITO = 'AGREGAR_EXITO';
+export const AGREGAR_ERROR = 'AGREGAR_ERROR';
+
+//Descarga
+export const COMENZAR_DESCARGA = 'COMENZAR_DESCARGA';
+export const DESCARGA_EXITO = 'DESCARGA_EXITO';
+export const DESCARGA_ERROR = 'DESCARGA_ERROR';
+
+//Consulta
+export const OBTENER_CONSULTA = 'OBTENER_CONSULTA';
+export const CONSULTAR_EXITO = 'CONSULTAR_EXITO';
+
+
+//Elminacion
+export const OBTENER_ELIMINAR = 'OBTENER_ELIMINAR';
+export const ELIMINADO_EXITO = 'ELIMINADO_EXITO';
+export const ELIMINADO_ERROR = 'ELIMINADO_ERROR';
+
+//Obtiene el producto a editar
+export const OBTENER_EDITAR = 'OBTENER_EDITAR';
+export const COMENZAR_EDICION = 'COMENZAR_EDICION';
+export const EDITADO_EXITO = 'EDITADO_EXITO';
+export const EDITADO_ERROR = 'EDITADO_ERROR';
+
 

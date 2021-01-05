@@ -35,10 +35,11 @@ class Server {
         this.app.use('/api/mantenimiento', require('./routes/invUniMediRoutes'));
         this.app.use('/api/mantenimiento', require('./routes/invbodvenRoutes'));
         this.app.use('/api/mantenimiento', require('./routes/invtipoempRoutes'));
-        
-        
-
+        this.app.use('/api/mantenimiento', require('./routes/invlocalizacionRoutes'));
         /**--------------------------------------------- */
+
+        /*---------------Api permisos -------------------*/
+        this.app.use('/api/utilitarios', require('./routes/utilitariosRoutes'));
     }
 
     start() {

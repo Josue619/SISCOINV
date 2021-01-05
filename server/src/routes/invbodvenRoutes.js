@@ -36,5 +36,9 @@ router.post('/eliminarbodven',
 //Obtener toda unidades medida
 router.get('/obtienebodven',BodvenControllers.obtenerBodeVende);
 
+//Obtiene los usuarios
+router.get('/obtieneusuarios',BodvenControllers.obtenerUsuariosVende);
+
+
 
 module.exports = router;
