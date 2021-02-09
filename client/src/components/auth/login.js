@@ -107,7 +107,7 @@ class Login extends Component {
                     </div>
                
             </FormUsuario>
-        )
+        );
     }
 
 }
